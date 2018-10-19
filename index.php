@@ -272,6 +272,8 @@ class cdefault {
 			$this->Page_Terminate("t00_provinsilist.php");
 		if ($Security->AllowList(CurrentProjectID() . 't01_kabupatenkota'))
 			$this->Page_Terminate("t01_kabupatenkotalist.php");
+		if ($Security->AllowList(CurrentProjectID() . 't02_kecamatan'))
+			$this->Page_Terminate("t02_kecamatanlist.php");
 		if ($Security->AllowList(CurrentProjectID() . 't94_log'))
 			$this->Page_Terminate("t94_loglist.php");
 		if ($Security->AllowList(CurrentProjectID() . 't95_logdesc'))
