@@ -383,8 +383,6 @@ class ct01_kabupatenkota_view extends ct01_kabupatenkota {
 
 		// Setup export options
 		$this->SetupExportOptions();
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->provinsi_id->SetVisibility();
 		$this->Nama->SetVisibility();
 
@@ -743,11 +741,6 @@ class ct01_kabupatenkota_view extends ct01_kabupatenkota {
 		// Nama
 		$this->Nama->ViewValue = $this->Nama->CurrentValue;
 		$this->Nama->ViewCustomAttributes = "";
-
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
 
 			// provinsi_id
 			$this->provinsi_id->LinkCustomAttributes = "";
@@ -1146,17 +1139,6 @@ $t01_kabupatenkota_view->ShowMessage();
 <input type="hidden" name="modal" value="1">
 <?php } ?>
 <table class="table table-bordered table-striped ewViewTable">
-<?php if ($t01_kabupatenkota->id->Visible) { // id ?>
-	<tr id="r_id">
-		<td><span id="elh_t01_kabupatenkota_id"><?php echo $t01_kabupatenkota->id->FldCaption() ?></span></td>
-		<td data-name="id"<?php echo $t01_kabupatenkota->id->CellAttributes() ?>>
-<span id="el_t01_kabupatenkota_id">
-<span<?php echo $t01_kabupatenkota->id->ViewAttributes() ?>>
-<?php echo $t01_kabupatenkota->id->ViewValue ?></span>
-</span>
-</td>
-	</tr>
-<?php } ?>
 <?php if ($t01_kabupatenkota->provinsi_id->Visible) { // provinsi_id ?>
 	<tr id="r_provinsi_id">
 		<td><span id="elh_t01_kabupatenkota_provinsi_id"><?php echo $t01_kabupatenkota->provinsi_id->FldCaption() ?></span></td>

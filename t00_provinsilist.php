@@ -410,8 +410,6 @@ class ct00_provinsi_list extends ct00_provinsi {
 
 		// Setup export options
 		$this->SetupExportOptions();
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->Nama->SetVisibility();
 
 		// Global Page Loading event (in userfn*.php)
@@ -975,7 +973,6 @@ class ct00_provinsi_list extends ct00_provinsi {
 		if (@$_GET["order"] <> "") {
 			$this->CurrentOrder = ew_StripSlashes(@$_GET["order"]);
 			$this->CurrentOrderType = @$_GET["ordertype"];
-			$this->UpdateSort($this->id, $bCtrl); // id
 			$this->UpdateSort($this->Nama, $bCtrl); // Nama
 			$this->setStartRecordNumber(1); // Reset start position
 		}
@@ -1009,7 +1006,6 @@ class ct00_provinsi_list extends ct00_provinsi {
 			if ($this->Command == "resetsort") {
 				$sOrderBy = "";
 				$this->setSessionOrderBy($sOrderBy);
-				$this->id->setSort("");
 				$this->Nama->setSort("");
 			}
 
@@ -1498,11 +1494,6 @@ class ct00_provinsi_list extends ct00_provinsi {
 		// Nama
 		$this->Nama->ViewValue = $this->Nama->CurrentValue;
 		$this->Nama->ViewCustomAttributes = "";
-
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
 
 			// Nama
 			$this->Nama->LinkCustomAttributes = "";
@@ -2025,15 +2016,6 @@ $t00_provinsi_list->RenderListOptions();
 // Render list options (header, left)
 $t00_provinsi_list->ListOptions->Render("header", "left");
 ?>
-<?php if ($t00_provinsi->id->Visible) { // id ?>
-	<?php if ($t00_provinsi->SortUrl($t00_provinsi->id) == "") { ?>
-		<th data-name="id"><div id="elh_t00_provinsi_id" class="t00_provinsi_id"><div class="ewTableHeaderCaption"><?php echo $t00_provinsi->id->FldCaption() ?></div></div></th>
-	<?php } else { ?>
-		<th data-name="id"><div class="ewPointer" onclick="ew_Sort(event,'<?php echo $t00_provinsi->SortUrl($t00_provinsi->id) ?>',2);"><div id="elh_t00_provinsi_id" class="t00_provinsi_id">
-			<div class="ewTableHeaderBtn"><span class="ewTableHeaderCaption"><?php echo $t00_provinsi->id->FldCaption() ?></span><span class="ewTableHeaderSort"><?php if ($t00_provinsi->id->getSort() == "ASC") { ?><span class="caret ewSortUp"></span><?php } elseif ($t00_provinsi->id->getSort() == "DESC") { ?><span class="caret"></span><?php } ?></span></div>
-        </div></div></th>
-	<?php } ?>
-<?php } ?>		
 <?php if ($t00_provinsi->Nama->Visible) { // Nama ?>
 	<?php if ($t00_provinsi->SortUrl($t00_provinsi->Nama) == "") { ?>
 		<th data-name="Nama"><div id="elh_t00_provinsi_Nama" class="t00_provinsi_Nama"><div class="ewTableHeaderCaption"><?php echo $t00_provinsi->Nama->FldCaption() ?></div></div></th>
@@ -2108,21 +2090,13 @@ while ($t00_provinsi_list->RecCnt < $t00_provinsi_list->StopRec) {
 // Render list options (body, left)
 $t00_provinsi_list->ListOptions->Render("body", "left", $t00_provinsi_list->RowCnt);
 ?>
-	<?php if ($t00_provinsi->id->Visible) { // id ?>
-		<td data-name="id"<?php echo $t00_provinsi->id->CellAttributes() ?>>
-<span id="el<?php echo $t00_provinsi_list->RowCnt ?>_t00_provinsi_id" class="t00_provinsi_id">
-<span<?php echo $t00_provinsi->id->ViewAttributes() ?>>
-<?php echo $t00_provinsi->id->ListViewValue() ?></span>
-</span>
-<a id="<?php echo $t00_provinsi_list->PageObjName . "_row_" . $t00_provinsi_list->RowCnt ?>"></a></td>
-	<?php } ?>
 	<?php if ($t00_provinsi->Nama->Visible) { // Nama ?>
 		<td data-name="Nama"<?php echo $t00_provinsi->Nama->CellAttributes() ?>>
 <span id="el<?php echo $t00_provinsi_list->RowCnt ?>_t00_provinsi_Nama" class="t00_provinsi_Nama">
 <span<?php echo $t00_provinsi->Nama->ViewAttributes() ?>>
 <?php echo $t00_provinsi->Nama->ListViewValue() ?></span>
 </span>
-</td>
+<a id="<?php echo $t00_provinsi_list->PageObjName . "_row_" . $t00_provinsi_list->RowCnt ?>"></a></td>
 	<?php } ?>
 <?php
 

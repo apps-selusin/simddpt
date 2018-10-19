@@ -285,8 +285,6 @@ class ct01_kabupatenkota_edit extends ct01_kabupatenkota {
 		// Create form object
 		$objForm = new cFormObj();
 		$this->CurrentAction = (@$_GET["a"] <> "") ? $_GET["a"] : @$_POST["a_list"]; // Set up current action
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->provinsi_id->SetVisibility();
 		$this->Nama->SetVisibility();
 
@@ -540,14 +538,14 @@ class ct01_kabupatenkota_edit extends ct01_kabupatenkota {
 
 		// Load from form
 		global $objForm;
-		if (!$this->id->FldIsDetailKey)
-			$this->id->setFormValue($objForm->GetValue("x_id"));
 		if (!$this->provinsi_id->FldIsDetailKey) {
 			$this->provinsi_id->setFormValue($objForm->GetValue("x_provinsi_id"));
 		}
 		if (!$this->Nama->FldIsDetailKey) {
 			$this->Nama->setFormValue($objForm->GetValue("x_Nama"));
 		}
+		if (!$this->id->FldIsDetailKey)
+			$this->id->setFormValue($objForm->GetValue("x_id"));
 	}
 
 	// Restore form values
@@ -675,11 +673,6 @@ class ct01_kabupatenkota_edit extends ct01_kabupatenkota {
 		$this->Nama->ViewValue = $this->Nama->CurrentValue;
 		$this->Nama->ViewCustomAttributes = "";
 
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
-
 			// provinsi_id
 			$this->provinsi_id->LinkCustomAttributes = "";
 			$this->provinsi_id->HrefValue = "";
@@ -690,12 +683,6 @@ class ct01_kabupatenkota_edit extends ct01_kabupatenkota {
 			$this->Nama->HrefValue = "";
 			$this->Nama->TooltipValue = "";
 		} elseif ($this->RowType == EW_ROWTYPE_EDIT) { // Edit row
-
-			// id
-			$this->id->EditAttrs["class"] = "form-control";
-			$this->id->EditCustomAttributes = "";
-			$this->id->EditValue = $this->id->CurrentValue;
-			$this->id->ViewCustomAttributes = "";
 
 			// provinsi_id
 			$this->provinsi_id->EditCustomAttributes = "";
@@ -729,12 +716,8 @@ class ct01_kabupatenkota_edit extends ct01_kabupatenkota {
 			$this->Nama->PlaceHolder = ew_RemoveHtml($this->Nama->FldCaption());
 
 			// Edit refer script
-			// id
-
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-
 			// provinsi_id
+
 			$this->provinsi_id->LinkCustomAttributes = "";
 			$this->provinsi_id->HrefValue = "";
 
@@ -1102,18 +1085,6 @@ $t01_kabupatenkota_edit->ShowMessage();
 <input type="hidden" name="modal" value="1">
 <?php } ?>
 <div>
-<?php if ($t01_kabupatenkota->id->Visible) { // id ?>
-	<div id="r_id" class="form-group">
-		<label id="elh_t01_kabupatenkota_id" class="col-sm-2 control-label ewLabel"><?php echo $t01_kabupatenkota->id->FldCaption() ?></label>
-		<div class="col-sm-10"><div<?php echo $t01_kabupatenkota->id->CellAttributes() ?>>
-<span id="el_t01_kabupatenkota_id">
-<span<?php echo $t01_kabupatenkota->id->ViewAttributes() ?>>
-<p class="form-control-static"><?php echo $t01_kabupatenkota->id->EditValue ?></p></span>
-</span>
-<input type="hidden" data-table="t01_kabupatenkota" data-field="x_id" name="x_id" id="x_id" value="<?php echo ew_HtmlEncode($t01_kabupatenkota->id->CurrentValue) ?>">
-<?php echo $t01_kabupatenkota->id->CustomMsg ?></div></div>
-	</div>
-<?php } ?>
 <?php if ($t01_kabupatenkota->provinsi_id->Visible) { // provinsi_id ?>
 	<div id="r_provinsi_id" class="form-group">
 		<label id="elh_t01_kabupatenkota_provinsi_id" for="x_provinsi_id" class="col-sm-2 control-label ewLabel"><?php echo $t01_kabupatenkota->provinsi_id->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
@@ -1140,6 +1111,7 @@ $t01_kabupatenkota_edit->ShowMessage();
 	</div>
 <?php } ?>
 </div>
+<input type="hidden" data-table="t01_kabupatenkota" data-field="x_id" name="x_id" id="x_id" value="<?php echo ew_HtmlEncode($t01_kabupatenkota->id->CurrentValue) ?>">
 <?php if (!$t01_kabupatenkota_edit->IsModal) { ?>
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">

@@ -285,8 +285,6 @@ class ct02_kecamatan_edit extends ct02_kecamatan {
 		// Create form object
 		$objForm = new cFormObj();
 		$this->CurrentAction = (@$_GET["a"] <> "") ? $_GET["a"] : @$_POST["a_list"]; // Set up current action
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->provinsi_id->SetVisibility();
 		$this->kabupatenkota_id->SetVisibility();
 		$this->Nama->SetVisibility();
@@ -541,8 +539,6 @@ class ct02_kecamatan_edit extends ct02_kecamatan {
 
 		// Load from form
 		global $objForm;
-		if (!$this->id->FldIsDetailKey)
-			$this->id->setFormValue($objForm->GetValue("x_id"));
 		if (!$this->provinsi_id->FldIsDetailKey) {
 			$this->provinsi_id->setFormValue($objForm->GetValue("x_provinsi_id"));
 		}
@@ -552,6 +548,8 @@ class ct02_kecamatan_edit extends ct02_kecamatan {
 		if (!$this->Nama->FldIsDetailKey) {
 			$this->Nama->setFormValue($objForm->GetValue("x_Nama"));
 		}
+		if (!$this->id->FldIsDetailKey)
+			$this->id->setFormValue($objForm->GetValue("x_id"));
 	}
 
 	// Restore form values
@@ -706,11 +704,6 @@ class ct02_kecamatan_edit extends ct02_kecamatan {
 		$this->Nama->ViewValue = $this->Nama->CurrentValue;
 		$this->Nama->ViewCustomAttributes = "";
 
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
-
 			// provinsi_id
 			$this->provinsi_id->LinkCustomAttributes = "";
 			$this->provinsi_id->HrefValue = "";
@@ -726,12 +719,6 @@ class ct02_kecamatan_edit extends ct02_kecamatan {
 			$this->Nama->HrefValue = "";
 			$this->Nama->TooltipValue = "";
 		} elseif ($this->RowType == EW_ROWTYPE_EDIT) { // Edit row
-
-			// id
-			$this->id->EditAttrs["class"] = "form-control";
-			$this->id->EditCustomAttributes = "";
-			$this->id->EditValue = $this->id->CurrentValue;
-			$this->id->ViewCustomAttributes = "";
 
 			// provinsi_id
 			$this->provinsi_id->EditCustomAttributes = "";
@@ -790,12 +777,8 @@ class ct02_kecamatan_edit extends ct02_kecamatan {
 			$this->Nama->PlaceHolder = ew_RemoveHtml($this->Nama->FldCaption());
 
 			// Edit refer script
-			// id
-
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-
 			// provinsi_id
+
 			$this->provinsi_id->LinkCustomAttributes = "";
 			$this->provinsi_id->HrefValue = "";
 
@@ -1189,18 +1172,6 @@ $t02_kecamatan_edit->ShowMessage();
 <input type="hidden" name="modal" value="1">
 <?php } ?>
 <div>
-<?php if ($t02_kecamatan->id->Visible) { // id ?>
-	<div id="r_id" class="form-group">
-		<label id="elh_t02_kecamatan_id" class="col-sm-2 control-label ewLabel"><?php echo $t02_kecamatan->id->FldCaption() ?></label>
-		<div class="col-sm-10"><div<?php echo $t02_kecamatan->id->CellAttributes() ?>>
-<span id="el_t02_kecamatan_id">
-<span<?php echo $t02_kecamatan->id->ViewAttributes() ?>>
-<p class="form-control-static"><?php echo $t02_kecamatan->id->EditValue ?></p></span>
-</span>
-<input type="hidden" data-table="t02_kecamatan" data-field="x_id" name="x_id" id="x_id" value="<?php echo ew_HtmlEncode($t02_kecamatan->id->CurrentValue) ?>">
-<?php echo $t02_kecamatan->id->CustomMsg ?></div></div>
-	</div>
-<?php } ?>
 <?php if ($t02_kecamatan->provinsi_id->Visible) { // provinsi_id ?>
 	<div id="r_provinsi_id" class="form-group">
 		<label id="elh_t02_kecamatan_provinsi_id" for="x_provinsi_id" class="col-sm-2 control-label ewLabel"><?php echo $t02_kecamatan->provinsi_id->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
@@ -1243,6 +1214,7 @@ $t02_kecamatan_edit->ShowMessage();
 	</div>
 <?php } ?>
 </div>
+<input type="hidden" data-table="t02_kecamatan" data-field="x_id" name="x_id" id="x_id" value="<?php echo ew_HtmlEncode($t02_kecamatan->id->CurrentValue) ?>">
 <?php if (!$t02_kecamatan_edit->IsModal) { ?>
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">

@@ -410,8 +410,6 @@ class ct02_kecamatan_list extends ct02_kecamatan {
 
 		// Setup export options
 		$this->SetupExportOptions();
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->provinsi_id->SetVisibility();
 		$this->kabupatenkota_id->SetVisibility();
 		$this->Nama->SetVisibility();
@@ -995,7 +993,6 @@ class ct02_kecamatan_list extends ct02_kecamatan {
 		if (@$_GET["order"] <> "") {
 			$this->CurrentOrder = ew_StripSlashes(@$_GET["order"]);
 			$this->CurrentOrderType = @$_GET["ordertype"];
-			$this->UpdateSort($this->id, $bCtrl); // id
 			$this->UpdateSort($this->provinsi_id, $bCtrl); // provinsi_id
 			$this->UpdateSort($this->kabupatenkota_id, $bCtrl); // kabupatenkota_id
 			$this->UpdateSort($this->Nama, $bCtrl); // Nama
@@ -1031,7 +1028,6 @@ class ct02_kecamatan_list extends ct02_kecamatan {
 			if ($this->Command == "resetsort") {
 				$sOrderBy = "";
 				$this->setSessionOrderBy($sOrderBy);
-				$this->id->setSort("");
 				$this->provinsi_id->setSort("");
 				$this->kabupatenkota_id->setSort("");
 				$this->Nama->setSort("");
@@ -1602,11 +1598,6 @@ class ct02_kecamatan_list extends ct02_kecamatan {
 		$this->Nama->ViewValue = $this->Nama->CurrentValue;
 		$this->Nama->ViewCustomAttributes = "";
 
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
-
 			// provinsi_id
 			$this->provinsi_id->LinkCustomAttributes = "";
 			$this->provinsi_id->HrefValue = "";
@@ -2140,15 +2131,6 @@ $t02_kecamatan_list->RenderListOptions();
 // Render list options (header, left)
 $t02_kecamatan_list->ListOptions->Render("header", "left");
 ?>
-<?php if ($t02_kecamatan->id->Visible) { // id ?>
-	<?php if ($t02_kecamatan->SortUrl($t02_kecamatan->id) == "") { ?>
-		<th data-name="id"><div id="elh_t02_kecamatan_id" class="t02_kecamatan_id"><div class="ewTableHeaderCaption"><?php echo $t02_kecamatan->id->FldCaption() ?></div></div></th>
-	<?php } else { ?>
-		<th data-name="id"><div class="ewPointer" onclick="ew_Sort(event,'<?php echo $t02_kecamatan->SortUrl($t02_kecamatan->id) ?>',2);"><div id="elh_t02_kecamatan_id" class="t02_kecamatan_id">
-			<div class="ewTableHeaderBtn"><span class="ewTableHeaderCaption"><?php echo $t02_kecamatan->id->FldCaption() ?></span><span class="ewTableHeaderSort"><?php if ($t02_kecamatan->id->getSort() == "ASC") { ?><span class="caret ewSortUp"></span><?php } elseif ($t02_kecamatan->id->getSort() == "DESC") { ?><span class="caret"></span><?php } ?></span></div>
-        </div></div></th>
-	<?php } ?>
-<?php } ?>		
 <?php if ($t02_kecamatan->provinsi_id->Visible) { // provinsi_id ?>
 	<?php if ($t02_kecamatan->SortUrl($t02_kecamatan->provinsi_id) == "") { ?>
 		<th data-name="provinsi_id"><div id="elh_t02_kecamatan_provinsi_id" class="t02_kecamatan_provinsi_id"><div class="ewTableHeaderCaption"><?php echo $t02_kecamatan->provinsi_id->FldCaption() ?></div></div></th>
@@ -2241,21 +2223,13 @@ while ($t02_kecamatan_list->RecCnt < $t02_kecamatan_list->StopRec) {
 // Render list options (body, left)
 $t02_kecamatan_list->ListOptions->Render("body", "left", $t02_kecamatan_list->RowCnt);
 ?>
-	<?php if ($t02_kecamatan->id->Visible) { // id ?>
-		<td data-name="id"<?php echo $t02_kecamatan->id->CellAttributes() ?>>
-<span id="el<?php echo $t02_kecamatan_list->RowCnt ?>_t02_kecamatan_id" class="t02_kecamatan_id">
-<span<?php echo $t02_kecamatan->id->ViewAttributes() ?>>
-<?php echo $t02_kecamatan->id->ListViewValue() ?></span>
-</span>
-<a id="<?php echo $t02_kecamatan_list->PageObjName . "_row_" . $t02_kecamatan_list->RowCnt ?>"></a></td>
-	<?php } ?>
 	<?php if ($t02_kecamatan->provinsi_id->Visible) { // provinsi_id ?>
 		<td data-name="provinsi_id"<?php echo $t02_kecamatan->provinsi_id->CellAttributes() ?>>
 <span id="el<?php echo $t02_kecamatan_list->RowCnt ?>_t02_kecamatan_provinsi_id" class="t02_kecamatan_provinsi_id">
 <span<?php echo $t02_kecamatan->provinsi_id->ViewAttributes() ?>>
 <?php echo $t02_kecamatan->provinsi_id->ListViewValue() ?></span>
 </span>
-</td>
+<a id="<?php echo $t02_kecamatan_list->PageObjName . "_row_" . $t02_kecamatan_list->RowCnt ?>"></a></td>
 	<?php } ?>
 	<?php if ($t02_kecamatan->kabupatenkota_id->Visible) { // kabupatenkota_id ?>
 		<td data-name="kabupatenkota_id"<?php echo $t02_kecamatan->kabupatenkota_id->CellAttributes() ?>>

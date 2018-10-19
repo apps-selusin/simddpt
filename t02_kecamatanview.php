@@ -383,8 +383,6 @@ class ct02_kecamatan_view extends ct02_kecamatan {
 
 		// Setup export options
 		$this->SetupExportOptions();
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->provinsi_id->SetVisibility();
 		$this->kabupatenkota_id->SetVisibility();
 		$this->Nama->SetVisibility();
@@ -797,11 +795,6 @@ class ct02_kecamatan_view extends ct02_kecamatan {
 		$this->Nama->ViewValue = $this->Nama->CurrentValue;
 		$this->Nama->ViewCustomAttributes = "";
 
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
-
 			// provinsi_id
 			$this->provinsi_id->LinkCustomAttributes = "";
 			$this->provinsi_id->HrefValue = "";
@@ -1205,17 +1198,6 @@ $t02_kecamatan_view->ShowMessage();
 <input type="hidden" name="modal" value="1">
 <?php } ?>
 <table class="table table-bordered table-striped ewViewTable">
-<?php if ($t02_kecamatan->id->Visible) { // id ?>
-	<tr id="r_id">
-		<td><span id="elh_t02_kecamatan_id"><?php echo $t02_kecamatan->id->FldCaption() ?></span></td>
-		<td data-name="id"<?php echo $t02_kecamatan->id->CellAttributes() ?>>
-<span id="el_t02_kecamatan_id">
-<span<?php echo $t02_kecamatan->id->ViewAttributes() ?>>
-<?php echo $t02_kecamatan->id->ViewValue ?></span>
-</span>
-</td>
-	</tr>
-<?php } ?>
 <?php if ($t02_kecamatan->provinsi_id->Visible) { // provinsi_id ?>
 	<tr id="r_provinsi_id">
 		<td><span id="elh_t02_kecamatan_provinsi_id"><?php echo $t02_kecamatan->provinsi_id->FldCaption() ?></span></td>

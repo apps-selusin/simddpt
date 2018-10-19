@@ -383,8 +383,6 @@ class ct00_provinsi_view extends ct00_provinsi {
 
 		// Setup export options
 		$this->SetupExportOptions();
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->Nama->SetVisibility();
 
 		// Global Page Loading event (in userfn*.php)
@@ -716,11 +714,6 @@ class ct00_provinsi_view extends ct00_provinsi {
 		// Nama
 		$this->Nama->ViewValue = $this->Nama->CurrentValue;
 		$this->Nama->ViewCustomAttributes = "";
-
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
 
 			// Nama
 			$this->Nama->LinkCustomAttributes = "";
@@ -1113,17 +1106,6 @@ $t00_provinsi_view->ShowMessage();
 <input type="hidden" name="modal" value="1">
 <?php } ?>
 <table class="table table-bordered table-striped ewViewTable">
-<?php if ($t00_provinsi->id->Visible) { // id ?>
-	<tr id="r_id">
-		<td><span id="elh_t00_provinsi_id"><?php echo $t00_provinsi->id->FldCaption() ?></span></td>
-		<td data-name="id"<?php echo $t00_provinsi->id->CellAttributes() ?>>
-<span id="el_t00_provinsi_id">
-<span<?php echo $t00_provinsi->id->ViewAttributes() ?>>
-<?php echo $t00_provinsi->id->ViewValue ?></span>
-</span>
-</td>
-	</tr>
-<?php } ?>
 <?php if ($t00_provinsi->Nama->Visible) { // Nama ?>
 	<tr id="r_Nama">
 		<td><span id="elh_t00_provinsi_Nama"><?php echo $t00_provinsi->Nama->FldCaption() ?></span></td>

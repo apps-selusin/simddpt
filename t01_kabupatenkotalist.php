@@ -410,8 +410,6 @@ class ct01_kabupatenkota_list extends ct01_kabupatenkota {
 
 		// Setup export options
 		$this->SetupExportOptions();
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->provinsi_id->SetVisibility();
 		$this->Nama->SetVisibility();
 
@@ -985,7 +983,6 @@ class ct01_kabupatenkota_list extends ct01_kabupatenkota {
 		if (@$_GET["order"] <> "") {
 			$this->CurrentOrder = ew_StripSlashes(@$_GET["order"]);
 			$this->CurrentOrderType = @$_GET["ordertype"];
-			$this->UpdateSort($this->id, $bCtrl); // id
 			$this->UpdateSort($this->provinsi_id, $bCtrl); // provinsi_id
 			$this->UpdateSort($this->Nama, $bCtrl); // Nama
 			$this->setStartRecordNumber(1); // Reset start position
@@ -1020,7 +1017,6 @@ class ct01_kabupatenkota_list extends ct01_kabupatenkota {
 			if ($this->Command == "resetsort") {
 				$sOrderBy = "";
 				$this->setSessionOrderBy($sOrderBy);
-				$this->id->setSort("");
 				$this->provinsi_id->setSort("");
 				$this->Nama->setSort("");
 			}
@@ -1536,11 +1532,6 @@ class ct01_kabupatenkota_list extends ct01_kabupatenkota {
 		// Nama
 		$this->Nama->ViewValue = $this->Nama->CurrentValue;
 		$this->Nama->ViewCustomAttributes = "";
-
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
 
 			// provinsi_id
 			$this->provinsi_id->LinkCustomAttributes = "";
@@ -2069,15 +2060,6 @@ $t01_kabupatenkota_list->RenderListOptions();
 // Render list options (header, left)
 $t01_kabupatenkota_list->ListOptions->Render("header", "left");
 ?>
-<?php if ($t01_kabupatenkota->id->Visible) { // id ?>
-	<?php if ($t01_kabupatenkota->SortUrl($t01_kabupatenkota->id) == "") { ?>
-		<th data-name="id"><div id="elh_t01_kabupatenkota_id" class="t01_kabupatenkota_id"><div class="ewTableHeaderCaption"><?php echo $t01_kabupatenkota->id->FldCaption() ?></div></div></th>
-	<?php } else { ?>
-		<th data-name="id"><div class="ewPointer" onclick="ew_Sort(event,'<?php echo $t01_kabupatenkota->SortUrl($t01_kabupatenkota->id) ?>',2);"><div id="elh_t01_kabupatenkota_id" class="t01_kabupatenkota_id">
-			<div class="ewTableHeaderBtn"><span class="ewTableHeaderCaption"><?php echo $t01_kabupatenkota->id->FldCaption() ?></span><span class="ewTableHeaderSort"><?php if ($t01_kabupatenkota->id->getSort() == "ASC") { ?><span class="caret ewSortUp"></span><?php } elseif ($t01_kabupatenkota->id->getSort() == "DESC") { ?><span class="caret"></span><?php } ?></span></div>
-        </div></div></th>
-	<?php } ?>
-<?php } ?>		
 <?php if ($t01_kabupatenkota->provinsi_id->Visible) { // provinsi_id ?>
 	<?php if ($t01_kabupatenkota->SortUrl($t01_kabupatenkota->provinsi_id) == "") { ?>
 		<th data-name="provinsi_id"><div id="elh_t01_kabupatenkota_provinsi_id" class="t01_kabupatenkota_provinsi_id"><div class="ewTableHeaderCaption"><?php echo $t01_kabupatenkota->provinsi_id->FldCaption() ?></div></div></th>
@@ -2161,21 +2143,13 @@ while ($t01_kabupatenkota_list->RecCnt < $t01_kabupatenkota_list->StopRec) {
 // Render list options (body, left)
 $t01_kabupatenkota_list->ListOptions->Render("body", "left", $t01_kabupatenkota_list->RowCnt);
 ?>
-	<?php if ($t01_kabupatenkota->id->Visible) { // id ?>
-		<td data-name="id"<?php echo $t01_kabupatenkota->id->CellAttributes() ?>>
-<span id="el<?php echo $t01_kabupatenkota_list->RowCnt ?>_t01_kabupatenkota_id" class="t01_kabupatenkota_id">
-<span<?php echo $t01_kabupatenkota->id->ViewAttributes() ?>>
-<?php echo $t01_kabupatenkota->id->ListViewValue() ?></span>
-</span>
-<a id="<?php echo $t01_kabupatenkota_list->PageObjName . "_row_" . $t01_kabupatenkota_list->RowCnt ?>"></a></td>
-	<?php } ?>
 	<?php if ($t01_kabupatenkota->provinsi_id->Visible) { // provinsi_id ?>
 		<td data-name="provinsi_id"<?php echo $t01_kabupatenkota->provinsi_id->CellAttributes() ?>>
 <span id="el<?php echo $t01_kabupatenkota_list->RowCnt ?>_t01_kabupatenkota_provinsi_id" class="t01_kabupatenkota_provinsi_id">
 <span<?php echo $t01_kabupatenkota->provinsi_id->ViewAttributes() ?>>
 <?php echo $t01_kabupatenkota->provinsi_id->ListViewValue() ?></span>
 </span>
-</td>
+<a id="<?php echo $t01_kabupatenkota_list->PageObjName . "_row_" . $t01_kabupatenkota_list->RowCnt ?>"></a></td>
 	<?php } ?>
 	<?php if ($t01_kabupatenkota->Nama->Visible) { // Nama ?>
 		<td data-name="Nama"<?php echo $t01_kabupatenkota->Nama->CellAttributes() ?>>

@@ -651,7 +651,6 @@ class ct00_provinsi extends cTable {
 			if ($Doc->Horizontal) { // Horizontal format, write header
 				$Doc->BeginExportRow();
 				if ($ExportPageType == "view") {
-					if ($this->id->Exportable) $Doc->ExportCaption($this->id);
 					if ($this->Nama->Exportable) $Doc->ExportCaption($this->Nama);
 				} else {
 					if ($this->id->Exportable) $Doc->ExportCaption($this->id);
@@ -687,7 +686,6 @@ class ct00_provinsi extends cTable {
 				if (!$Doc->ExportCustom) {
 					$Doc->BeginExportRow($RowCnt); // Allow CSS styles if enabled
 					if ($ExportPageType == "view") {
-						if ($this->id->Exportable) $Doc->ExportField($this->id);
 						if ($this->Nama->Exportable) $Doc->ExportField($this->Nama);
 					} else {
 						if ($this->id->Exportable) $Doc->ExportField($this->id);

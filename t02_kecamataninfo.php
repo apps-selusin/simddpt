@@ -737,7 +737,6 @@ class ct02_kecamatan extends cTable {
 			if ($Doc->Horizontal) { // Horizontal format, write header
 				$Doc->BeginExportRow();
 				if ($ExportPageType == "view") {
-					if ($this->id->Exportable) $Doc->ExportCaption($this->id);
 					if ($this->provinsi_id->Exportable) $Doc->ExportCaption($this->provinsi_id);
 					if ($this->kabupatenkota_id->Exportable) $Doc->ExportCaption($this->kabupatenkota_id);
 					if ($this->Nama->Exportable) $Doc->ExportCaption($this->Nama);
@@ -777,7 +776,6 @@ class ct02_kecamatan extends cTable {
 				if (!$Doc->ExportCustom) {
 					$Doc->BeginExportRow($RowCnt); // Allow CSS styles if enabled
 					if ($ExportPageType == "view") {
-						if ($this->id->Exportable) $Doc->ExportField($this->id);
 						if ($this->provinsi_id->Exportable) $Doc->ExportField($this->provinsi_id);
 						if ($this->kabupatenkota_id->Exportable) $Doc->ExportField($this->kabupatenkota_id);
 						if ($this->Nama->Exportable) $Doc->ExportField($this->Nama);

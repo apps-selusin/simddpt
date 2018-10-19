@@ -285,8 +285,6 @@ class ct00_provinsi_edit extends ct00_provinsi {
 		// Create form object
 		$objForm = new cFormObj();
 		$this->CurrentAction = (@$_GET["a"] <> "") ? $_GET["a"] : @$_POST["a_list"]; // Set up current action
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->Nama->SetVisibility();
 
 		// Global Page Loading event (in userfn*.php)
@@ -539,11 +537,11 @@ class ct00_provinsi_edit extends ct00_provinsi {
 
 		// Load from form
 		global $objForm;
-		if (!$this->id->FldIsDetailKey)
-			$this->id->setFormValue($objForm->GetValue("x_id"));
 		if (!$this->Nama->FldIsDetailKey) {
 			$this->Nama->setFormValue($objForm->GetValue("x_Nama"));
 		}
+		if (!$this->id->FldIsDetailKey)
+			$this->id->setFormValue($objForm->GetValue("x_id"));
 	}
 
 	// Restore form values
@@ -644,22 +642,11 @@ class ct00_provinsi_edit extends ct00_provinsi {
 		$this->Nama->ViewValue = $this->Nama->CurrentValue;
 		$this->Nama->ViewCustomAttributes = "";
 
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
-
 			// Nama
 			$this->Nama->LinkCustomAttributes = "";
 			$this->Nama->HrefValue = "";
 			$this->Nama->TooltipValue = "";
 		} elseif ($this->RowType == EW_ROWTYPE_EDIT) { // Edit row
-
-			// id
-			$this->id->EditAttrs["class"] = "form-control";
-			$this->id->EditCustomAttributes = "";
-			$this->id->EditValue = $this->id->CurrentValue;
-			$this->id->ViewCustomAttributes = "";
 
 			// Nama
 			$this->Nama->EditAttrs["class"] = "form-control";
@@ -668,12 +655,8 @@ class ct00_provinsi_edit extends ct00_provinsi {
 			$this->Nama->PlaceHolder = ew_RemoveHtml($this->Nama->FldCaption());
 
 			// Edit refer script
-			// id
-
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-
 			// Nama
+
 			$this->Nama->LinkCustomAttributes = "";
 			$this->Nama->HrefValue = "";
 		}
@@ -1015,18 +998,6 @@ $t00_provinsi_edit->ShowMessage();
 <input type="hidden" name="modal" value="1">
 <?php } ?>
 <div>
-<?php if ($t00_provinsi->id->Visible) { // id ?>
-	<div id="r_id" class="form-group">
-		<label id="elh_t00_provinsi_id" class="col-sm-2 control-label ewLabel"><?php echo $t00_provinsi->id->FldCaption() ?></label>
-		<div class="col-sm-10"><div<?php echo $t00_provinsi->id->CellAttributes() ?>>
-<span id="el_t00_provinsi_id">
-<span<?php echo $t00_provinsi->id->ViewAttributes() ?>>
-<p class="form-control-static"><?php echo $t00_provinsi->id->EditValue ?></p></span>
-</span>
-<input type="hidden" data-table="t00_provinsi" data-field="x_id" name="x_id" id="x_id" value="<?php echo ew_HtmlEncode($t00_provinsi->id->CurrentValue) ?>">
-<?php echo $t00_provinsi->id->CustomMsg ?></div></div>
-	</div>
-<?php } ?>
 <?php if ($t00_provinsi->Nama->Visible) { // Nama ?>
 	<div id="r_Nama" class="form-group">
 		<label id="elh_t00_provinsi_Nama" for="x_Nama" class="col-sm-2 control-label ewLabel"><?php echo $t00_provinsi->Nama->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
@@ -1038,6 +1009,7 @@ $t00_provinsi_edit->ShowMessage();
 	</div>
 <?php } ?>
 </div>
+<input type="hidden" data-table="t00_provinsi" data-field="x_id" name="x_id" id="x_id" value="<?php echo ew_HtmlEncode($t00_provinsi->id->CurrentValue) ?>">
 <?php if (!$t00_provinsi_edit->IsModal) { ?>
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">

@@ -282,8 +282,6 @@ class ct02_kecamatan_delete extends ct02_kecamatan {
 			$Security->UserID_Loaded();
 		}
 		$this->CurrentAction = (@$_GET["a"] <> "") ? $_GET["a"] : @$_POST["a_list"]; // Set up current action
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->provinsi_id->SetVisibility();
 		$this->kabupatenkota_id->SetVisibility();
 		$this->Nama->SetVisibility();
@@ -547,11 +545,6 @@ class ct02_kecamatan_delete extends ct02_kecamatan {
 		// Nama
 		$this->Nama->ViewValue = $this->Nama->CurrentValue;
 		$this->Nama->ViewCustomAttributes = "";
-
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
 
 			// provinsi_id
 			$this->provinsi_id->LinkCustomAttributes = "";
@@ -822,9 +815,6 @@ $t02_kecamatan_delete->ShowMessage();
 <?php echo $t02_kecamatan->TableCustomInnerHtml ?>
 	<thead>
 	<tr class="ewTableHeader">
-<?php if ($t02_kecamatan->id->Visible) { // id ?>
-		<th><span id="elh_t02_kecamatan_id" class="t02_kecamatan_id"><?php echo $t02_kecamatan->id->FldCaption() ?></span></th>
-<?php } ?>
 <?php if ($t02_kecamatan->provinsi_id->Visible) { // provinsi_id ?>
 		<th><span id="elh_t02_kecamatan_provinsi_id" class="t02_kecamatan_provinsi_id"><?php echo $t02_kecamatan->provinsi_id->FldCaption() ?></span></th>
 <?php } ?>
@@ -855,14 +845,6 @@ while (!$t02_kecamatan_delete->Recordset->EOF) {
 	$t02_kecamatan_delete->RenderRow();
 ?>
 	<tr<?php echo $t02_kecamatan->RowAttributes() ?>>
-<?php if ($t02_kecamatan->id->Visible) { // id ?>
-		<td<?php echo $t02_kecamatan->id->CellAttributes() ?>>
-<span id="el<?php echo $t02_kecamatan_delete->RowCnt ?>_t02_kecamatan_id" class="t02_kecamatan_id">
-<span<?php echo $t02_kecamatan->id->ViewAttributes() ?>>
-<?php echo $t02_kecamatan->id->ListViewValue() ?></span>
-</span>
-</td>
-<?php } ?>
 <?php if ($t02_kecamatan->provinsi_id->Visible) { // provinsi_id ?>
 		<td<?php echo $t02_kecamatan->provinsi_id->CellAttributes() ?>>
 <span id="el<?php echo $t02_kecamatan_delete->RowCnt ?>_t02_kecamatan_provinsi_id" class="t02_kecamatan_provinsi_id">
