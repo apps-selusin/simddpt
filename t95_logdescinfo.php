@@ -67,15 +67,15 @@ class ct95_logdesc extends cTable {
 		$this->fields['desc_'] = &$this->desc_;
 
 		// date_issued
-		$this->date_issued = new cField('t95_logdesc', 't95_logdesc', 'x_date_issued', 'date_issued', '`date_issued`', ew_CastDateFieldForLike('`date_issued`', 0, "DB"), 133, 0, FALSE, '`date_issued`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'TEXT');
+		$this->date_issued = new cField('t95_logdesc', 't95_logdesc', 'x_date_issued', 'date_issued', '`date_issued`', ew_CastDateFieldForLike('`date_issued`', 7, "DB"), 133, 7, FALSE, '`date_issued`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'TEXT');
 		$this->date_issued->Sortable = TRUE; // Allow sort
-		$this->date_issued->FldDefaultErrMsg = str_replace("%s", $GLOBALS["EW_DATE_FORMAT"], $Language->Phrase("IncorrectDate"));
+		$this->date_issued->FldDefaultErrMsg = str_replace("%s", $GLOBALS["EW_DATE_SEPARATOR"], $Language->Phrase("IncorrectDateDMY"));
 		$this->fields['date_issued'] = &$this->date_issued;
 
 		// date_solved
-		$this->date_solved = new cField('t95_logdesc', 't95_logdesc', 'x_date_solved', 'date_solved', '`date_solved`', ew_CastDateFieldForLike('`date_solved`', 0, "DB"), 133, 0, FALSE, '`date_solved`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'TEXT');
+		$this->date_solved = new cField('t95_logdesc', 't95_logdesc', 'x_date_solved', 'date_solved', '`date_solved`', ew_CastDateFieldForLike('`date_solved`', 7, "DB"), 133, 7, FALSE, '`date_solved`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'TEXT');
 		$this->date_solved->Sortable = TRUE; // Allow sort
-		$this->date_solved->FldDefaultErrMsg = str_replace("%s", $GLOBALS["EW_DATE_FORMAT"], $Language->Phrase("IncorrectDate"));
+		$this->date_solved->FldDefaultErrMsg = str_replace("%s", $GLOBALS["EW_DATE_SEPARATOR"], $Language->Phrase("IncorrectDateDMY"));
 		$this->fields['date_solved'] = &$this->date_solved;
 	}
 
@@ -695,12 +695,12 @@ class ct95_logdesc extends cTable {
 
 		// date_issued
 		$this->date_issued->ViewValue = $this->date_issued->CurrentValue;
-		$this->date_issued->ViewValue = ew_FormatDateTime($this->date_issued->ViewValue, 0);
+		$this->date_issued->ViewValue = ew_FormatDateTime($this->date_issued->ViewValue, 7);
 		$this->date_issued->ViewCustomAttributes = "";
 
 		// date_solved
 		$this->date_solved->ViewValue = $this->date_solved->CurrentValue;
-		$this->date_solved->ViewValue = ew_FormatDateTime($this->date_solved->ViewValue, 0);
+		$this->date_solved->ViewValue = ew_FormatDateTime($this->date_solved->ViewValue, 7);
 		$this->date_solved->ViewCustomAttributes = "";
 
 		// id
@@ -786,13 +786,13 @@ class ct95_logdesc extends cTable {
 		// date_issued
 		$this->date_issued->EditAttrs["class"] = "form-control";
 		$this->date_issued->EditCustomAttributes = "";
-		$this->date_issued->EditValue = ew_FormatDateTime($this->date_issued->CurrentValue, 8);
+		$this->date_issued->EditValue = ew_FormatDateTime($this->date_issued->CurrentValue, 7);
 		$this->date_issued->PlaceHolder = ew_RemoveHtml($this->date_issued->FldCaption());
 
 		// date_solved
 		$this->date_solved->EditAttrs["class"] = "form-control";
 		$this->date_solved->EditCustomAttributes = "";
-		$this->date_solved->EditValue = ew_FormatDateTime($this->date_solved->CurrentValue, 8);
+		$this->date_solved->EditValue = ew_FormatDateTime($this->date_solved->CurrentValue, 7);
 		$this->date_solved->PlaceHolder = ew_RemoveHtml($this->date_solved->FldCaption());
 
 		// Call Row Rendered event

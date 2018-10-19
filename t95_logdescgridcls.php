@@ -1192,12 +1192,12 @@ class ct95_logdesc_grid extends ct95_logdesc {
 		$this->desc_->setOldValue($objForm->GetValue("o_desc_"));
 		if (!$this->date_issued->FldIsDetailKey) {
 			$this->date_issued->setFormValue($objForm->GetValue("x_date_issued"));
-			$this->date_issued->CurrentValue = ew_UnFormatDateTime($this->date_issued->CurrentValue, 0);
+			$this->date_issued->CurrentValue = ew_UnFormatDateTime($this->date_issued->CurrentValue, 7);
 		}
 		$this->date_issued->setOldValue($objForm->GetValue("o_date_issued"));
 		if (!$this->date_solved->FldIsDetailKey) {
 			$this->date_solved->setFormValue($objForm->GetValue("x_date_solved"));
-			$this->date_solved->CurrentValue = ew_UnFormatDateTime($this->date_solved->CurrentValue, 0);
+			$this->date_solved->CurrentValue = ew_UnFormatDateTime($this->date_solved->CurrentValue, 7);
 		}
 		$this->date_solved->setOldValue($objForm->GetValue("o_date_solved"));
 		if (!$this->id->FldIsDetailKey && $this->CurrentAction <> "gridadd" && $this->CurrentAction <> "add")
@@ -1212,9 +1212,9 @@ class ct95_logdesc_grid extends ct95_logdesc {
 		$this->log_id->CurrentValue = $this->log_id->FormValue;
 		$this->desc_->CurrentValue = $this->desc_->FormValue;
 		$this->date_issued->CurrentValue = $this->date_issued->FormValue;
-		$this->date_issued->CurrentValue = ew_UnFormatDateTime($this->date_issued->CurrentValue, 0);
+		$this->date_issued->CurrentValue = ew_UnFormatDateTime($this->date_issued->CurrentValue, 7);
 		$this->date_solved->CurrentValue = $this->date_solved->FormValue;
-		$this->date_solved->CurrentValue = ew_UnFormatDateTime($this->date_solved->CurrentValue, 0);
+		$this->date_solved->CurrentValue = ew_UnFormatDateTime($this->date_solved->CurrentValue, 7);
 	}
 
 	// Load recordset
@@ -1375,12 +1375,12 @@ class ct95_logdesc_grid extends ct95_logdesc {
 
 		// date_issued
 		$this->date_issued->ViewValue = $this->date_issued->CurrentValue;
-		$this->date_issued->ViewValue = ew_FormatDateTime($this->date_issued->ViewValue, 0);
+		$this->date_issued->ViewValue = ew_FormatDateTime($this->date_issued->ViewValue, 7);
 		$this->date_issued->ViewCustomAttributes = "";
 
 		// date_solved
 		$this->date_solved->ViewValue = $this->date_solved->CurrentValue;
-		$this->date_solved->ViewValue = ew_FormatDateTime($this->date_solved->ViewValue, 0);
+		$this->date_solved->ViewValue = ew_FormatDateTime($this->date_solved->ViewValue, 7);
 		$this->date_solved->ViewCustomAttributes = "";
 
 			// log_id
@@ -1466,13 +1466,13 @@ class ct95_logdesc_grid extends ct95_logdesc {
 			// date_issued
 			$this->date_issued->EditAttrs["class"] = "form-control";
 			$this->date_issued->EditCustomAttributes = "";
-			$this->date_issued->EditValue = ew_HtmlEncode(ew_FormatDateTime($this->date_issued->CurrentValue, 8));
+			$this->date_issued->EditValue = ew_HtmlEncode(ew_FormatDateTime($this->date_issued->CurrentValue, 7));
 			$this->date_issued->PlaceHolder = ew_RemoveHtml($this->date_issued->FldCaption());
 
 			// date_solved
 			$this->date_solved->EditAttrs["class"] = "form-control";
 			$this->date_solved->EditCustomAttributes = "";
-			$this->date_solved->EditValue = ew_HtmlEncode(ew_FormatDateTime($this->date_solved->CurrentValue, 8));
+			$this->date_solved->EditValue = ew_HtmlEncode(ew_FormatDateTime($this->date_solved->CurrentValue, 7));
 			$this->date_solved->PlaceHolder = ew_RemoveHtml($this->date_solved->FldCaption());
 
 			// Add refer script
@@ -1556,13 +1556,13 @@ class ct95_logdesc_grid extends ct95_logdesc {
 			// date_issued
 			$this->date_issued->EditAttrs["class"] = "form-control";
 			$this->date_issued->EditCustomAttributes = "";
-			$this->date_issued->EditValue = ew_HtmlEncode(ew_FormatDateTime($this->date_issued->CurrentValue, 8));
+			$this->date_issued->EditValue = ew_HtmlEncode(ew_FormatDateTime($this->date_issued->CurrentValue, 7));
 			$this->date_issued->PlaceHolder = ew_RemoveHtml($this->date_issued->FldCaption());
 
 			// date_solved
 			$this->date_solved->EditAttrs["class"] = "form-control";
 			$this->date_solved->EditCustomAttributes = "";
-			$this->date_solved->EditValue = ew_HtmlEncode(ew_FormatDateTime($this->date_solved->CurrentValue, 8));
+			$this->date_solved->EditValue = ew_HtmlEncode(ew_FormatDateTime($this->date_solved->CurrentValue, 7));
 			$this->date_solved->PlaceHolder = ew_RemoveHtml($this->date_solved->FldCaption());
 
 			// Edit refer script
@@ -1613,10 +1613,10 @@ class ct95_logdesc_grid extends ct95_logdesc {
 		if (!$this->date_issued->FldIsDetailKey && !is_null($this->date_issued->FormValue) && $this->date_issued->FormValue == "") {
 			ew_AddMessage($gsFormError, str_replace("%s", $this->date_issued->FldCaption(), $this->date_issued->ReqErrMsg));
 		}
-		if (!ew_CheckDateDef($this->date_issued->FormValue)) {
+		if (!ew_CheckEuroDate($this->date_issued->FormValue)) {
 			ew_AddMessage($gsFormError, $this->date_issued->FldErrMsg());
 		}
-		if (!ew_CheckDateDef($this->date_solved->FormValue)) {
+		if (!ew_CheckEuroDate($this->date_solved->FormValue)) {
 			ew_AddMessage($gsFormError, $this->date_solved->FldErrMsg());
 		}
 
@@ -1744,10 +1744,10 @@ class ct95_logdesc_grid extends ct95_logdesc {
 			$this->desc_->SetDbValueDef($rsnew, $this->desc_->CurrentValue, "", $this->desc_->ReadOnly);
 
 			// date_issued
-			$this->date_issued->SetDbValueDef($rsnew, ew_UnFormatDateTime($this->date_issued->CurrentValue, 0), ew_CurrentDate(), $this->date_issued->ReadOnly);
+			$this->date_issued->SetDbValueDef($rsnew, ew_UnFormatDateTime($this->date_issued->CurrentValue, 7), ew_CurrentDate(), $this->date_issued->ReadOnly);
 
 			// date_solved
-			$this->date_solved->SetDbValueDef($rsnew, ew_UnFormatDateTime($this->date_solved->CurrentValue, 0), NULL, $this->date_solved->ReadOnly);
+			$this->date_solved->SetDbValueDef($rsnew, ew_UnFormatDateTime($this->date_solved->CurrentValue, 7), NULL, $this->date_solved->ReadOnly);
 
 			// Check referential integrity for master table 't94_log'
 			$bValidMasterRecord = TRUE;
@@ -1846,10 +1846,10 @@ class ct95_logdesc_grid extends ct95_logdesc {
 		$this->desc_->SetDbValueDef($rsnew, $this->desc_->CurrentValue, "", FALSE);
 
 		// date_issued
-		$this->date_issued->SetDbValueDef($rsnew, ew_UnFormatDateTime($this->date_issued->CurrentValue, 0), ew_CurrentDate(), FALSE);
+		$this->date_issued->SetDbValueDef($rsnew, ew_UnFormatDateTime($this->date_issued->CurrentValue, 7), ew_CurrentDate(), FALSE);
 
 		// date_solved
-		$this->date_solved->SetDbValueDef($rsnew, ew_UnFormatDateTime($this->date_solved->CurrentValue, 0), NULL, FALSE);
+		$this->date_solved->SetDbValueDef($rsnew, ew_UnFormatDateTime($this->date_solved->CurrentValue, 7), NULL, FALSE);
 
 		// Call Row Inserting event
 		$rs = ($rsold == NULL) ? NULL : $rsold->fields;

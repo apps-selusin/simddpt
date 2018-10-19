@@ -555,11 +555,11 @@ class ct95_logdesc_edit extends ct95_logdesc {
 		}
 		if (!$this->date_issued->FldIsDetailKey) {
 			$this->date_issued->setFormValue($objForm->GetValue("x_date_issued"));
-			$this->date_issued->CurrentValue = ew_UnFormatDateTime($this->date_issued->CurrentValue, 0);
+			$this->date_issued->CurrentValue = ew_UnFormatDateTime($this->date_issued->CurrentValue, 7);
 		}
 		if (!$this->date_solved->FldIsDetailKey) {
 			$this->date_solved->setFormValue($objForm->GetValue("x_date_solved"));
-			$this->date_solved->CurrentValue = ew_UnFormatDateTime($this->date_solved->CurrentValue, 0);
+			$this->date_solved->CurrentValue = ew_UnFormatDateTime($this->date_solved->CurrentValue, 7);
 		}
 		if (!$this->id->FldIsDetailKey)
 			$this->id->setFormValue($objForm->GetValue("x_id"));
@@ -573,9 +573,9 @@ class ct95_logdesc_edit extends ct95_logdesc {
 		$this->log_id->CurrentValue = $this->log_id->FormValue;
 		$this->desc_->CurrentValue = $this->desc_->FormValue;
 		$this->date_issued->CurrentValue = $this->date_issued->FormValue;
-		$this->date_issued->CurrentValue = ew_UnFormatDateTime($this->date_issued->CurrentValue, 0);
+		$this->date_issued->CurrentValue = ew_UnFormatDateTime($this->date_issued->CurrentValue, 7);
 		$this->date_solved->CurrentValue = $this->date_solved->FormValue;
-		$this->date_solved->CurrentValue = ew_UnFormatDateTime($this->date_solved->CurrentValue, 0);
+		$this->date_solved->CurrentValue = ew_UnFormatDateTime($this->date_solved->CurrentValue, 7);
 	}
 
 	// Load recordset
@@ -703,12 +703,12 @@ class ct95_logdesc_edit extends ct95_logdesc {
 
 		// date_issued
 		$this->date_issued->ViewValue = $this->date_issued->CurrentValue;
-		$this->date_issued->ViewValue = ew_FormatDateTime($this->date_issued->ViewValue, 0);
+		$this->date_issued->ViewValue = ew_FormatDateTime($this->date_issued->ViewValue, 7);
 		$this->date_issued->ViewCustomAttributes = "";
 
 		// date_solved
 		$this->date_solved->ViewValue = $this->date_solved->CurrentValue;
-		$this->date_solved->ViewValue = ew_FormatDateTime($this->date_solved->ViewValue, 0);
+		$this->date_solved->ViewValue = ew_FormatDateTime($this->date_solved->ViewValue, 7);
 		$this->date_solved->ViewCustomAttributes = "";
 
 			// log_id
@@ -793,13 +793,13 @@ class ct95_logdesc_edit extends ct95_logdesc {
 			// date_issued
 			$this->date_issued->EditAttrs["class"] = "form-control";
 			$this->date_issued->EditCustomAttributes = "";
-			$this->date_issued->EditValue = ew_HtmlEncode(ew_FormatDateTime($this->date_issued->CurrentValue, 8));
+			$this->date_issued->EditValue = ew_HtmlEncode(ew_FormatDateTime($this->date_issued->CurrentValue, 7));
 			$this->date_issued->PlaceHolder = ew_RemoveHtml($this->date_issued->FldCaption());
 
 			// date_solved
 			$this->date_solved->EditAttrs["class"] = "form-control";
 			$this->date_solved->EditCustomAttributes = "";
-			$this->date_solved->EditValue = ew_HtmlEncode(ew_FormatDateTime($this->date_solved->CurrentValue, 8));
+			$this->date_solved->EditValue = ew_HtmlEncode(ew_FormatDateTime($this->date_solved->CurrentValue, 7));
 			$this->date_solved->PlaceHolder = ew_RemoveHtml($this->date_solved->FldCaption());
 
 			// Edit refer script
@@ -853,10 +853,10 @@ class ct95_logdesc_edit extends ct95_logdesc {
 		if (!$this->date_issued->FldIsDetailKey && !is_null($this->date_issued->FormValue) && $this->date_issued->FormValue == "") {
 			ew_AddMessage($gsFormError, str_replace("%s", $this->date_issued->FldCaption(), $this->date_issued->ReqErrMsg));
 		}
-		if (!ew_CheckDateDef($this->date_issued->FormValue)) {
+		if (!ew_CheckEuroDate($this->date_issued->FormValue)) {
 			ew_AddMessage($gsFormError, $this->date_issued->FldErrMsg());
 		}
-		if (!ew_CheckDateDef($this->date_solved->FormValue)) {
+		if (!ew_CheckEuroDate($this->date_solved->FormValue)) {
 			ew_AddMessage($gsFormError, $this->date_solved->FldErrMsg());
 		}
 
@@ -902,10 +902,10 @@ class ct95_logdesc_edit extends ct95_logdesc {
 			$this->desc_->SetDbValueDef($rsnew, $this->desc_->CurrentValue, "", $this->desc_->ReadOnly);
 
 			// date_issued
-			$this->date_issued->SetDbValueDef($rsnew, ew_UnFormatDateTime($this->date_issued->CurrentValue, 0), ew_CurrentDate(), $this->date_issued->ReadOnly);
+			$this->date_issued->SetDbValueDef($rsnew, ew_UnFormatDateTime($this->date_issued->CurrentValue, 7), ew_CurrentDate(), $this->date_issued->ReadOnly);
 
 			// date_solved
-			$this->date_solved->SetDbValueDef($rsnew, ew_UnFormatDateTime($this->date_solved->CurrentValue, 0), NULL, $this->date_solved->ReadOnly);
+			$this->date_solved->SetDbValueDef($rsnew, ew_UnFormatDateTime($this->date_solved->CurrentValue, 7), NULL, $this->date_solved->ReadOnly);
 
 			// Check referential integrity for master table 't94_log'
 			$bValidMasterRecord = TRUE;
@@ -1194,10 +1194,10 @@ ft95_logdescedit.Validate = function() {
 			if (elm && !ew_IsHidden(elm) && !ew_HasValue(elm))
 				return this.OnError(elm, "<?php echo ew_JsEncode2(str_replace("%s", $t95_logdesc->date_issued->FldCaption(), $t95_logdesc->date_issued->ReqErrMsg)) ?>");
 			elm = this.GetElements("x" + infix + "_date_issued");
-			if (elm && !ew_CheckDateDef(elm.value))
+			if (elm && !ew_CheckEuroDate(elm.value))
 				return this.OnError(elm, "<?php echo ew_JsEncode2($t95_logdesc->date_issued->FldErrMsg()) ?>");
 			elm = this.GetElements("x" + infix + "_date_solved");
-			if (elm && !ew_CheckDateDef(elm.value))
+			if (elm && !ew_CheckEuroDate(elm.value))
 				return this.OnError(elm, "<?php echo ew_JsEncode2($t95_logdesc->date_solved->FldErrMsg()) ?>");
 
 			// Fire Form_CustomValidate event
@@ -1355,7 +1355,12 @@ ft95_logdescedit.CreateAutoSuggest({"id":"x_log_id","forceSelect":false});
 		<label id="elh_t95_logdesc_date_issued" for="x_date_issued" class="col-sm-2 control-label ewLabel"><?php echo $t95_logdesc->date_issued->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
 		<div class="col-sm-10"><div<?php echo $t95_logdesc->date_issued->CellAttributes() ?>>
 <span id="el_t95_logdesc_date_issued">
-<input type="text" data-table="t95_logdesc" data-field="x_date_issued" name="x_date_issued" id="x_date_issued" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_issued->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_issued->EditValue ?>"<?php echo $t95_logdesc->date_issued->EditAttributes() ?>>
+<input type="text" data-table="t95_logdesc" data-field="x_date_issued" data-format="7" name="x_date_issued" id="x_date_issued" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_issued->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_issued->EditValue ?>"<?php echo $t95_logdesc->date_issued->EditAttributes() ?>>
+<?php if (!$t95_logdesc->date_issued->ReadOnly && !$t95_logdesc->date_issued->Disabled && !isset($t95_logdesc->date_issued->EditAttrs["readonly"]) && !isset($t95_logdesc->date_issued->EditAttrs["disabled"])) { ?>
+<script type="text/javascript">
+ew_CreateCalendar("ft95_logdescedit", "x_date_issued", 7);
+</script>
+<?php } ?>
 </span>
 <?php echo $t95_logdesc->date_issued->CustomMsg ?></div></div>
 	</div>
@@ -1365,7 +1370,12 @@ ft95_logdescedit.CreateAutoSuggest({"id":"x_log_id","forceSelect":false});
 		<label id="elh_t95_logdesc_date_solved" for="x_date_solved" class="col-sm-2 control-label ewLabel"><?php echo $t95_logdesc->date_solved->FldCaption() ?></label>
 		<div class="col-sm-10"><div<?php echo $t95_logdesc->date_solved->CellAttributes() ?>>
 <span id="el_t95_logdesc_date_solved">
-<input type="text" data-table="t95_logdesc" data-field="x_date_solved" name="x_date_solved" id="x_date_solved" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_solved->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_solved->EditValue ?>"<?php echo $t95_logdesc->date_solved->EditAttributes() ?>>
+<input type="text" data-table="t95_logdesc" data-field="x_date_solved" data-format="7" name="x_date_solved" id="x_date_solved" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_solved->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_solved->EditValue ?>"<?php echo $t95_logdesc->date_solved->EditAttributes() ?>>
+<?php if (!$t95_logdesc->date_solved->ReadOnly && !$t95_logdesc->date_solved->Disabled && !isset($t95_logdesc->date_solved->EditAttrs["readonly"]) && !isset($t95_logdesc->date_solved->EditAttrs["disabled"])) { ?>
+<script type="text/javascript">
+ew_CreateCalendar("ft95_logdescedit", "x_date_solved", 7);
+</script>
+<?php } ?>
 </span>
 <?php echo $t95_logdesc->date_solved->CustomMsg ?></div></div>
 	</div>

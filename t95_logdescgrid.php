@@ -54,10 +54,10 @@ ft95_logdescgrid.Validate = function() {
 			if (elm && !ew_IsHidden(elm) && !ew_HasValue(elm))
 				return this.OnError(elm, "<?php echo ew_JsEncode2(str_replace("%s", $t95_logdesc->date_issued->FldCaption(), $t95_logdesc->date_issued->ReqErrMsg)) ?>");
 			elm = this.GetElements("x" + infix + "_date_issued");
-			if (elm && !ew_CheckDateDef(elm.value))
+			if (elm && !ew_CheckEuroDate(elm.value))
 				return this.OnError(elm, "<?php echo ew_JsEncode2($t95_logdesc->date_issued->FldErrMsg()) ?>");
 			elm = this.GetElements("x" + infix + "_date_solved");
-			if (elm && !ew_CheckDateDef(elm.value))
+			if (elm && !ew_CheckEuroDate(elm.value))
 				return this.OnError(elm, "<?php echo ew_JsEncode2($t95_logdesc->date_solved->FldErrMsg()) ?>");
 
 			// Fire Form_CustomValidate event
@@ -429,13 +429,23 @@ ft95_logdescgrid.CreateAutoSuggest({"id":"x<?php echo $t95_logdesc_grid->RowInde
 		<td data-name="date_issued"<?php echo $t95_logdesc->date_issued->CellAttributes() ?>>
 <?php if ($t95_logdesc->RowType == EW_ROWTYPE_ADD) { // Add record ?>
 <span id="el<?php echo $t95_logdesc_grid->RowCnt ?>_t95_logdesc_date_issued" class="form-group t95_logdesc_date_issued">
-<input type="text" data-table="t95_logdesc" data-field="x_date_issued" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_issued->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_issued->EditValue ?>"<?php echo $t95_logdesc->date_issued->EditAttributes() ?>>
+<input type="text" data-table="t95_logdesc" data-field="x_date_issued" data-format="7" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_issued->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_issued->EditValue ?>"<?php echo $t95_logdesc->date_issued->EditAttributes() ?>>
+<?php if (!$t95_logdesc->date_issued->ReadOnly && !$t95_logdesc->date_issued->Disabled && !isset($t95_logdesc->date_issued->EditAttrs["readonly"]) && !isset($t95_logdesc->date_issued->EditAttrs["disabled"])) { ?>
+<script type="text/javascript">
+ew_CreateCalendar("ft95_logdescgrid", "x<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued", 7);
+</script>
+<?php } ?>
 </span>
 <input type="hidden" data-table="t95_logdesc" data-field="x_date_issued" name="o<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued" id="o<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued" value="<?php echo ew_HtmlEncode($t95_logdesc->date_issued->OldValue) ?>">
 <?php } ?>
 <?php if ($t95_logdesc->RowType == EW_ROWTYPE_EDIT) { // Edit record ?>
 <span id="el<?php echo $t95_logdesc_grid->RowCnt ?>_t95_logdesc_date_issued" class="form-group t95_logdesc_date_issued">
-<input type="text" data-table="t95_logdesc" data-field="x_date_issued" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_issued->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_issued->EditValue ?>"<?php echo $t95_logdesc->date_issued->EditAttributes() ?>>
+<input type="text" data-table="t95_logdesc" data-field="x_date_issued" data-format="7" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_issued->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_issued->EditValue ?>"<?php echo $t95_logdesc->date_issued->EditAttributes() ?>>
+<?php if (!$t95_logdesc->date_issued->ReadOnly && !$t95_logdesc->date_issued->Disabled && !isset($t95_logdesc->date_issued->EditAttrs["readonly"]) && !isset($t95_logdesc->date_issued->EditAttrs["disabled"])) { ?>
+<script type="text/javascript">
+ew_CreateCalendar("ft95_logdescgrid", "x<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued", 7);
+</script>
+<?php } ?>
 </span>
 <?php } ?>
 <?php if ($t95_logdesc->RowType == EW_ROWTYPE_VIEW) { // View record ?>
@@ -457,13 +467,23 @@ ft95_logdescgrid.CreateAutoSuggest({"id":"x<?php echo $t95_logdesc_grid->RowInde
 		<td data-name="date_solved"<?php echo $t95_logdesc->date_solved->CellAttributes() ?>>
 <?php if ($t95_logdesc->RowType == EW_ROWTYPE_ADD) { // Add record ?>
 <span id="el<?php echo $t95_logdesc_grid->RowCnt ?>_t95_logdesc_date_solved" class="form-group t95_logdesc_date_solved">
-<input type="text" data-table="t95_logdesc" data-field="x_date_solved" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_solved->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_solved->EditValue ?>"<?php echo $t95_logdesc->date_solved->EditAttributes() ?>>
+<input type="text" data-table="t95_logdesc" data-field="x_date_solved" data-format="7" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_solved->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_solved->EditValue ?>"<?php echo $t95_logdesc->date_solved->EditAttributes() ?>>
+<?php if (!$t95_logdesc->date_solved->ReadOnly && !$t95_logdesc->date_solved->Disabled && !isset($t95_logdesc->date_solved->EditAttrs["readonly"]) && !isset($t95_logdesc->date_solved->EditAttrs["disabled"])) { ?>
+<script type="text/javascript">
+ew_CreateCalendar("ft95_logdescgrid", "x<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved", 7);
+</script>
+<?php } ?>
 </span>
 <input type="hidden" data-table="t95_logdesc" data-field="x_date_solved" name="o<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved" id="o<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved" value="<?php echo ew_HtmlEncode($t95_logdesc->date_solved->OldValue) ?>">
 <?php } ?>
 <?php if ($t95_logdesc->RowType == EW_ROWTYPE_EDIT) { // Edit record ?>
 <span id="el<?php echo $t95_logdesc_grid->RowCnt ?>_t95_logdesc_date_solved" class="form-group t95_logdesc_date_solved">
-<input type="text" data-table="t95_logdesc" data-field="x_date_solved" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_solved->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_solved->EditValue ?>"<?php echo $t95_logdesc->date_solved->EditAttributes() ?>>
+<input type="text" data-table="t95_logdesc" data-field="x_date_solved" data-format="7" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_solved->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_solved->EditValue ?>"<?php echo $t95_logdesc->date_solved->EditAttributes() ?>>
+<?php if (!$t95_logdesc->date_solved->ReadOnly && !$t95_logdesc->date_solved->Disabled && !isset($t95_logdesc->date_solved->EditAttrs["readonly"]) && !isset($t95_logdesc->date_solved->EditAttrs["disabled"])) { ?>
+<script type="text/javascript">
+ew_CreateCalendar("ft95_logdescgrid", "x<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved", 7);
+</script>
+<?php } ?>
 </span>
 <?php } ?>
 <?php if ($t95_logdesc->RowType == EW_ROWTYPE_VIEW) { // View record ?>
@@ -579,7 +599,12 @@ ft95_logdescgrid.CreateAutoSuggest({"id":"x<?php echo $t95_logdesc_grid->RowInde
 		<td data-name="date_issued">
 <?php if ($t95_logdesc->CurrentAction <> "F") { ?>
 <span id="el$rowindex$_t95_logdesc_date_issued" class="form-group t95_logdesc_date_issued">
-<input type="text" data-table="t95_logdesc" data-field="x_date_issued" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_issued->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_issued->EditValue ?>"<?php echo $t95_logdesc->date_issued->EditAttributes() ?>>
+<input type="text" data-table="t95_logdesc" data-field="x_date_issued" data-format="7" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_issued->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_issued->EditValue ?>"<?php echo $t95_logdesc->date_issued->EditAttributes() ?>>
+<?php if (!$t95_logdesc->date_issued->ReadOnly && !$t95_logdesc->date_issued->Disabled && !isset($t95_logdesc->date_issued->EditAttrs["readonly"]) && !isset($t95_logdesc->date_issued->EditAttrs["disabled"])) { ?>
+<script type="text/javascript">
+ew_CreateCalendar("ft95_logdescgrid", "x<?php echo $t95_logdesc_grid->RowIndex ?>_date_issued", 7);
+</script>
+<?php } ?>
 </span>
 <?php } else { ?>
 <span id="el$rowindex$_t95_logdesc_date_issued" class="form-group t95_logdesc_date_issued">
@@ -595,7 +620,12 @@ ft95_logdescgrid.CreateAutoSuggest({"id":"x<?php echo $t95_logdesc_grid->RowInde
 		<td data-name="date_solved">
 <?php if ($t95_logdesc->CurrentAction <> "F") { ?>
 <span id="el$rowindex$_t95_logdesc_date_solved" class="form-group t95_logdesc_date_solved">
-<input type="text" data-table="t95_logdesc" data-field="x_date_solved" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_solved->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_solved->EditValue ?>"<?php echo $t95_logdesc->date_solved->EditAttributes() ?>>
+<input type="text" data-table="t95_logdesc" data-field="x_date_solved" data-format="7" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->date_solved->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->date_solved->EditValue ?>"<?php echo $t95_logdesc->date_solved->EditAttributes() ?>>
+<?php if (!$t95_logdesc->date_solved->ReadOnly && !$t95_logdesc->date_solved->Disabled && !isset($t95_logdesc->date_solved->EditAttrs["readonly"]) && !isset($t95_logdesc->date_solved->EditAttrs["disabled"])) { ?>
+<script type="text/javascript">
+ew_CreateCalendar("ft95_logdescgrid", "x<?php echo $t95_logdesc_grid->RowIndex ?>_date_solved", 7);
+</script>
+<?php } ?>
 </span>
 <?php } else { ?>
 <span id="el$rowindex$_t95_logdesc_date_solved" class="form-group t95_logdesc_date_solved">
