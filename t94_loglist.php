@@ -411,8 +411,6 @@ class ct94_log_list extends ct94_log {
 
 		// Setup export options
 		$this->SetupExportOptions();
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->index_->SetVisibility();
 		$this->subj_->SetVisibility();
 
@@ -1018,7 +1016,6 @@ class ct94_log_list extends ct94_log {
 		if (@$_GET["order"] <> "") {
 			$this->CurrentOrder = ew_StripSlashes(@$_GET["order"]);
 			$this->CurrentOrderType = @$_GET["ordertype"];
-			$this->UpdateSort($this->id, $bCtrl); // id
 			$this->UpdateSort($this->index_, $bCtrl); // index_
 			$this->UpdateSort($this->subj_, $bCtrl); // subj_
 			$this->setStartRecordNumber(1); // Reset start position
@@ -1053,7 +1050,6 @@ class ct94_log_list extends ct94_log {
 			if ($this->Command == "resetsort") {
 				$sOrderBy = "";
 				$this->setSessionOrderBy($sOrderBy);
-				$this->id->setSort("");
 				$this->index_->setSort("");
 				$this->subj_->setSort("");
 			}
@@ -1683,11 +1679,6 @@ class ct94_log_list extends ct94_log {
 		$this->subj_->ViewValue = $this->subj_->CurrentValue;
 		$this->subj_->ViewCustomAttributes = "";
 
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
-
 			// index_
 			$this->index_->LinkCustomAttributes = "";
 			$this->index_->HrefValue = "";
@@ -2229,15 +2220,6 @@ $t94_log_list->RenderListOptions();
 // Render list options (header, left)
 $t94_log_list->ListOptions->Render("header", "left");
 ?>
-<?php if ($t94_log->id->Visible) { // id ?>
-	<?php if ($t94_log->SortUrl($t94_log->id) == "") { ?>
-		<th data-name="id"><div id="elh_t94_log_id" class="t94_log_id"><div class="ewTableHeaderCaption"><?php echo $t94_log->id->FldCaption() ?></div></div></th>
-	<?php } else { ?>
-		<th data-name="id"><div class="ewPointer" onclick="ew_Sort(event,'<?php echo $t94_log->SortUrl($t94_log->id) ?>',2);"><div id="elh_t94_log_id" class="t94_log_id">
-			<div class="ewTableHeaderBtn"><span class="ewTableHeaderCaption"><?php echo $t94_log->id->FldCaption() ?></span><span class="ewTableHeaderSort"><?php if ($t94_log->id->getSort() == "ASC") { ?><span class="caret ewSortUp"></span><?php } elseif ($t94_log->id->getSort() == "DESC") { ?><span class="caret"></span><?php } ?></span></div>
-        </div></div></th>
-	<?php } ?>
-<?php } ?>		
 <?php if ($t94_log->index_->Visible) { // index_ ?>
 	<?php if ($t94_log->SortUrl($t94_log->index_) == "") { ?>
 		<th data-name="index_"><div id="elh_t94_log_index_" class="t94_log_index_"><div class="ewTableHeaderCaption"><?php echo $t94_log->index_->FldCaption() ?></div></div></th>
@@ -2321,21 +2303,13 @@ while ($t94_log_list->RecCnt < $t94_log_list->StopRec) {
 // Render list options (body, left)
 $t94_log_list->ListOptions->Render("body", "left", $t94_log_list->RowCnt);
 ?>
-	<?php if ($t94_log->id->Visible) { // id ?>
-		<td data-name="id"<?php echo $t94_log->id->CellAttributes() ?>>
-<span id="el<?php echo $t94_log_list->RowCnt ?>_t94_log_id" class="t94_log_id">
-<span<?php echo $t94_log->id->ViewAttributes() ?>>
-<?php echo $t94_log->id->ListViewValue() ?></span>
-</span>
-<a id="<?php echo $t94_log_list->PageObjName . "_row_" . $t94_log_list->RowCnt ?>"></a></td>
-	<?php } ?>
 	<?php if ($t94_log->index_->Visible) { // index_ ?>
 		<td data-name="index_"<?php echo $t94_log->index_->CellAttributes() ?>>
 <span id="el<?php echo $t94_log_list->RowCnt ?>_t94_log_index_" class="t94_log_index_">
 <span<?php echo $t94_log->index_->ViewAttributes() ?>>
 <?php echo $t94_log->index_->ListViewValue() ?></span>
 </span>
-</td>
+<a id="<?php echo $t94_log_list->PageObjName . "_row_" . $t94_log_list->RowCnt ?>"></a></td>
 	<?php } ?>
 	<?php if ($t94_log->subj_->Visible) { // subj_ ?>
 		<td data-name="subj_"<?php echo $t94_log->subj_->CellAttributes() ?>>

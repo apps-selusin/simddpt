@@ -282,8 +282,6 @@ class ct94_log_delete extends ct94_log {
 			$Security->UserID_Loaded();
 		}
 		$this->CurrentAction = (@$_GET["a"] <> "") ? $_GET["a"] : @$_POST["a_list"]; // Set up current action
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->index_->SetVisibility();
 		$this->subj_->SetVisibility();
 
@@ -501,11 +499,6 @@ class ct94_log_delete extends ct94_log {
 		// subj_
 		$this->subj_->ViewValue = $this->subj_->CurrentValue;
 		$this->subj_->ViewCustomAttributes = "";
-
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
 
 			// index_
 			$this->index_->LinkCustomAttributes = "";
@@ -769,9 +762,6 @@ $t94_log_delete->ShowMessage();
 <?php echo $t94_log->TableCustomInnerHtml ?>
 	<thead>
 	<tr class="ewTableHeader">
-<?php if ($t94_log->id->Visible) { // id ?>
-		<th><span id="elh_t94_log_id" class="t94_log_id"><?php echo $t94_log->id->FldCaption() ?></span></th>
-<?php } ?>
 <?php if ($t94_log->index_->Visible) { // index_ ?>
 		<th><span id="elh_t94_log_index_" class="t94_log_index_"><?php echo $t94_log->index_->FldCaption() ?></span></th>
 <?php } ?>
@@ -799,14 +789,6 @@ while (!$t94_log_delete->Recordset->EOF) {
 	$t94_log_delete->RenderRow();
 ?>
 	<tr<?php echo $t94_log->RowAttributes() ?>>
-<?php if ($t94_log->id->Visible) { // id ?>
-		<td<?php echo $t94_log->id->CellAttributes() ?>>
-<span id="el<?php echo $t94_log_delete->RowCnt ?>_t94_log_id" class="t94_log_id">
-<span<?php echo $t94_log->id->ViewAttributes() ?>>
-<?php echo $t94_log->id->ListViewValue() ?></span>
-</span>
-</td>
-<?php } ?>
 <?php if ($t94_log->index_->Visible) { // index_ ?>
 		<td<?php echo $t94_log->index_->CellAttributes() ?>>
 <span id="el<?php echo $t94_log_delete->RowCnt ?>_t94_log_index_" class="t94_log_index_">

@@ -312,8 +312,6 @@ class ct95_logdesc_grid extends ct95_logdesc {
 
 		// Set up list options
 		$this->SetupListOptions();
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->log_id->SetVisibility();
 		$this->desc_->SetVisibility();
 		$this->date_issued->SetVisibility();
@@ -1168,8 +1166,6 @@ class ct95_logdesc_grid extends ct95_logdesc {
 
 	// Load default values
 	function LoadDefaultValues() {
-		$this->id->CurrentValue = NULL;
-		$this->id->OldValue = $this->id->CurrentValue;
 		$this->log_id->CurrentValue = NULL;
 		$this->log_id->OldValue = $this->log_id->CurrentValue;
 		$this->desc_->CurrentValue = NULL;
@@ -1186,8 +1182,6 @@ class ct95_logdesc_grid extends ct95_logdesc {
 		// Load from form
 		global $objForm;
 		$objForm->FormName = $this->FormName;
-		if (!$this->id->FldIsDetailKey && $this->CurrentAction <> "gridadd" && $this->CurrentAction <> "add")
-			$this->id->setFormValue($objForm->GetValue("x_id"));
 		if (!$this->log_id->FldIsDetailKey) {
 			$this->log_id->setFormValue($objForm->GetValue("x_log_id"));
 		}
@@ -1206,6 +1200,8 @@ class ct95_logdesc_grid extends ct95_logdesc {
 			$this->date_solved->CurrentValue = ew_UnFormatDateTime($this->date_solved->CurrentValue, 0);
 		}
 		$this->date_solved->setOldValue($objForm->GetValue("o_date_solved"));
+		if (!$this->id->FldIsDetailKey && $this->CurrentAction <> "gridadd" && $this->CurrentAction <> "add")
+			$this->id->setFormValue($objForm->GetValue("x_id"));
 	}
 
 	// Restore form values
@@ -1351,6 +1347,26 @@ class ct95_logdesc_grid extends ct95_logdesc {
 
 		// log_id
 		$this->log_id->ViewValue = $this->log_id->CurrentValue;
+		if (strval($this->log_id->CurrentValue) <> "") {
+			$sFilterWrk = "`id`" . ew_SearchString("=", $this->log_id->CurrentValue, EW_DATATYPE_NUMBER, "");
+		$sSqlWrk = "SELECT `id`, `subj_` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t94_log`";
+		$sWhereWrk = "";
+		$this->log_id->LookupFilters = array();
+		ew_AddFilter($sWhereWrk, $sFilterWrk);
+		$this->Lookup_Selecting($this->log_id, $sWhereWrk); // Call Lookup selecting
+		if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
+			$rswrk = Conn()->Execute($sSqlWrk);
+			if ($rswrk && !$rswrk->EOF) { // Lookup values found
+				$arwrk = array();
+				$arwrk[1] = $rswrk->fields('DispFld');
+				$this->log_id->ViewValue = $this->log_id->DisplayValue($arwrk);
+				$rswrk->Close();
+			} else {
+				$this->log_id->ViewValue = $this->log_id->CurrentValue;
+			}
+		} else {
+			$this->log_id->ViewValue = NULL;
+		}
 		$this->log_id->ViewCustomAttributes = "";
 
 		// desc_
@@ -1366,11 +1382,6 @@ class ct95_logdesc_grid extends ct95_logdesc {
 		$this->date_solved->ViewValue = $this->date_solved->CurrentValue;
 		$this->date_solved->ViewValue = ew_FormatDateTime($this->date_solved->ViewValue, 0);
 		$this->date_solved->ViewCustomAttributes = "";
-
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
 
 			// log_id
 			$this->log_id->LinkCustomAttributes = "";
@@ -1393,18 +1404,56 @@ class ct95_logdesc_grid extends ct95_logdesc {
 			$this->date_solved->TooltipValue = "";
 		} elseif ($this->RowType == EW_ROWTYPE_ADD) { // Add row
 
-			// id
 			// log_id
-
 			$this->log_id->EditAttrs["class"] = "form-control";
 			$this->log_id->EditCustomAttributes = "";
 			if ($this->log_id->getSessionValue() <> "") {
 				$this->log_id->CurrentValue = $this->log_id->getSessionValue();
 				$this->log_id->OldValue = $this->log_id->CurrentValue;
 			$this->log_id->ViewValue = $this->log_id->CurrentValue;
+			if (strval($this->log_id->CurrentValue) <> "") {
+				$sFilterWrk = "`id`" . ew_SearchString("=", $this->log_id->CurrentValue, EW_DATATYPE_NUMBER, "");
+			$sSqlWrk = "SELECT `id`, `subj_` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t94_log`";
+			$sWhereWrk = "";
+			$this->log_id->LookupFilters = array();
+			ew_AddFilter($sWhereWrk, $sFilterWrk);
+			$this->Lookup_Selecting($this->log_id, $sWhereWrk); // Call Lookup selecting
+			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
+				$rswrk = Conn()->Execute($sSqlWrk);
+				if ($rswrk && !$rswrk->EOF) { // Lookup values found
+					$arwrk = array();
+					$arwrk[1] = $rswrk->fields('DispFld');
+					$this->log_id->ViewValue = $this->log_id->DisplayValue($arwrk);
+					$rswrk->Close();
+				} else {
+					$this->log_id->ViewValue = $this->log_id->CurrentValue;
+				}
+			} else {
+				$this->log_id->ViewValue = NULL;
+			}
 			$this->log_id->ViewCustomAttributes = "";
 			} else {
 			$this->log_id->EditValue = ew_HtmlEncode($this->log_id->CurrentValue);
+			if (strval($this->log_id->CurrentValue) <> "") {
+				$sFilterWrk = "`id`" . ew_SearchString("=", $this->log_id->CurrentValue, EW_DATATYPE_NUMBER, "");
+			$sSqlWrk = "SELECT `id`, `subj_` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t94_log`";
+			$sWhereWrk = "";
+			$this->log_id->LookupFilters = array();
+			ew_AddFilter($sWhereWrk, $sFilterWrk);
+			$this->Lookup_Selecting($this->log_id, $sWhereWrk); // Call Lookup selecting
+			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
+				$rswrk = Conn()->Execute($sSqlWrk);
+				if ($rswrk && !$rswrk->EOF) { // Lookup values found
+					$arwrk = array();
+					$arwrk[1] = ew_HtmlEncode($rswrk->fields('DispFld'));
+					$this->log_id->EditValue = $this->log_id->DisplayValue($arwrk);
+					$rswrk->Close();
+				} else {
+					$this->log_id->EditValue = ew_HtmlEncode($this->log_id->CurrentValue);
+				}
+			} else {
+				$this->log_id->EditValue = NULL;
+			}
 			$this->log_id->PlaceHolder = ew_RemoveHtml($this->log_id->FldCaption());
 			}
 
@@ -1427,12 +1476,8 @@ class ct95_logdesc_grid extends ct95_logdesc {
 			$this->date_solved->PlaceHolder = ew_RemoveHtml($this->date_solved->FldCaption());
 
 			// Add refer script
-			// id
-
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-
 			// log_id
+
 			$this->log_id->LinkCustomAttributes = "";
 			$this->log_id->HrefValue = "";
 
@@ -1449,12 +1494,6 @@ class ct95_logdesc_grid extends ct95_logdesc {
 			$this->date_solved->HrefValue = "";
 		} elseif ($this->RowType == EW_ROWTYPE_EDIT) { // Edit row
 
-			// id
-			$this->id->EditAttrs["class"] = "form-control";
-			$this->id->EditCustomAttributes = "";
-			$this->id->EditValue = $this->id->CurrentValue;
-			$this->id->ViewCustomAttributes = "";
-
 			// log_id
 			$this->log_id->EditAttrs["class"] = "form-control";
 			$this->log_id->EditCustomAttributes = "";
@@ -1462,9 +1501,49 @@ class ct95_logdesc_grid extends ct95_logdesc {
 				$this->log_id->CurrentValue = $this->log_id->getSessionValue();
 				$this->log_id->OldValue = $this->log_id->CurrentValue;
 			$this->log_id->ViewValue = $this->log_id->CurrentValue;
+			if (strval($this->log_id->CurrentValue) <> "") {
+				$sFilterWrk = "`id`" . ew_SearchString("=", $this->log_id->CurrentValue, EW_DATATYPE_NUMBER, "");
+			$sSqlWrk = "SELECT `id`, `subj_` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t94_log`";
+			$sWhereWrk = "";
+			$this->log_id->LookupFilters = array();
+			ew_AddFilter($sWhereWrk, $sFilterWrk);
+			$this->Lookup_Selecting($this->log_id, $sWhereWrk); // Call Lookup selecting
+			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
+				$rswrk = Conn()->Execute($sSqlWrk);
+				if ($rswrk && !$rswrk->EOF) { // Lookup values found
+					$arwrk = array();
+					$arwrk[1] = $rswrk->fields('DispFld');
+					$this->log_id->ViewValue = $this->log_id->DisplayValue($arwrk);
+					$rswrk->Close();
+				} else {
+					$this->log_id->ViewValue = $this->log_id->CurrentValue;
+				}
+			} else {
+				$this->log_id->ViewValue = NULL;
+			}
 			$this->log_id->ViewCustomAttributes = "";
 			} else {
 			$this->log_id->EditValue = ew_HtmlEncode($this->log_id->CurrentValue);
+			if (strval($this->log_id->CurrentValue) <> "") {
+				$sFilterWrk = "`id`" . ew_SearchString("=", $this->log_id->CurrentValue, EW_DATATYPE_NUMBER, "");
+			$sSqlWrk = "SELECT `id`, `subj_` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t94_log`";
+			$sWhereWrk = "";
+			$this->log_id->LookupFilters = array();
+			ew_AddFilter($sWhereWrk, $sFilterWrk);
+			$this->Lookup_Selecting($this->log_id, $sWhereWrk); // Call Lookup selecting
+			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
+				$rswrk = Conn()->Execute($sSqlWrk);
+				if ($rswrk && !$rswrk->EOF) { // Lookup values found
+					$arwrk = array();
+					$arwrk[1] = ew_HtmlEncode($rswrk->fields('DispFld'));
+					$this->log_id->EditValue = $this->log_id->DisplayValue($arwrk);
+					$rswrk->Close();
+				} else {
+					$this->log_id->EditValue = ew_HtmlEncode($this->log_id->CurrentValue);
+				}
+			} else {
+				$this->log_id->EditValue = NULL;
+			}
 			$this->log_id->PlaceHolder = ew_RemoveHtml($this->log_id->FldCaption());
 			}
 
@@ -1487,12 +1566,8 @@ class ct95_logdesc_grid extends ct95_logdesc {
 			$this->date_solved->PlaceHolder = ew_RemoveHtml($this->date_solved->FldCaption());
 
 			// Edit refer script
-			// id
-
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-
 			// log_id
+
 			$this->log_id->LinkCustomAttributes = "";
 			$this->log_id->HrefValue = "";
 
@@ -1824,6 +1899,18 @@ class ct95_logdesc_grid extends ct95_logdesc {
 		global $gsLanguage;
 		$pageId = $pageId ?: $this->PageID;
 		switch ($fld->FldVar) {
+		case "x_log_id":
+			$sSqlWrk = "";
+			$sSqlWrk = "SELECT `id` AS `LinkFld`, `subj_` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t94_log`";
+			$sWhereWrk = "{filter}";
+			$this->log_id->LookupFilters = array();
+			$fld->LookupFilters += array("s" => $sSqlWrk, "d" => "", "f0" => '`id` = {filter_value}', "t0" => "3", "fn0" => "");
+			$sSqlWrk = "";
+			$this->Lookup_Selecting($this->log_id, $sWhereWrk); // Call Lookup selecting
+			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
+			if ($sSqlWrk <> "")
+				$fld->LookupFilters["s"] .= $sSqlWrk;
+			break;
 		}
 	}
 
@@ -1832,6 +1919,19 @@ class ct95_logdesc_grid extends ct95_logdesc {
 		global $gsLanguage;
 		$pageId = $pageId ?: $this->PageID;
 		switch ($fld->FldVar) {
+		case "x_log_id":
+			$sSqlWrk = "";
+			$sSqlWrk = "SELECT `id`, `subj_` AS `DispFld` FROM `t94_log`";
+			$sWhereWrk = "`subj_` LIKE '{query_value}%'";
+			$this->log_id->LookupFilters = array();
+			$fld->LookupFilters += array("s" => $sSqlWrk, "d" => "");
+			$sSqlWrk = "";
+			$this->Lookup_Selecting($this->log_id, $sWhereWrk); // Call Lookup selecting
+			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
+			$sSqlWrk .= " LIMIT " . EW_AUTO_SUGGEST_MAX_ENTRIES;
+			if ($sSqlWrk <> "")
+				$fld->LookupFilters["s"] .= $sSqlWrk;
+			break;
 		}
 	}
 

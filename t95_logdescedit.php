@@ -289,8 +289,6 @@ class ct95_logdesc_edit extends ct95_logdesc {
 		// Create form object
 		$objForm = new cFormObj();
 		$this->CurrentAction = (@$_GET["a"] <> "") ? $_GET["a"] : @$_POST["a_list"]; // Set up current action
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->log_id->SetVisibility();
 		$this->desc_->SetVisibility();
 		$this->date_issued->SetVisibility();
@@ -549,8 +547,6 @@ class ct95_logdesc_edit extends ct95_logdesc {
 
 		// Load from form
 		global $objForm;
-		if (!$this->id->FldIsDetailKey)
-			$this->id->setFormValue($objForm->GetValue("x_id"));
 		if (!$this->log_id->FldIsDetailKey) {
 			$this->log_id->setFormValue($objForm->GetValue("x_log_id"));
 		}
@@ -565,6 +561,8 @@ class ct95_logdesc_edit extends ct95_logdesc {
 			$this->date_solved->setFormValue($objForm->GetValue("x_date_solved"));
 			$this->date_solved->CurrentValue = ew_UnFormatDateTime($this->date_solved->CurrentValue, 0);
 		}
+		if (!$this->id->FldIsDetailKey)
+			$this->id->setFormValue($objForm->GetValue("x_id"));
 	}
 
 	// Restore form values
@@ -677,6 +675,26 @@ class ct95_logdesc_edit extends ct95_logdesc {
 
 		// log_id
 		$this->log_id->ViewValue = $this->log_id->CurrentValue;
+		if (strval($this->log_id->CurrentValue) <> "") {
+			$sFilterWrk = "`id`" . ew_SearchString("=", $this->log_id->CurrentValue, EW_DATATYPE_NUMBER, "");
+		$sSqlWrk = "SELECT `id`, `subj_` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t94_log`";
+		$sWhereWrk = "";
+		$this->log_id->LookupFilters = array();
+		ew_AddFilter($sWhereWrk, $sFilterWrk);
+		$this->Lookup_Selecting($this->log_id, $sWhereWrk); // Call Lookup selecting
+		if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
+			$rswrk = Conn()->Execute($sSqlWrk);
+			if ($rswrk && !$rswrk->EOF) { // Lookup values found
+				$arwrk = array();
+				$arwrk[1] = $rswrk->fields('DispFld');
+				$this->log_id->ViewValue = $this->log_id->DisplayValue($arwrk);
+				$rswrk->Close();
+			} else {
+				$this->log_id->ViewValue = $this->log_id->CurrentValue;
+			}
+		} else {
+			$this->log_id->ViewValue = NULL;
+		}
 		$this->log_id->ViewCustomAttributes = "";
 
 		// desc_
@@ -692,11 +710,6 @@ class ct95_logdesc_edit extends ct95_logdesc {
 		$this->date_solved->ViewValue = $this->date_solved->CurrentValue;
 		$this->date_solved->ViewValue = ew_FormatDateTime($this->date_solved->ViewValue, 0);
 		$this->date_solved->ViewCustomAttributes = "";
-
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
 
 			// log_id
 			$this->log_id->LinkCustomAttributes = "";
@@ -719,21 +732,55 @@ class ct95_logdesc_edit extends ct95_logdesc {
 			$this->date_solved->TooltipValue = "";
 		} elseif ($this->RowType == EW_ROWTYPE_EDIT) { // Edit row
 
-			// id
-			$this->id->EditAttrs["class"] = "form-control";
-			$this->id->EditCustomAttributes = "";
-			$this->id->EditValue = $this->id->CurrentValue;
-			$this->id->ViewCustomAttributes = "";
-
 			// log_id
 			$this->log_id->EditAttrs["class"] = "form-control";
 			$this->log_id->EditCustomAttributes = "";
 			if ($this->log_id->getSessionValue() <> "") {
 				$this->log_id->CurrentValue = $this->log_id->getSessionValue();
 			$this->log_id->ViewValue = $this->log_id->CurrentValue;
+			if (strval($this->log_id->CurrentValue) <> "") {
+				$sFilterWrk = "`id`" . ew_SearchString("=", $this->log_id->CurrentValue, EW_DATATYPE_NUMBER, "");
+			$sSqlWrk = "SELECT `id`, `subj_` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t94_log`";
+			$sWhereWrk = "";
+			$this->log_id->LookupFilters = array();
+			ew_AddFilter($sWhereWrk, $sFilterWrk);
+			$this->Lookup_Selecting($this->log_id, $sWhereWrk); // Call Lookup selecting
+			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
+				$rswrk = Conn()->Execute($sSqlWrk);
+				if ($rswrk && !$rswrk->EOF) { // Lookup values found
+					$arwrk = array();
+					$arwrk[1] = $rswrk->fields('DispFld');
+					$this->log_id->ViewValue = $this->log_id->DisplayValue($arwrk);
+					$rswrk->Close();
+				} else {
+					$this->log_id->ViewValue = $this->log_id->CurrentValue;
+				}
+			} else {
+				$this->log_id->ViewValue = NULL;
+			}
 			$this->log_id->ViewCustomAttributes = "";
 			} else {
 			$this->log_id->EditValue = ew_HtmlEncode($this->log_id->CurrentValue);
+			if (strval($this->log_id->CurrentValue) <> "") {
+				$sFilterWrk = "`id`" . ew_SearchString("=", $this->log_id->CurrentValue, EW_DATATYPE_NUMBER, "");
+			$sSqlWrk = "SELECT `id`, `subj_` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t94_log`";
+			$sWhereWrk = "";
+			$this->log_id->LookupFilters = array();
+			ew_AddFilter($sWhereWrk, $sFilterWrk);
+			$this->Lookup_Selecting($this->log_id, $sWhereWrk); // Call Lookup selecting
+			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
+				$rswrk = Conn()->Execute($sSqlWrk);
+				if ($rswrk && !$rswrk->EOF) { // Lookup values found
+					$arwrk = array();
+					$arwrk[1] = ew_HtmlEncode($rswrk->fields('DispFld'));
+					$this->log_id->EditValue = $this->log_id->DisplayValue($arwrk);
+					$rswrk->Close();
+				} else {
+					$this->log_id->EditValue = ew_HtmlEncode($this->log_id->CurrentValue);
+				}
+			} else {
+				$this->log_id->EditValue = NULL;
+			}
 			$this->log_id->PlaceHolder = ew_RemoveHtml($this->log_id->FldCaption());
 			}
 
@@ -756,12 +803,8 @@ class ct95_logdesc_edit extends ct95_logdesc {
 			$this->date_solved->PlaceHolder = ew_RemoveHtml($this->date_solved->FldCaption());
 
 			// Edit refer script
-			// id
-
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-
 			// log_id
+
 			$this->log_id->LinkCustomAttributes = "";
 			$this->log_id->HrefValue = "";
 
@@ -994,6 +1037,18 @@ class ct95_logdesc_edit extends ct95_logdesc {
 		global $gsLanguage;
 		$pageId = $pageId ?: $this->PageID;
 		switch ($fld->FldVar) {
+		case "x_log_id":
+			$sSqlWrk = "";
+			$sSqlWrk = "SELECT `id` AS `LinkFld`, `subj_` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t94_log`";
+			$sWhereWrk = "{filter}";
+			$this->log_id->LookupFilters = array();
+			$fld->LookupFilters += array("s" => $sSqlWrk, "d" => "", "f0" => '`id` = {filter_value}', "t0" => "3", "fn0" => "");
+			$sSqlWrk = "";
+			$this->Lookup_Selecting($this->log_id, $sWhereWrk); // Call Lookup selecting
+			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
+			if ($sSqlWrk <> "")
+				$fld->LookupFilters["s"] .= $sSqlWrk;
+			break;
 		}
 	}
 
@@ -1002,6 +1057,19 @@ class ct95_logdesc_edit extends ct95_logdesc {
 		global $gsLanguage;
 		$pageId = $pageId ?: $this->PageID;
 		switch ($fld->FldVar) {
+		case "x_log_id":
+			$sSqlWrk = "";
+			$sSqlWrk = "SELECT `id`, `subj_` AS `DispFld` FROM `t94_log`";
+			$sWhereWrk = "`subj_` LIKE '{query_value}%'";
+			$this->log_id->LookupFilters = array();
+			$fld->LookupFilters += array("s" => $sSqlWrk, "d" => "");
+			$sSqlWrk = "";
+			$this->Lookup_Selecting($this->log_id, $sWhereWrk); // Call Lookup selecting
+			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
+			$sSqlWrk .= " LIMIT " . EW_AUTO_SUGGEST_MAX_ENTRIES;
+			if ($sSqlWrk <> "")
+				$fld->LookupFilters["s"] .= $sSqlWrk;
+			break;
 		}
 	}
 
@@ -1164,8 +1232,9 @@ ft95_logdescedit.ValidateRequired = false;
 <?php } ?>
 
 // Dynamic selection lists
-// Form object for search
+ft95_logdescedit.Lists["x_log_id"] = {"LinkField":"x_id","Ajax":true,"AutoFill":false,"DisplayFields":["x_subj_","","",""],"ParentFields":[],"ChildFields":[],"FilterFields":[],"Options":[],"Template":"","LinkTable":"t94_log"};
 
+// Form object for search
 </script>
 <script type="text/javascript">
 
@@ -1241,21 +1310,9 @@ $t95_logdesc_edit->ShowMessage();
 <input type="hidden" name="fk_id" value="<?php echo $t95_logdesc->log_id->getSessionValue() ?>">
 <?php } ?>
 <div>
-<?php if ($t95_logdesc->id->Visible) { // id ?>
-	<div id="r_id" class="form-group">
-		<label id="elh_t95_logdesc_id" class="col-sm-2 control-label ewLabel"><?php echo $t95_logdesc->id->FldCaption() ?></label>
-		<div class="col-sm-10"><div<?php echo $t95_logdesc->id->CellAttributes() ?>>
-<span id="el_t95_logdesc_id">
-<span<?php echo $t95_logdesc->id->ViewAttributes() ?>>
-<p class="form-control-static"><?php echo $t95_logdesc->id->EditValue ?></p></span>
-</span>
-<input type="hidden" data-table="t95_logdesc" data-field="x_id" name="x_id" id="x_id" value="<?php echo ew_HtmlEncode($t95_logdesc->id->CurrentValue) ?>">
-<?php echo $t95_logdesc->id->CustomMsg ?></div></div>
-	</div>
-<?php } ?>
 <?php if ($t95_logdesc->log_id->Visible) { // log_id ?>
 	<div id="r_log_id" class="form-group">
-		<label id="elh_t95_logdesc_log_id" for="x_log_id" class="col-sm-2 control-label ewLabel"><?php echo $t95_logdesc->log_id->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
+		<label id="elh_t95_logdesc_log_id" class="col-sm-2 control-label ewLabel"><?php echo $t95_logdesc->log_id->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
 		<div class="col-sm-10"><div<?php echo $t95_logdesc->log_id->CellAttributes() ?>>
 <?php if ($t95_logdesc->log_id->getSessionValue() <> "") { ?>
 <span id="el_t95_logdesc_log_id">
@@ -1265,7 +1322,19 @@ $t95_logdesc_edit->ShowMessage();
 <input type="hidden" id="x_log_id" name="x_log_id" value="<?php echo ew_HtmlEncode($t95_logdesc->log_id->CurrentValue) ?>">
 <?php } else { ?>
 <span id="el_t95_logdesc_log_id">
-<input type="text" data-table="t95_logdesc" data-field="x_log_id" name="x_log_id" id="x_log_id" size="30" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->log_id->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->log_id->EditValue ?>"<?php echo $t95_logdesc->log_id->EditAttributes() ?>>
+<?php
+$wrkonchange = trim(" " . @$t95_logdesc->log_id->EditAttrs["onchange"]);
+if ($wrkonchange <> "") $wrkonchange = " onchange=\"" . ew_JsEncode2($wrkonchange) . "\"";
+$t95_logdesc->log_id->EditAttrs["onchange"] = "";
+?>
+<span id="as_x_log_id" style="white-space: nowrap; z-index: 8980">
+	<input type="text" name="sv_x_log_id" id="sv_x_log_id" value="<?php echo $t95_logdesc->log_id->EditValue ?>" size="30" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->log_id->getPlaceHolder()) ?>" data-placeholder="<?php echo ew_HtmlEncode($t95_logdesc->log_id->getPlaceHolder()) ?>"<?php echo $t95_logdesc->log_id->EditAttributes() ?>>
+</span>
+<input type="hidden" data-table="t95_logdesc" data-field="x_log_id" data-value-separator="<?php echo $t95_logdesc->log_id->DisplayValueSeparatorAttribute() ?>" name="x_log_id" id="x_log_id" value="<?php echo ew_HtmlEncode($t95_logdesc->log_id->CurrentValue) ?>"<?php echo $wrkonchange ?>>
+<input type="hidden" name="q_x_log_id" id="q_x_log_id" value="<?php echo $t95_logdesc->log_id->LookupFilterQuery(true) ?>">
+<script type="text/javascript">
+ft95_logdescedit.CreateAutoSuggest({"id":"x_log_id","forceSelect":false});
+</script>
 </span>
 <?php } ?>
 <?php echo $t95_logdesc->log_id->CustomMsg ?></div></div>
@@ -1302,6 +1371,7 @@ $t95_logdesc_edit->ShowMessage();
 	</div>
 <?php } ?>
 </div>
+<input type="hidden" data-table="t95_logdesc" data-field="x_id" name="x_id" id="x_id" value="<?php echo ew_HtmlEncode($t95_logdesc->id->CurrentValue) ?>">
 <?php if (!$t95_logdesc_edit->IsModal) { ?>
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">

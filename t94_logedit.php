@@ -286,8 +286,6 @@ class ct94_log_edit extends ct94_log {
 		// Create form object
 		$objForm = new cFormObj();
 		$this->CurrentAction = (@$_GET["a"] <> "") ? $_GET["a"] : @$_POST["a_list"]; // Set up current action
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->index_->SetVisibility();
 		$this->subj_->SetVisibility();
 
@@ -561,14 +559,14 @@ class ct94_log_edit extends ct94_log {
 
 		// Load from form
 		global $objForm;
-		if (!$this->id->FldIsDetailKey)
-			$this->id->setFormValue($objForm->GetValue("x_id"));
 		if (!$this->index_->FldIsDetailKey) {
 			$this->index_->setFormValue($objForm->GetValue("x_index_"));
 		}
 		if (!$this->subj_->FldIsDetailKey) {
 			$this->subj_->setFormValue($objForm->GetValue("x_subj_"));
 		}
+		if (!$this->id->FldIsDetailKey)
+			$this->id->setFormValue($objForm->GetValue("x_id"));
 	}
 
 	// Restore form values
@@ -677,11 +675,6 @@ class ct94_log_edit extends ct94_log {
 		$this->subj_->ViewValue = $this->subj_->CurrentValue;
 		$this->subj_->ViewCustomAttributes = "";
 
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
-
 			// index_
 			$this->index_->LinkCustomAttributes = "";
 			$this->index_->HrefValue = "";
@@ -692,12 +685,6 @@ class ct94_log_edit extends ct94_log {
 			$this->subj_->HrefValue = "";
 			$this->subj_->TooltipValue = "";
 		} elseif ($this->RowType == EW_ROWTYPE_EDIT) { // Edit row
-
-			// id
-			$this->id->EditAttrs["class"] = "form-control";
-			$this->id->EditCustomAttributes = "";
-			$this->id->EditValue = $this->id->CurrentValue;
-			$this->id->ViewCustomAttributes = "";
 
 			// index_
 			$this->index_->EditAttrs["class"] = "form-control";
@@ -712,12 +699,8 @@ class ct94_log_edit extends ct94_log {
 			$this->subj_->PlaceHolder = ew_RemoveHtml($this->subj_->FldCaption());
 
 			// Edit refer script
-			// id
-
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-
 			// index_
+
 			$this->index_->LinkCustomAttributes = "";
 			$this->index_->HrefValue = "";
 
@@ -1139,18 +1122,6 @@ $t94_log_edit->ShowMessage();
 <input type="hidden" name="modal" value="1">
 <?php } ?>
 <div>
-<?php if ($t94_log->id->Visible) { // id ?>
-	<div id="r_id" class="form-group">
-		<label id="elh_t94_log_id" class="col-sm-2 control-label ewLabel"><?php echo $t94_log->id->FldCaption() ?></label>
-		<div class="col-sm-10"><div<?php echo $t94_log->id->CellAttributes() ?>>
-<span id="el_t94_log_id">
-<span<?php echo $t94_log->id->ViewAttributes() ?>>
-<p class="form-control-static"><?php echo $t94_log->id->EditValue ?></p></span>
-</span>
-<input type="hidden" data-table="t94_log" data-field="x_id" name="x_id" id="x_id" value="<?php echo ew_HtmlEncode($t94_log->id->CurrentValue) ?>">
-<?php echo $t94_log->id->CustomMsg ?></div></div>
-	</div>
-<?php } ?>
 <?php if ($t94_log->index_->Visible) { // index_ ?>
 	<div id="r_index_" class="form-group">
 		<label id="elh_t94_log_index_" for="x_index_" class="col-sm-2 control-label ewLabel"><?php echo $t94_log->index_->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
@@ -1172,6 +1143,7 @@ $t94_log_edit->ShowMessage();
 	</div>
 <?php } ?>
 </div>
+<input type="hidden" data-table="t94_log" data-field="x_id" name="x_id" id="x_id" value="<?php echo ew_HtmlEncode($t94_log->id->CurrentValue) ?>">
 <?php
 	if (in_array("t95_logdesc", explode(",", $t94_log->getCurrentDetailTable())) && $t95_logdesc->DetailEdit) {
 ?>

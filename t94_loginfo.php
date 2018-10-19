@@ -733,7 +733,6 @@ class ct94_log extends cTable {
 			if ($Doc->Horizontal) { // Horizontal format, write header
 				$Doc->BeginExportRow();
 				if ($ExportPageType == "view") {
-					if ($this->id->Exportable) $Doc->ExportCaption($this->id);
 					if ($this->index_->Exportable) $Doc->ExportCaption($this->index_);
 					if ($this->subj_->Exportable) $Doc->ExportCaption($this->subj_);
 				} else {
@@ -771,7 +770,6 @@ class ct94_log extends cTable {
 				if (!$Doc->ExportCustom) {
 					$Doc->BeginExportRow($RowCnt); // Allow CSS styles if enabled
 					if ($ExportPageType == "view") {
-						if ($this->id->Exportable) $Doc->ExportField($this->id);
 						if ($this->index_->Exportable) $Doc->ExportField($this->index_);
 						if ($this->subj_->Exportable) $Doc->ExportField($this->subj_);
 					} else {

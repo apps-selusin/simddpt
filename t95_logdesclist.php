@@ -414,8 +414,6 @@ class ct95_logdesc_list extends ct95_logdesc {
 
 		// Setup export options
 		$this->SetupExportOptions();
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->log_id->SetVisibility();
 		$this->desc_->SetVisibility();
 		$this->date_issued->SetVisibility();
@@ -1056,7 +1054,6 @@ class ct95_logdesc_list extends ct95_logdesc {
 		if (@$_GET["order"] <> "") {
 			$this->CurrentOrder = ew_StripSlashes(@$_GET["order"]);
 			$this->CurrentOrderType = @$_GET["ordertype"];
-			$this->UpdateSort($this->id, $bCtrl); // id
 			$this->UpdateSort($this->log_id, $bCtrl); // log_id
 			$this->UpdateSort($this->desc_, $bCtrl); // desc_
 			$this->UpdateSort($this->date_issued, $bCtrl); // date_issued
@@ -1101,7 +1098,6 @@ class ct95_logdesc_list extends ct95_logdesc {
 			if ($this->Command == "resetsort") {
 				$sOrderBy = "";
 				$this->setSessionOrderBy($sOrderBy);
-				$this->id->setSort("");
 				$this->log_id->setSort("");
 				$this->desc_->setSort("");
 				$this->date_issued->setSort("");
@@ -1628,6 +1624,26 @@ class ct95_logdesc_list extends ct95_logdesc {
 
 		// log_id
 		$this->log_id->ViewValue = $this->log_id->CurrentValue;
+		if (strval($this->log_id->CurrentValue) <> "") {
+			$sFilterWrk = "`id`" . ew_SearchString("=", $this->log_id->CurrentValue, EW_DATATYPE_NUMBER, "");
+		$sSqlWrk = "SELECT `id`, `subj_` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t94_log`";
+		$sWhereWrk = "";
+		$this->log_id->LookupFilters = array();
+		ew_AddFilter($sWhereWrk, $sFilterWrk);
+		$this->Lookup_Selecting($this->log_id, $sWhereWrk); // Call Lookup selecting
+		if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
+			$rswrk = Conn()->Execute($sSqlWrk);
+			if ($rswrk && !$rswrk->EOF) { // Lookup values found
+				$arwrk = array();
+				$arwrk[1] = $rswrk->fields('DispFld');
+				$this->log_id->ViewValue = $this->log_id->DisplayValue($arwrk);
+				$rswrk->Close();
+			} else {
+				$this->log_id->ViewValue = $this->log_id->CurrentValue;
+			}
+		} else {
+			$this->log_id->ViewValue = NULL;
+		}
 		$this->log_id->ViewCustomAttributes = "";
 
 		// desc_
@@ -1643,11 +1659,6 @@ class ct95_logdesc_list extends ct95_logdesc {
 		$this->date_solved->ViewValue = $this->date_solved->CurrentValue;
 		$this->date_solved->ViewValue = ew_FormatDateTime($this->date_solved->ViewValue, 0);
 		$this->date_solved->ViewCustomAttributes = "";
-
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
 
 			// log_id
 			$this->log_id->LinkCustomAttributes = "";
@@ -2091,8 +2102,9 @@ ft95_logdesclist.ValidateRequired = false;
 <?php } ?>
 
 // Dynamic selection lists
-// Form object for search
+ft95_logdesclist.Lists["x_log_id"] = {"LinkField":"x_id","Ajax":true,"AutoFill":false,"DisplayFields":["x_subj_","","",""],"ParentFields":[],"ChildFields":[],"FilterFields":[],"Options":[],"Template":"","LinkTable":"t94_log"};
 
+// Form object for search
 var CurrentSearchForm = ft95_logdesclistsrch = new ew_Form("ft95_logdesclistsrch");
 </script>
 <script type="text/javascript">
@@ -2300,15 +2312,6 @@ $t95_logdesc_list->RenderListOptions();
 // Render list options (header, left)
 $t95_logdesc_list->ListOptions->Render("header", "left");
 ?>
-<?php if ($t95_logdesc->id->Visible) { // id ?>
-	<?php if ($t95_logdesc->SortUrl($t95_logdesc->id) == "") { ?>
-		<th data-name="id"><div id="elh_t95_logdesc_id" class="t95_logdesc_id"><div class="ewTableHeaderCaption"><?php echo $t95_logdesc->id->FldCaption() ?></div></div></th>
-	<?php } else { ?>
-		<th data-name="id"><div class="ewPointer" onclick="ew_Sort(event,'<?php echo $t95_logdesc->SortUrl($t95_logdesc->id) ?>',2);"><div id="elh_t95_logdesc_id" class="t95_logdesc_id">
-			<div class="ewTableHeaderBtn"><span class="ewTableHeaderCaption"><?php echo $t95_logdesc->id->FldCaption() ?></span><span class="ewTableHeaderSort"><?php if ($t95_logdesc->id->getSort() == "ASC") { ?><span class="caret ewSortUp"></span><?php } elseif ($t95_logdesc->id->getSort() == "DESC") { ?><span class="caret"></span><?php } ?></span></div>
-        </div></div></th>
-	<?php } ?>
-<?php } ?>		
 <?php if ($t95_logdesc->log_id->Visible) { // log_id ?>
 	<?php if ($t95_logdesc->SortUrl($t95_logdesc->log_id) == "") { ?>
 		<th data-name="log_id"><div id="elh_t95_logdesc_log_id" class="t95_logdesc_log_id"><div class="ewTableHeaderCaption"><?php echo $t95_logdesc->log_id->FldCaption() ?></div></div></th>
@@ -2410,21 +2413,13 @@ while ($t95_logdesc_list->RecCnt < $t95_logdesc_list->StopRec) {
 // Render list options (body, left)
 $t95_logdesc_list->ListOptions->Render("body", "left", $t95_logdesc_list->RowCnt);
 ?>
-	<?php if ($t95_logdesc->id->Visible) { // id ?>
-		<td data-name="id"<?php echo $t95_logdesc->id->CellAttributes() ?>>
-<span id="el<?php echo $t95_logdesc_list->RowCnt ?>_t95_logdesc_id" class="t95_logdesc_id">
-<span<?php echo $t95_logdesc->id->ViewAttributes() ?>>
-<?php echo $t95_logdesc->id->ListViewValue() ?></span>
-</span>
-<a id="<?php echo $t95_logdesc_list->PageObjName . "_row_" . $t95_logdesc_list->RowCnt ?>"></a></td>
-	<?php } ?>
 	<?php if ($t95_logdesc->log_id->Visible) { // log_id ?>
 		<td data-name="log_id"<?php echo $t95_logdesc->log_id->CellAttributes() ?>>
 <span id="el<?php echo $t95_logdesc_list->RowCnt ?>_t95_logdesc_log_id" class="t95_logdesc_log_id">
 <span<?php echo $t95_logdesc->log_id->ViewAttributes() ?>>
 <?php echo $t95_logdesc->log_id->ListViewValue() ?></span>
 </span>
-</td>
+<a id="<?php echo $t95_logdesc_list->PageObjName . "_row_" . $t95_logdesc_list->RowCnt ?>"></a></td>
 	<?php } ?>
 	<?php if ($t95_logdesc->desc_->Visible) { // desc_ ?>
 		<td data-name="desc_"<?php echo $t95_logdesc->desc_->CellAttributes() ?>>

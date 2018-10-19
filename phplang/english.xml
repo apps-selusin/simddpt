@@ -685,10 +685,10 @@
         <phrase id="fldcaption" value="id" />
       </field>
       <field id="index_">
-        <phrase id="fldcaption" value="index " />
+        <phrase id="fldcaption" value="Index" />
       </field>
       <field id="subj_">
-        <phrase id="fldcaption" value="subj " />
+        <phrase id="fldcaption" value="Subject" />
       </field>
     </table>
     <table id="t95_logdesc">
@@ -697,16 +697,16 @@
         <phrase id="fldcaption" value="id" />
       </field>
       <field id="log_id">
-        <phrase id="fldcaption" value="log id" />
+        <phrase id="fldcaption" value="Subject" />
       </field>
       <field id="desc_">
-        <phrase id="fldcaption" value="desc " />
+        <phrase id="fldcaption" value="Description" />
       </field>
       <field id="date_issued">
-        <phrase id="fldcaption" value="date issued" />
+        <phrase id="fldcaption" value="Issued" />
       </field>
       <field id="date_solved">
-        <phrase id="fldcaption" value="date solved" />
+        <phrase id="fldcaption" value="Solved" />
       </field>
     </table>
     <table id="t96_employees">

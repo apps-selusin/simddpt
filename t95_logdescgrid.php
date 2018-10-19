@@ -94,8 +94,9 @@ ft95_logdescgrid.ValidateRequired = false;
 <?php } ?>
 
 // Dynamic selection lists
-// Form object for search
+ft95_logdescgrid.Lists["x_log_id"] = {"LinkField":"x_id","Ajax":true,"AutoFill":false,"DisplayFields":["x_subj_","","",""],"ParentFields":[],"ChildFields":[],"FilterFields":[],"Options":[],"Template":"","LinkTable":"t94_log"};
 
+// Form object for search
 </script>
 <?php } ?>
 <?php
@@ -176,15 +177,6 @@ $t95_logdesc_grid->RenderListOptions();
 // Render list options (header, left)
 $t95_logdesc_grid->ListOptions->Render("header", "left");
 ?>
-<?php if ($t95_logdesc->id->Visible) { // id ?>
-	<?php if ($t95_logdesc->SortUrl($t95_logdesc->id) == "") { ?>
-		<th data-name="id"><div id="elh_t95_logdesc_id" class="t95_logdesc_id"><div class="ewTableHeaderCaption"><?php echo $t95_logdesc->id->FldCaption() ?></div></div></th>
-	<?php } else { ?>
-		<th data-name="id"><div><div id="elh_t95_logdesc_id" class="t95_logdesc_id">
-			<div class="ewTableHeaderBtn"><span class="ewTableHeaderCaption"><?php echo $t95_logdesc->id->FldCaption() ?></span><span class="ewTableHeaderSort"><?php if ($t95_logdesc->id->getSort() == "ASC") { ?><span class="caret ewSortUp"></span><?php } elseif ($t95_logdesc->id->getSort() == "DESC") { ?><span class="caret"></span><?php } ?></span></div>
-        </div></div></th>
-	<?php } ?>
-<?php } ?>		
 <?php if ($t95_logdesc->log_id->Visible) { // log_id ?>
 	<?php if ($t95_logdesc->SortUrl($t95_logdesc->log_id) == "") { ?>
 		<th data-name="log_id"><div id="elh_t95_logdesc_log_id" class="t95_logdesc_log_id"><div class="ewTableHeaderCaption"><?php echo $t95_logdesc->log_id->FldCaption() ?></div></div></th>
@@ -330,33 +322,6 @@ while ($t95_logdesc_grid->RecCnt < $t95_logdesc_grid->StopRec) {
 // Render list options (body, left)
 $t95_logdesc_grid->ListOptions->Render("body", "left", $t95_logdesc_grid->RowCnt);
 ?>
-	<?php if ($t95_logdesc->id->Visible) { // id ?>
-		<td data-name="id"<?php echo $t95_logdesc->id->CellAttributes() ?>>
-<?php if ($t95_logdesc->RowType == EW_ROWTYPE_ADD) { // Add record ?>
-<input type="hidden" data-table="t95_logdesc" data-field="x_id" name="o<?php echo $t95_logdesc_grid->RowIndex ?>_id" id="o<?php echo $t95_logdesc_grid->RowIndex ?>_id" value="<?php echo ew_HtmlEncode($t95_logdesc->id->OldValue) ?>">
-<?php } ?>
-<?php if ($t95_logdesc->RowType == EW_ROWTYPE_EDIT) { // Edit record ?>
-<span id="el<?php echo $t95_logdesc_grid->RowCnt ?>_t95_logdesc_id" class="form-group t95_logdesc_id">
-<span<?php echo $t95_logdesc->id->ViewAttributes() ?>>
-<p class="form-control-static"><?php echo $t95_logdesc->id->EditValue ?></p></span>
-</span>
-<input type="hidden" data-table="t95_logdesc" data-field="x_id" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_id" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_id" value="<?php echo ew_HtmlEncode($t95_logdesc->id->CurrentValue) ?>">
-<?php } ?>
-<?php if ($t95_logdesc->RowType == EW_ROWTYPE_VIEW) { // View record ?>
-<span id="el<?php echo $t95_logdesc_grid->RowCnt ?>_t95_logdesc_id" class="t95_logdesc_id">
-<span<?php echo $t95_logdesc->id->ViewAttributes() ?>>
-<?php echo $t95_logdesc->id->ListViewValue() ?></span>
-</span>
-<?php if ($t95_logdesc->CurrentAction <> "F") { ?>
-<input type="hidden" data-table="t95_logdesc" data-field="x_id" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_id" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_id" value="<?php echo ew_HtmlEncode($t95_logdesc->id->FormValue) ?>">
-<input type="hidden" data-table="t95_logdesc" data-field="x_id" name="o<?php echo $t95_logdesc_grid->RowIndex ?>_id" id="o<?php echo $t95_logdesc_grid->RowIndex ?>_id" value="<?php echo ew_HtmlEncode($t95_logdesc->id->OldValue) ?>">
-<?php } else { ?>
-<input type="hidden" data-table="t95_logdesc" data-field="x_id" name="ft95_logdescgrid$x<?php echo $t95_logdesc_grid->RowIndex ?>_id" id="ft95_logdescgrid$x<?php echo $t95_logdesc_grid->RowIndex ?>_id" value="<?php echo ew_HtmlEncode($t95_logdesc->id->FormValue) ?>">
-<input type="hidden" data-table="t95_logdesc" data-field="x_id" name="ft95_logdescgrid$o<?php echo $t95_logdesc_grid->RowIndex ?>_id" id="ft95_logdescgrid$o<?php echo $t95_logdesc_grid->RowIndex ?>_id" value="<?php echo ew_HtmlEncode($t95_logdesc->id->OldValue) ?>">
-<?php } ?>
-<?php } ?>
-<a id="<?php echo $t95_logdesc_grid->PageObjName . "_row_" . $t95_logdesc_grid->RowCnt ?>"></a></td>
-	<?php } ?>
 	<?php if ($t95_logdesc->log_id->Visible) { // log_id ?>
 		<td data-name="log_id"<?php echo $t95_logdesc->log_id->CellAttributes() ?>>
 <?php if ($t95_logdesc->RowType == EW_ROWTYPE_ADD) { // Add record ?>
@@ -368,7 +333,19 @@ $t95_logdesc_grid->ListOptions->Render("body", "left", $t95_logdesc_grid->RowCnt
 <input type="hidden" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" value="<?php echo ew_HtmlEncode($t95_logdesc->log_id->CurrentValue) ?>">
 <?php } else { ?>
 <span id="el<?php echo $t95_logdesc_grid->RowCnt ?>_t95_logdesc_log_id" class="form-group t95_logdesc_log_id">
-<input type="text" data-table="t95_logdesc" data-field="x_log_id" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" size="30" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->log_id->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->log_id->EditValue ?>"<?php echo $t95_logdesc->log_id->EditAttributes() ?>>
+<?php
+$wrkonchange = trim(" " . @$t95_logdesc->log_id->EditAttrs["onchange"]);
+if ($wrkonchange <> "") $wrkonchange = " onchange=\"" . ew_JsEncode2($wrkonchange) . "\"";
+$t95_logdesc->log_id->EditAttrs["onchange"] = "";
+?>
+<span id="as_x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" style="white-space: nowrap; z-index: <?php echo (9000 - $t95_logdesc_grid->RowCnt * 10) ?>">
+	<input type="text" name="sv_x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" id="sv_x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" value="<?php echo $t95_logdesc->log_id->EditValue ?>" size="30" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->log_id->getPlaceHolder()) ?>" data-placeholder="<?php echo ew_HtmlEncode($t95_logdesc->log_id->getPlaceHolder()) ?>"<?php echo $t95_logdesc->log_id->EditAttributes() ?>>
+</span>
+<input type="hidden" data-table="t95_logdesc" data-field="x_log_id" data-value-separator="<?php echo $t95_logdesc->log_id->DisplayValueSeparatorAttribute() ?>" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" value="<?php echo ew_HtmlEncode($t95_logdesc->log_id->CurrentValue) ?>"<?php echo $wrkonchange ?>>
+<input type="hidden" name="q_x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" id="q_x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" value="<?php echo $t95_logdesc->log_id->LookupFilterQuery(true) ?>">
+<script type="text/javascript">
+ft95_logdescgrid.CreateAutoSuggest({"id":"x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id","forceSelect":false});
+</script>
 </span>
 <?php } ?>
 <input type="hidden" data-table="t95_logdesc" data-field="x_log_id" name="o<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" id="o<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" value="<?php echo ew_HtmlEncode($t95_logdesc->log_id->OldValue) ?>">
@@ -382,7 +359,19 @@ $t95_logdesc_grid->ListOptions->Render("body", "left", $t95_logdesc_grid->RowCnt
 <input type="hidden" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" value="<?php echo ew_HtmlEncode($t95_logdesc->log_id->CurrentValue) ?>">
 <?php } else { ?>
 <span id="el<?php echo $t95_logdesc_grid->RowCnt ?>_t95_logdesc_log_id" class="form-group t95_logdesc_log_id">
-<input type="text" data-table="t95_logdesc" data-field="x_log_id" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" size="30" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->log_id->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->log_id->EditValue ?>"<?php echo $t95_logdesc->log_id->EditAttributes() ?>>
+<?php
+$wrkonchange = trim(" " . @$t95_logdesc->log_id->EditAttrs["onchange"]);
+if ($wrkonchange <> "") $wrkonchange = " onchange=\"" . ew_JsEncode2($wrkonchange) . "\"";
+$t95_logdesc->log_id->EditAttrs["onchange"] = "";
+?>
+<span id="as_x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" style="white-space: nowrap; z-index: <?php echo (9000 - $t95_logdesc_grid->RowCnt * 10) ?>">
+	<input type="text" name="sv_x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" id="sv_x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" value="<?php echo $t95_logdesc->log_id->EditValue ?>" size="30" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->log_id->getPlaceHolder()) ?>" data-placeholder="<?php echo ew_HtmlEncode($t95_logdesc->log_id->getPlaceHolder()) ?>"<?php echo $t95_logdesc->log_id->EditAttributes() ?>>
+</span>
+<input type="hidden" data-table="t95_logdesc" data-field="x_log_id" data-value-separator="<?php echo $t95_logdesc->log_id->DisplayValueSeparatorAttribute() ?>" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" value="<?php echo ew_HtmlEncode($t95_logdesc->log_id->CurrentValue) ?>"<?php echo $wrkonchange ?>>
+<input type="hidden" name="q_x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" id="q_x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" value="<?php echo $t95_logdesc->log_id->LookupFilterQuery(true) ?>">
+<script type="text/javascript">
+ft95_logdescgrid.CreateAutoSuggest({"id":"x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id","forceSelect":false});
+</script>
 </span>
 <?php } ?>
 <?php } ?>
@@ -399,8 +388,15 @@ $t95_logdesc_grid->ListOptions->Render("body", "left", $t95_logdesc_grid->RowCnt
 <input type="hidden" data-table="t95_logdesc" data-field="x_log_id" name="ft95_logdescgrid$o<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" id="ft95_logdescgrid$o<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" value="<?php echo ew_HtmlEncode($t95_logdesc->log_id->OldValue) ?>">
 <?php } ?>
 <?php } ?>
-</td>
+<a id="<?php echo $t95_logdesc_grid->PageObjName . "_row_" . $t95_logdesc_grid->RowCnt ?>"></a></td>
 	<?php } ?>
+<?php if ($t95_logdesc->RowType == EW_ROWTYPE_ADD) { // Add record ?>
+<input type="hidden" data-table="t95_logdesc" data-field="x_id" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_id" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_id" value="<?php echo ew_HtmlEncode($t95_logdesc->id->CurrentValue) ?>">
+<input type="hidden" data-table="t95_logdesc" data-field="x_id" name="o<?php echo $t95_logdesc_grid->RowIndex ?>_id" id="o<?php echo $t95_logdesc_grid->RowIndex ?>_id" value="<?php echo ew_HtmlEncode($t95_logdesc->id->OldValue) ?>">
+<?php } ?>
+<?php if ($t95_logdesc->RowType == EW_ROWTYPE_EDIT || $t95_logdesc->CurrentMode == "edit") { ?>
+<input type="hidden" data-table="t95_logdesc" data-field="x_id" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_id" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_id" value="<?php echo ew_HtmlEncode($t95_logdesc->id->CurrentValue) ?>">
+<?php } ?>
 	<?php if ($t95_logdesc->desc_->Visible) { // desc_ ?>
 		<td data-name="desc_"<?php echo $t95_logdesc->desc_->CellAttributes() ?>>
 <?php if ($t95_logdesc->RowType == EW_ROWTYPE_ADD) { // Add record ?>
@@ -527,19 +523,6 @@ ft95_logdescgrid.UpdateOpts(<?php echo $t95_logdesc_grid->RowIndex ?>);
 // Render list options (body, left)
 $t95_logdesc_grid->ListOptions->Render("body", "left", $t95_logdesc_grid->RowIndex);
 ?>
-	<?php if ($t95_logdesc->id->Visible) { // id ?>
-		<td data-name="id">
-<?php if ($t95_logdesc->CurrentAction <> "F") { ?>
-<?php } else { ?>
-<span id="el$rowindex$_t95_logdesc_id" class="form-group t95_logdesc_id">
-<span<?php echo $t95_logdesc->id->ViewAttributes() ?>>
-<p class="form-control-static"><?php echo $t95_logdesc->id->ViewValue ?></p></span>
-</span>
-<input type="hidden" data-table="t95_logdesc" data-field="x_id" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_id" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_id" value="<?php echo ew_HtmlEncode($t95_logdesc->id->FormValue) ?>">
-<?php } ?>
-<input type="hidden" data-table="t95_logdesc" data-field="x_id" name="o<?php echo $t95_logdesc_grid->RowIndex ?>_id" id="o<?php echo $t95_logdesc_grid->RowIndex ?>_id" value="<?php echo ew_HtmlEncode($t95_logdesc->id->OldValue) ?>">
-</td>
-	<?php } ?>
 	<?php if ($t95_logdesc->log_id->Visible) { // log_id ?>
 		<td data-name="log_id">
 <?php if ($t95_logdesc->CurrentAction <> "F") { ?>
@@ -551,7 +534,19 @@ $t95_logdesc_grid->ListOptions->Render("body", "left", $t95_logdesc_grid->RowInd
 <input type="hidden" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" value="<?php echo ew_HtmlEncode($t95_logdesc->log_id->CurrentValue) ?>">
 <?php } else { ?>
 <span id="el$rowindex$_t95_logdesc_log_id" class="form-group t95_logdesc_log_id">
-<input type="text" data-table="t95_logdesc" data-field="x_log_id" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" size="30" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->log_id->getPlaceHolder()) ?>" value="<?php echo $t95_logdesc->log_id->EditValue ?>"<?php echo $t95_logdesc->log_id->EditAttributes() ?>>
+<?php
+$wrkonchange = trim(" " . @$t95_logdesc->log_id->EditAttrs["onchange"]);
+if ($wrkonchange <> "") $wrkonchange = " onchange=\"" . ew_JsEncode2($wrkonchange) . "\"";
+$t95_logdesc->log_id->EditAttrs["onchange"] = "";
+?>
+<span id="as_x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" style="white-space: nowrap; z-index: <?php echo (9000 - $t95_logdesc_grid->RowCnt * 10) ?>">
+	<input type="text" name="sv_x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" id="sv_x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" value="<?php echo $t95_logdesc->log_id->EditValue ?>" size="30" placeholder="<?php echo ew_HtmlEncode($t95_logdesc->log_id->getPlaceHolder()) ?>" data-placeholder="<?php echo ew_HtmlEncode($t95_logdesc->log_id->getPlaceHolder()) ?>"<?php echo $t95_logdesc->log_id->EditAttributes() ?>>
+</span>
+<input type="hidden" data-table="t95_logdesc" data-field="x_log_id" data-value-separator="<?php echo $t95_logdesc->log_id->DisplayValueSeparatorAttribute() ?>" name="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" id="x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" value="<?php echo ew_HtmlEncode($t95_logdesc->log_id->CurrentValue) ?>"<?php echo $wrkonchange ?>>
+<input type="hidden" name="q_x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" id="q_x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id" value="<?php echo $t95_logdesc->log_id->LookupFilterQuery(true) ?>">
+<script type="text/javascript">
+ft95_logdescgrid.CreateAutoSuggest({"id":"x<?php echo $t95_logdesc_grid->RowIndex ?>_log_id","forceSelect":false});
+</script>
 </span>
 <?php } ?>
 <?php } else { ?>

@@ -384,8 +384,6 @@ class ct94_log_view extends ct94_log {
 
 		// Setup export options
 		$this->SetupExportOptions();
-		$this->id->SetVisibility();
-		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->index_->SetVisibility();
 		$this->subj_->SetVisibility();
 
@@ -830,11 +828,6 @@ class ct94_log_view extends ct94_log {
 		$this->subj_->ViewValue = $this->subj_->CurrentValue;
 		$this->subj_->ViewCustomAttributes = "";
 
-			// id
-			$this->id->LinkCustomAttributes = "";
-			$this->id->HrefValue = "";
-			$this->id->TooltipValue = "";
-
 			// index_
 			$this->index_->LinkCustomAttributes = "";
 			$this->index_->HrefValue = "";
@@ -1278,17 +1271,6 @@ $t94_log_view->ShowMessage();
 <input type="hidden" name="modal" value="1">
 <?php } ?>
 <table class="table table-bordered table-striped ewViewTable">
-<?php if ($t94_log->id->Visible) { // id ?>
-	<tr id="r_id">
-		<td><span id="elh_t94_log_id"><?php echo $t94_log->id->FldCaption() ?></span></td>
-		<td data-name="id"<?php echo $t94_log->id->CellAttributes() ?>>
-<span id="el_t94_log_id">
-<span<?php echo $t94_log->id->ViewAttributes() ?>>
-<?php echo $t94_log->id->ViewValue ?></span>
-</span>
-</td>
-	</tr>
-<?php } ?>
 <?php if ($t94_log->index_->Visible) { // index_ ?>
 	<tr id="r_index_">
 		<td><span id="elh_t94_log_index_"><?php echo $t94_log->index_->FldCaption() ?></span></td>
