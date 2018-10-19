@@ -1,0 +1,48 @@
+body {
+	background-color: inherit; /* background color */
+	font-family: Helvetica; /* font name */
+	font-size: xx-small; /* font size - DO NOT CHANGE! */
+}
+
+/* table for PDF export */
+.ewTable {
+	border: 0;
+	border-spacing: 0;
+	border-collapse: separate;
+	font-size: xx-small; /* font size - DO NOT CHANGE! */
+	width: 100%;
+	border-top: 0.5px solid;
+	border-left: 0.5px solid;
+	border-color: #ACA899;  /* border color */
+	margin-left: 0;
+	margin-right: 0;
+}
+.ewTable td, .ewTable th {
+	padding: 3px; /* cell padding */	
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0.5px solid; /* border width, vertical grid line */
+	border-bottom: 0.5px solid; /* border width, horizontal grid line */
+	border-color: #ACA899;  /* border color */
+}
+.ewTable .ewTableHeader td, .ewTable .ewTableHeader th {
+	background-image: none; /* remove header bg image */
+	background-color: #000084;	/* header bgcolor */
+	color: #FFFFFF; /* header font color */
+	vertical-align: top;
+}
+
+/* row color */
+.ewTable .ewTableRow, .ewTable .ewTableRow td {
+	background-color: #EEEEEE;  /* alt row color 1 */
+}
+
+/* alternate row color */
+.ewTable .ewTableAltRow, .ewTable .ewTableAltRow td {
+	background-color: #DCDCDC; /* alt row color 2 */
+}
+
+/* main table footer */
+.ewTable .ewTableFooter td {
+	background-color: #EAEAEA; /* footer color */
+}
