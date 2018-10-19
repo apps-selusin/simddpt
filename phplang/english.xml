@@ -598,6 +598,9 @@
     <menu id="12">
       <phrase id="menutext" value="Kecamatan" />
     </menu>
+    <menu id="13">
+      <phrase id="menutext" value="Kelurahan" />
+    </menu>
     <menu id="1">
       <phrase id="menutext" value="User" />
     </menu>
@@ -656,6 +659,24 @@
       </field>
       <field id="nama">
         <phrase id="fldcaption" value="Kecamatan" />
+      </field>
+    </table>
+    <table id="t03_kelurahan">
+      <phrase id="tblcaption" value="Kelurahan" />
+      <field id="id">
+        <phrase id="fldcaption" value="id" />
+      </field>
+      <field id="provinsi_id">
+        <phrase id="fldcaption" value="Provinsi" />
+      </field>
+      <field id="kabupatenkota_id">
+        <phrase id="fldcaption" value="Kabupaten / Kota" />
+      </field>
+      <field id="kecamatan_id">
+        <phrase id="fldcaption" value="Kecamatan" />
+      </field>
+      <field id="nama">
+        <phrase id="fldcaption" value="Kelurahan" />
       </field>
     </table>
     <table id="t94_log">
