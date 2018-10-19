@@ -122,7 +122,7 @@ var ewVar = <?php echo json_encode($EW_CLIENT_VAR); ?>;
 <?php if (@$gsExport == "") { ?>
 <div class="ewLayout">
 	<!-- header (begin) --><!-- ** Note: Only licensed users are allowed to change the logo ** -->
-	<div id="ewHeaderRow" class="<?php echo $gsHeaderRowClass ?>"><img src="<?php echo $EW_RELATIVE_PATH ?>phpimages/phpmkrlogo2017.png" alt=""></div>
+	<div id="ewHeaderRow" class="<?php echo $gsHeaderRowClass ?>"><img src="<?php echo $EW_RELATIVE_PATH ?>phpimages/simddpt.png" alt=""></div>
 <?php if (ew_IsResponsiveLayout()) { ?>
 <nav id="ewMobileMenu" role="navigation" class="navbar navbar-default visible-xs hidden-print">
 	<div class="container-fluid"><!-- Brand and toggle get grouped for better mobile display -->

@@ -581,7 +581,7 @@
     <!-- v2017 -->
   </global>
   <project>
-    <phrase id="bodytitle" value="SIM DDPT" />
+    <phrase id="bodytitle" value="Sistem Informasi Manajemen Data Daftar Pemilih Tetap" />
     <phrase id="footertext" value="&amp;copy;2018 Selaras Solusindo. All rights reserved." />
     <menu id="4">
       <phrase id="menutext" value="Home" />

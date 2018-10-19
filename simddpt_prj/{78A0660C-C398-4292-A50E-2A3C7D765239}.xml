@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <configuration date="2018/10/19" author="e.World Technology Ltd.">
-  <project id="{78A0660C-C398-4292-A50E-2A3C7D765239}" file="" name="simddpt_prj" product="PHPMaker" version="13.0" datetime="2018/10/19 23:19:14" languagefolder="phplang" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,0">
+  <project id="{78A0660C-C398-4292-A50E-2A3C7D765239}" file="" name="simddpt_prj" product="PHPMaker" version="13.0" datetime="2018/10/19 23:42:23" languagefolder="phplang" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,0">
     <table id="t96_employees" name="t96_employees" caption="User" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,0" priv="1" />
     <table id="t97_userlevels" name="t97_userlevels" caption="Level Akses User" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,0" priv="1" />
     <table id="t98_userlevelpermissions" name="t98_userlevelpermissions" caption="Hak Akses User" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,0" priv="1" />
