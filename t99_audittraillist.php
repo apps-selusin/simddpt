@@ -1147,12 +1147,6 @@ class ct99_audittrail_list extends ct99_audittrail {
 		$item->OnLeft = TRUE;
 		$item->Visible = FALSE;
 
-		// "view"
-		$item = &$this->ListOptions->Add("view");
-		$item->CssStyle = "white-space: nowrap;";
-		$item->Visible = $Security->CanView();
-		$item->OnLeft = TRUE;
-
 		// List actions
 		$item = &$this->ListOptions->Add("listactions");
 		$item->CssStyle = "white-space: nowrap;";
@@ -1190,15 +1184,6 @@ class ct99_audittrail_list extends ct99_audittrail {
 	function RenderListOptions() {
 		global $Security, $Language, $objForm;
 		$this->ListOptions->LoadDefault();
-
-		// "view"
-		$oListOpt = &$this->ListOptions->Items["view"];
-		$viewcaption = ew_HtmlTitle($Language->Phrase("ViewLink"));
-		if ($Security->CanView()) {
-			$oListOpt->Body = "<a class=\"ewRowLink ewView\" title=\"" . $viewcaption . "\" data-caption=\"" . $viewcaption . "\" href=\"" . ew_HtmlEncode($this->ViewUrl) . "\">" . $Language->Phrase("ViewLink") . "</a>";
-		} else {
-			$oListOpt->Body = "";
-		}
 
 		// Set up list action buttons
 		$oListOpt = &$this->ListOptions->GetItem("listactions");

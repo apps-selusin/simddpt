@@ -4985,6 +4985,19 @@ function Database_Connecting(&$info) {
 	//	$info["pass"] = "";
 	//}
 
+	if (ew_CurrentUserIP () == "127.0.0.1"  || ew_CurrentUserIP () == ":: 1"  || ew_CurrentHost () == "localhost" ) { // testing on local PC
+		$info["host"] = "localhost";
+		$info["user"] = "root"; // sesuaikan dengan username database di komputer localhost
+		$info["pass"] = "admin"; // sesuaikan dengan password database di komputer localhost
+		$info["db"] = "db_simddpt"; // sesuaikan dengan nama database di komputer localhost
+		$info["port"] = "3306";
+	} elseif (ew_CurrentHost () == "simddpt.nma-indonesia.com") { // setting koneksi database untuk komputer server
+		$info["host"] = "mysql.hostinger.co.id";  // sesuaikan dengan ip address atau hostname komputer server
+		$info["user"] = "u945388674_ddpt"; // sesuaikan dengan username database di komputer server
+		$info["pass"] = "M457r1P 81"; // sesuaikan deengan password database di komputer server
+		$info["db"] = "u945388674_ddpt"; // sesuaikan dengan nama database di komputer server
+		$info["port"] = "3306";
+	}
 }
 
 // Database Connected event
