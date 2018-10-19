@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<ew-language date="2018/10/19" version="13.0.0" id="en" name="English" desc="English" author="e.World Technology Ltd.">
+<ew-language date="2018/10/20" version="13.0.0" id="en" name="English" desc="English" author="e.World Technology Ltd.">
   <!-- 
 	*** Important Notes:
 	1. Language ID should follow: https://developers.google.com/recaptcha/docs/language,
@@ -589,6 +589,12 @@
     <menu id="5">
       <phrase id="menutext" value="Setup" />
     </menu>
+    <menu id="8">
+      <phrase id="menutext" value="Provinsi" />
+    </menu>
+    <menu id="9">
+      <phrase id="menutext" value="Kabupaten / Kota" />
+    </menu>
     <menu id="1">
       <phrase id="menutext" value="User" />
     </menu>
@@ -598,12 +604,72 @@
     <menu id="3">
       <phrase id="menutext" value="Hak Akses User" />
     </menu>
+    <menu id="10">
+      <phrase id="menutext" value="Log." />
+    </menu>
+    <menu id="11">
+      <phrase id="menutext" value="Desc." />
+    </menu>
     <menu id="7">
       <phrase id="menutext" value="List" />
     </menu>
     <menu id="6">
       <phrase id="menutext" value="User Activity Log." />
     </menu>
+    <table id="cf01_home_php">
+      <phrase id="tblcaption" value="Home" />
+    </table>
+    <table id="t00_provinsi">
+      <phrase id="tblcaption" value="Provinsi" />
+      <field id="id">
+        <phrase id="fldcaption" value="id" />
+      </field>
+      <field id="nama">
+        <phrase id="fldcaption" value="Nama" />
+      </field>
+    </table>
+    <table id="t01_kabupatenkota">
+      <phrase id="tblcaption" value="Kabupaten / Kota" />
+      <field id="id">
+        <phrase id="fldcaption" value="id" />
+      </field>
+      <field id="provinsi_id">
+        <phrase id="fldcaption" value="Provinsi" />
+      </field>
+      <field id="nama">
+        <phrase id="fldcaption" value="Nama" />
+      </field>
+    </table>
+    <table id="t94_log">
+      <phrase id="tblcaption" value="Log." />
+      <field id="id">
+        <phrase id="fldcaption" value="id" />
+      </field>
+      <field id="index_">
+        <phrase id="fldcaption" value="index " />
+      </field>
+      <field id="subj_">
+        <phrase id="fldcaption" value="subj " />
+      </field>
+    </table>
+    <table id="t95_logdesc">
+      <phrase id="tblcaption" value="Desc." />
+      <field id="id">
+        <phrase id="fldcaption" value="id" />
+      </field>
+      <field id="log_id">
+        <phrase id="fldcaption" value="log id" />
+      </field>
+      <field id="date_issued">
+        <phrase id="fldcaption" value="date issued" />
+      </field>
+      <field id="desc_">
+        <phrase id="fldcaption" value="desc " />
+      </field>
+      <field id="date_solved">
+        <phrase id="fldcaption" value="date solved" />
+      </field>
+    </table>
     <table id="t96_employees">
       <phrase id="tblcaption" value="User" />
       <field id="employeeid">
@@ -700,9 +766,6 @@
       <field id="permission">
         <phrase id="fldcaption" value="permission" />
       </field>
-    </table>
-    <table id="cf01_home_php">
-      <phrase id="tblcaption" value="Home" />
     </table>
     <table id="t99_audittrail">
       <phrase id="tblcaption" value="User Activity Log." />

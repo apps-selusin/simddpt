@@ -311,7 +311,149 @@ Page_Rendering();
 <div class="clearfix"></div>
 </div>
 <?php } ?>
-<!-- %%Custom page content begin%% --><!-- %%Custom page content end%% --><?php if (EW_DEBUG_ENABLED) echo ew_DebugMsg(); ?>
+<?php
+$db =& DbHelper(); 
+?>
+
+<style>
+.panel-heading a{
+  display:block;
+}
+
+.panel-heading a.collapsed {
+  background: url(http://upload.wikimedia.org/wikipedia/commons/3/36/Vector_skin_right_arrow.png) center right no-repeat;
+}
+
+.panel-heading a {
+  background: url(http://www.useragentman.com/blog/wp-content/themes/useragentman/images/widgets/downArrow.png) center right no-repeat;
+}
+</style>
+
+<?php
+	$db =& DbHelper(); // Create instance of the database helper class by DbHelper() (for main database) or DbHelper("<dbname>") (for linked databases) where <dbname> is database variable name
+?>
+
+<!-- log -->
+<div class="panel panel-default">
+	<div class="panel-heading"><strong><a class='collapsed' data-toggle="collapse" href="#log">Log</a></strong></div>
+	<div id="log" class="panel-collapse collapse in">
+		<div class="panel-body">
+			<div>
+				<p>&nbsp;</p>
+				<!-- to do -->
+				<p><strong>to do</strong></p>
+				<?php
+				$q = "
+					select
+						a.index_,
+						a.subj_,
+						b.date_issued,
+						b.desc_,
+						b.date_solved
+					from
+						t94_log a
+						left join t95_logdesc b on a.id = b.log_id
+					where
+						b.date_solved is null
+					order by
+						a.index_,
+						b.date_issued
+					";
+				//echo $db->ExecuteHtml($q, array("fieldcaption" => TRUE, "tablename" => array("t94_log", "t95_logdesc")));
+				$r = Conn()->Execute($q);
+				?>
+				<table class='table table-striped table-hover table-condensed'>
+					<tbody>
+					<?php
+					while (!$r->EOF) {
+						$index_ = $r->fields["index_"];
+						?>
+						<tr>
+							<td colspan="4">[<?php echo $r->fields["subj_"]; ?>]</td>
+						</tr>
+						<?php
+						while ($index_ == $r->fields["index_"]) {
+							?>
+							<tr>
+								<td width="20">-</td>
+								<td><?php echo $r->fields["desc_"];?></td>
+								<td width="100"><?php echo $r->fields["date_issued"];?></td>
+								<td width="100">&nbsp;</td>
+							</tr>
+							<?php
+							$r->MoveNext();
+						}
+						if (!$r->EOF) {
+							?>
+							<tr>
+								<td colspan="4">&nbsp;</td>
+							</tr>
+							<?php
+						}
+					}
+					?>
+					</tbody>
+				</table>
+
+				<p>&nbsp;</p>
+				<!-- done -->
+				<p><strong>done</strong></p>
+				<?php
+				$q = "
+					select
+						a.index_,
+						a.subj_,
+						b.date_issued,
+						b.desc_,
+						b.date_solved
+					from
+						t94_log a
+						left join t95_logdesc b on a.id = b.log_id
+					where
+						b.date_solved is not null
+					order by
+						a.index_,
+						b.date_issued,
+						b.date_solved
+					";
+				//echo $db->ExecuteHtml($q, array("fieldcaption" => TRUE, "tablename" => array("t94_log", "t95_logdesc")));
+				$r = Conn()->Execute($q);
+				?>
+				<table class='table table-striped table-hover table-condensed'>
+					<?php
+					while (!$r->EOF) {
+						$index_ = $r->fields["index_"];
+						?>
+						<tr>
+							<td colspan="4">[<?php echo $r->fields["subj_"]; ?>]</td>
+						</tr>
+						<?php
+						while ($index_ == $r->fields["index_"]) {
+							?>
+							<tr>
+								<td width="20">-</td>
+								<td><?php echo $r->fields["desc_"];?></td>
+								<td width="100"><?php echo $r->fields["date_issued"];?></td>
+								<td width="100"><?php echo $r->fields["date_solved"];?></td>
+							</tr>
+							<?php
+							$r->MoveNext();
+						}
+						if (!$r->EOF) {
+							?>
+							<tr>
+								<td colspan="4">&nbsp;</td>
+							</tr>
+							<?php
+						}
+					}
+					?>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<?php if (EW_DEBUG_ENABLED) echo ew_DebugMsg(); ?>
 <?php include_once "footer.php" ?>
 <?php
 $cf01_home_php->Page_Terminate();

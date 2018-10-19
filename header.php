@@ -103,6 +103,7 @@ var EW_SEARCH_FILTER_OPTION = "<?php echo EW_SEARCH_FILTER_OPTION ?>";
 <?php if (@$gsExport == "" || @$gsExport == "print") { ?>
 <script type="text/javascript" src="<?php echo $EW_RELATIVE_PATH ?>phpjs/jsrender.min.js"></script>
 <script type="text/javascript" src="<?php echo $EW_RELATIVE_PATH ?>phpjs/ewp13.js"></script>
+<script type="text/javascript" src="<?php echo $EW_RELATIVE_PATH ?>jquery/jquery.ewjtable.js"></script>
 <?php } ?>
 <?php if (@$gsExport == "" || @$gsExport == "print") { ?>
 <script type="text/javascript">
