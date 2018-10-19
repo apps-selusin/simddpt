@@ -517,7 +517,7 @@ class ct99_audittrail_list extends ct99_audittrail {
 	var $ListActions; // List actions
 	var $SelectedCount = 0;
 	var $SelectedIndex = 0;
-	var $DisplayRecs = 20;
+	var $DisplayRecs = 25;
 	var $StartRec;
 	var $StopRec;
 	var $TotalRecs = 0;
@@ -569,6 +569,9 @@ class ct99_audittrail_list extends ct99_audittrail {
 			// Process list action first
 			if ($this->ProcessListAction()) // Ajax request
 				$this->Page_Terminate();
+
+			// Set up records per page
+			$this->SetUpDisplayRecs();
 
 			// Handle reset command
 			$this->ResetCmd();
@@ -628,7 +631,7 @@ class ct99_audittrail_list extends ct99_audittrail {
 		if ($this->getRecordsPerPage() <> "") {
 			$this->DisplayRecs = $this->getRecordsPerPage(); // Restore from Session
 		} else {
-			$this->DisplayRecs = 20; // Load default
+			$this->DisplayRecs = 25; // Load default
 		}
 
 		// Load Sorting Order
@@ -690,6 +693,27 @@ class ct99_audittrail_list extends ct99_audittrail {
 
 		// Search options
 		$this->SetupSearchOptions();
+	}
+
+	// Set up number of records displayed per page
+	function SetUpDisplayRecs() {
+		$sWrk = @$_GET[EW_TABLE_REC_PER_PAGE];
+		if ($sWrk <> "") {
+			if (is_numeric($sWrk)) {
+				$this->DisplayRecs = intval($sWrk);
+			} else {
+				if (strtolower($sWrk) == "all") { // Display all records
+					$this->DisplayRecs = -1;
+				} else {
+					$this->DisplayRecs = 25; // Non-numeric, load default
+				}
+			}
+			$this->setRecordsPerPage($this->DisplayRecs); // Save to Session
+
+			// Reset start position
+			$this->StartRec = 1;
+			$this->setStartRecordNumber($this->StartRec);
+		}
 	}
 
 	// Build filter for all keys
@@ -2171,6 +2195,21 @@ $t99_audittrail_list->ShowMessage();
 	<span><?php echo $Language->Phrase("Record") ?>&nbsp;<?php echo $t99_audittrail_list->Pager->FromIndex ?>&nbsp;<?php echo $Language->Phrase("To") ?>&nbsp;<?php echo $t99_audittrail_list->Pager->ToIndex ?>&nbsp;<?php echo $Language->Phrase("Of") ?>&nbsp;<?php echo $t99_audittrail_list->Pager->RecordCount ?></span>
 </div>
 <?php } ?>
+<?php if ($t99_audittrail_list->TotalRecs > 0 && (!EW_AUTO_HIDE_PAGE_SIZE_SELECTOR || $t99_audittrail_list->Pager->Visible)) { ?>
+<div class="ewPager">
+<input type="hidden" name="t" value="t99_audittrail">
+<select name="<?php echo EW_TABLE_REC_PER_PAGE ?>" class="form-control input-sm ewTooltip" title="<?php echo $Language->Phrase("RecordsPerPage") ?>" onchange="this.form.submit();">
+<option value="10"<?php if ($t99_audittrail_list->DisplayRecs == 10) { ?> selected<?php } ?>>10</option>
+<option value="20"<?php if ($t99_audittrail_list->DisplayRecs == 20) { ?> selected<?php } ?>>20</option>
+<option value="25"<?php if ($t99_audittrail_list->DisplayRecs == 25) { ?> selected<?php } ?>>25</option>
+<option value="50"<?php if ($t99_audittrail_list->DisplayRecs == 50) { ?> selected<?php } ?>>50</option>
+<option value="100"<?php if ($t99_audittrail_list->DisplayRecs == 100) { ?> selected<?php } ?>>100</option>
+<option value="200"<?php if ($t99_audittrail_list->DisplayRecs == 200) { ?> selected<?php } ?>>200</option>
+<option value="500"<?php if ($t99_audittrail_list->DisplayRecs == 500) { ?> selected<?php } ?>>500</option>
+<option value="ALL"<?php if ($t99_audittrail->getRecordsPerPage() == -1) { ?> selected<?php } ?>><?php echo $Language->Phrase("AllRecords") ?></option>
+</select>
+</div>
+<?php } ?>
 </form>
 <?php } ?>
 <div class="ewListOtherOptions">
@@ -2459,6 +2498,21 @@ if ($t99_audittrail_list->Recordset)
 </div>
 <div class="ewPager ewRec">
 	<span><?php echo $Language->Phrase("Record") ?>&nbsp;<?php echo $t99_audittrail_list->Pager->FromIndex ?>&nbsp;<?php echo $Language->Phrase("To") ?>&nbsp;<?php echo $t99_audittrail_list->Pager->ToIndex ?>&nbsp;<?php echo $Language->Phrase("Of") ?>&nbsp;<?php echo $t99_audittrail_list->Pager->RecordCount ?></span>
+</div>
+<?php } ?>
+<?php if ($t99_audittrail_list->TotalRecs > 0 && (!EW_AUTO_HIDE_PAGE_SIZE_SELECTOR || $t99_audittrail_list->Pager->Visible)) { ?>
+<div class="ewPager">
+<input type="hidden" name="t" value="t99_audittrail">
+<select name="<?php echo EW_TABLE_REC_PER_PAGE ?>" class="form-control input-sm ewTooltip" title="<?php echo $Language->Phrase("RecordsPerPage") ?>" onchange="this.form.submit();">
+<option value="10"<?php if ($t99_audittrail_list->DisplayRecs == 10) { ?> selected<?php } ?>>10</option>
+<option value="20"<?php if ($t99_audittrail_list->DisplayRecs == 20) { ?> selected<?php } ?>>20</option>
+<option value="25"<?php if ($t99_audittrail_list->DisplayRecs == 25) { ?> selected<?php } ?>>25</option>
+<option value="50"<?php if ($t99_audittrail_list->DisplayRecs == 50) { ?> selected<?php } ?>>50</option>
+<option value="100"<?php if ($t99_audittrail_list->DisplayRecs == 100) { ?> selected<?php } ?>>100</option>
+<option value="200"<?php if ($t99_audittrail_list->DisplayRecs == 200) { ?> selected<?php } ?>>200</option>
+<option value="500"<?php if ($t99_audittrail_list->DisplayRecs == 500) { ?> selected<?php } ?>>500</option>
+<option value="ALL"<?php if ($t99_audittrail->getRecordsPerPage() == -1) { ?> selected<?php } ?>><?php echo $Language->Phrase("AllRecords") ?></option>
+</select>
 </div>
 <?php } ?>
 </form>
