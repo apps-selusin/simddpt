@@ -319,6 +319,7 @@ class clogout {
 		// Example:
 		//$url = "your URL";
 
+		$url = ".";
 	}
 
 	// Message Showing event
