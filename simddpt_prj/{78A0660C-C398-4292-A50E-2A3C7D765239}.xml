@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <configuration date="2018/10/20" author="e.World Technology Ltd.">
-  <project id="{78A0660C-C398-4292-A50E-2A3C7D765239}" file="" name="simddpt_prj" product="PHPMaker" version="13.0" datetime="2018/10/20 02:24:31" languagefolder="phplang" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,0">
+  <project id="{78A0660C-C398-4292-A50E-2A3C7D765239}" file="" name="simddpt_prj" product="PHPMaker" version="13.0" datetime="2018/10/20 02:26:44" languagefolder="phplang" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,0">
     <table id="cf01_home_php" name="cf01_home.php" caption="Home" userlevel="-2,&quot;Anonymous&quot;,8;0,&quot;Default&quot;,0" priv="1" />
     <table id="t00_provinsi" name="t00_provinsi" caption="Provinsi" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,0" priv="1" />
     <table id="t01_kabupatenkota" name="t01_kabupatenkota" caption="Kabupaten / Kota" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,0" priv="1" />

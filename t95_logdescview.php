@@ -390,8 +390,8 @@ class ct95_logdesc_view extends ct95_logdesc {
 		$this->id->SetVisibility();
 		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->log_id->SetVisibility();
-		$this->date_issued->SetVisibility();
 		$this->desc_->SetVisibility();
+		$this->date_issued->SetVisibility();
 		$this->date_solved->SetVisibility();
 
 		// Global Page Loading event (in userfn*.php)
@@ -714,8 +714,8 @@ class ct95_logdesc_view extends ct95_logdesc {
 		if ($this->AuditTrailOnView) $this->WriteAuditTrailOnView($row);
 		$this->id->setDbValue($rs->fields('id'));
 		$this->log_id->setDbValue($rs->fields('log_id'));
-		$this->date_issued->setDbValue($rs->fields('date_issued'));
 		$this->desc_->setDbValue($rs->fields('desc_'));
+		$this->date_issued->setDbValue($rs->fields('date_issued'));
 		$this->date_solved->setDbValue($rs->fields('date_solved'));
 	}
 
@@ -725,8 +725,8 @@ class ct95_logdesc_view extends ct95_logdesc {
 		$row = is_array($rs) ? $rs : $rs->fields;
 		$this->id->DbValue = $row['id'];
 		$this->log_id->DbValue = $row['log_id'];
-		$this->date_issued->DbValue = $row['date_issued'];
 		$this->desc_->DbValue = $row['desc_'];
+		$this->date_issued->DbValue = $row['date_issued'];
 		$this->date_solved->DbValue = $row['date_solved'];
 	}
 
@@ -748,8 +748,8 @@ class ct95_logdesc_view extends ct95_logdesc {
 		// Common render codes for all row types
 		// id
 		// log_id
-		// date_issued
 		// desc_
+		// date_issued
 		// date_solved
 
 		if ($this->RowType == EW_ROWTYPE_VIEW) { // View row
@@ -762,14 +762,14 @@ class ct95_logdesc_view extends ct95_logdesc {
 		$this->log_id->ViewValue = $this->log_id->CurrentValue;
 		$this->log_id->ViewCustomAttributes = "";
 
+		// desc_
+		$this->desc_->ViewValue = $this->desc_->CurrentValue;
+		$this->desc_->ViewCustomAttributes = "";
+
 		// date_issued
 		$this->date_issued->ViewValue = $this->date_issued->CurrentValue;
 		$this->date_issued->ViewValue = ew_FormatDateTime($this->date_issued->ViewValue, 0);
 		$this->date_issued->ViewCustomAttributes = "";
-
-		// desc_
-		$this->desc_->ViewValue = $this->desc_->CurrentValue;
-		$this->desc_->ViewCustomAttributes = "";
 
 		// date_solved
 		$this->date_solved->ViewValue = $this->date_solved->CurrentValue;
@@ -786,15 +786,15 @@ class ct95_logdesc_view extends ct95_logdesc {
 			$this->log_id->HrefValue = "";
 			$this->log_id->TooltipValue = "";
 
-			// date_issued
-			$this->date_issued->LinkCustomAttributes = "";
-			$this->date_issued->HrefValue = "";
-			$this->date_issued->TooltipValue = "";
-
 			// desc_
 			$this->desc_->LinkCustomAttributes = "";
 			$this->desc_->HrefValue = "";
 			$this->desc_->TooltipValue = "";
+
+			// date_issued
+			$this->date_issued->LinkCustomAttributes = "";
+			$this->date_issued->HrefValue = "";
+			$this->date_issued->TooltipValue = "";
 
 			// date_solved
 			$this->date_solved->LinkCustomAttributes = "";
@@ -1270,17 +1270,6 @@ $t95_logdesc_view->ShowMessage();
 </td>
 	</tr>
 <?php } ?>
-<?php if ($t95_logdesc->date_issued->Visible) { // date_issued ?>
-	<tr id="r_date_issued">
-		<td><span id="elh_t95_logdesc_date_issued"><?php echo $t95_logdesc->date_issued->FldCaption() ?></span></td>
-		<td data-name="date_issued"<?php echo $t95_logdesc->date_issued->CellAttributes() ?>>
-<span id="el_t95_logdesc_date_issued">
-<span<?php echo $t95_logdesc->date_issued->ViewAttributes() ?>>
-<?php echo $t95_logdesc->date_issued->ViewValue ?></span>
-</span>
-</td>
-	</tr>
-<?php } ?>
 <?php if ($t95_logdesc->desc_->Visible) { // desc_ ?>
 	<tr id="r_desc_">
 		<td><span id="elh_t95_logdesc_desc_"><?php echo $t95_logdesc->desc_->FldCaption() ?></span></td>
@@ -1288,6 +1277,17 @@ $t95_logdesc_view->ShowMessage();
 <span id="el_t95_logdesc_desc_">
 <span<?php echo $t95_logdesc->desc_->ViewAttributes() ?>>
 <?php echo $t95_logdesc->desc_->ViewValue ?></span>
+</span>
+</td>
+	</tr>
+<?php } ?>
+<?php if ($t95_logdesc->date_issued->Visible) { // date_issued ?>
+	<tr id="r_date_issued">
+		<td><span id="elh_t95_logdesc_date_issued"><?php echo $t95_logdesc->date_issued->FldCaption() ?></span></td>
+		<td data-name="date_issued"<?php echo $t95_logdesc->date_issued->CellAttributes() ?>>
+<span id="el_t95_logdesc_date_issued">
+<span<?php echo $t95_logdesc->date_issued->ViewAttributes() ?>>
+<?php echo $t95_logdesc->date_issued->ViewValue ?></span>
 </span>
 </td>
 	</tr>

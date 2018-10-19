@@ -15,8 +15,8 @@ class ct95_logdesc extends cTable {
 	var $AuditTrailOnSearch = FALSE;
 	var $id;
 	var $log_id;
-	var $date_issued;
 	var $desc_;
+	var $date_issued;
 	var $date_solved;
 
 	//
@@ -61,16 +61,16 @@ class ct95_logdesc extends cTable {
 		$this->log_id->FldDefaultErrMsg = $Language->Phrase("IncorrectInteger");
 		$this->fields['log_id'] = &$this->log_id;
 
+		// desc_
+		$this->desc_ = new cField('t95_logdesc', 't95_logdesc', 'x_desc_', 'desc_', '`desc_`', '`desc_`', 201, -1, FALSE, '`desc_`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'TEXTAREA');
+		$this->desc_->Sortable = TRUE; // Allow sort
+		$this->fields['desc_'] = &$this->desc_;
+
 		// date_issued
 		$this->date_issued = new cField('t95_logdesc', 't95_logdesc', 'x_date_issued', 'date_issued', '`date_issued`', ew_CastDateFieldForLike('`date_issued`', 0, "DB"), 133, 0, FALSE, '`date_issued`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'TEXT');
 		$this->date_issued->Sortable = TRUE; // Allow sort
 		$this->date_issued->FldDefaultErrMsg = str_replace("%s", $GLOBALS["EW_DATE_FORMAT"], $Language->Phrase("IncorrectDate"));
 		$this->fields['date_issued'] = &$this->date_issued;
-
-		// desc_
-		$this->desc_ = new cField('t95_logdesc', 't95_logdesc', 'x_desc_', 'desc_', '`desc_`', '`desc_`', 201, -1, FALSE, '`desc_`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'TEXTAREA');
-		$this->desc_->Sortable = TRUE; // Allow sort
-		$this->fields['desc_'] = &$this->desc_;
 
 		// date_solved
 		$this->date_solved = new cField('t95_logdesc', 't95_logdesc', 'x_date_solved', 'date_solved', '`date_solved`', ew_CastDateFieldForLike('`date_solved`', 0, "DB"), 133, 0, FALSE, '`date_solved`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'TEXT');
@@ -642,8 +642,8 @@ class ct95_logdesc extends cTable {
 	function LoadListRowValues(&$rs) {
 		$this->id->setDbValue($rs->fields('id'));
 		$this->log_id->setDbValue($rs->fields('log_id'));
-		$this->date_issued->setDbValue($rs->fields('date_issued'));
 		$this->desc_->setDbValue($rs->fields('desc_'));
+		$this->date_issued->setDbValue($rs->fields('date_issued'));
 		$this->date_solved->setDbValue($rs->fields('date_solved'));
 	}
 
@@ -657,8 +657,8 @@ class ct95_logdesc extends cTable {
    // Common render codes
 		// id
 		// log_id
-		// date_issued
 		// desc_
+		// date_issued
 		// date_solved
 		// id
 
@@ -669,14 +669,14 @@ class ct95_logdesc extends cTable {
 		$this->log_id->ViewValue = $this->log_id->CurrentValue;
 		$this->log_id->ViewCustomAttributes = "";
 
+		// desc_
+		$this->desc_->ViewValue = $this->desc_->CurrentValue;
+		$this->desc_->ViewCustomAttributes = "";
+
 		// date_issued
 		$this->date_issued->ViewValue = $this->date_issued->CurrentValue;
 		$this->date_issued->ViewValue = ew_FormatDateTime($this->date_issued->ViewValue, 0);
 		$this->date_issued->ViewCustomAttributes = "";
-
-		// desc_
-		$this->desc_->ViewValue = $this->desc_->CurrentValue;
-		$this->desc_->ViewCustomAttributes = "";
 
 		// date_solved
 		$this->date_solved->ViewValue = $this->date_solved->CurrentValue;
@@ -693,15 +693,15 @@ class ct95_logdesc extends cTable {
 		$this->log_id->HrefValue = "";
 		$this->log_id->TooltipValue = "";
 
-		// date_issued
-		$this->date_issued->LinkCustomAttributes = "";
-		$this->date_issued->HrefValue = "";
-		$this->date_issued->TooltipValue = "";
-
 		// desc_
 		$this->desc_->LinkCustomAttributes = "";
 		$this->desc_->HrefValue = "";
 		$this->desc_->TooltipValue = "";
+
+		// date_issued
+		$this->date_issued->LinkCustomAttributes = "";
+		$this->date_issued->HrefValue = "";
+		$this->date_issued->TooltipValue = "";
 
 		// date_solved
 		$this->date_solved->LinkCustomAttributes = "";
@@ -737,17 +737,17 @@ class ct95_logdesc extends cTable {
 		$this->log_id->PlaceHolder = ew_RemoveHtml($this->log_id->FldCaption());
 		}
 
-		// date_issued
-		$this->date_issued->EditAttrs["class"] = "form-control";
-		$this->date_issued->EditCustomAttributes = "";
-		$this->date_issued->EditValue = ew_FormatDateTime($this->date_issued->CurrentValue, 8);
-		$this->date_issued->PlaceHolder = ew_RemoveHtml($this->date_issued->FldCaption());
-
 		// desc_
 		$this->desc_->EditAttrs["class"] = "form-control";
 		$this->desc_->EditCustomAttributes = "";
 		$this->desc_->EditValue = $this->desc_->CurrentValue;
 		$this->desc_->PlaceHolder = ew_RemoveHtml($this->desc_->FldCaption());
+
+		// date_issued
+		$this->date_issued->EditAttrs["class"] = "form-control";
+		$this->date_issued->EditCustomAttributes = "";
+		$this->date_issued->EditValue = ew_FormatDateTime($this->date_issued->CurrentValue, 8);
+		$this->date_issued->PlaceHolder = ew_RemoveHtml($this->date_issued->FldCaption());
 
 		// date_solved
 		$this->date_solved->EditAttrs["class"] = "form-control";
@@ -784,12 +784,13 @@ class ct95_logdesc extends cTable {
 				if ($ExportPageType == "view") {
 					if ($this->id->Exportable) $Doc->ExportCaption($this->id);
 					if ($this->log_id->Exportable) $Doc->ExportCaption($this->log_id);
-					if ($this->date_issued->Exportable) $Doc->ExportCaption($this->date_issued);
 					if ($this->desc_->Exportable) $Doc->ExportCaption($this->desc_);
+					if ($this->date_issued->Exportable) $Doc->ExportCaption($this->date_issued);
 					if ($this->date_solved->Exportable) $Doc->ExportCaption($this->date_solved);
 				} else {
 					if ($this->id->Exportable) $Doc->ExportCaption($this->id);
 					if ($this->log_id->Exportable) $Doc->ExportCaption($this->log_id);
+					if ($this->desc_->Exportable) $Doc->ExportCaption($this->desc_);
 					if ($this->date_issued->Exportable) $Doc->ExportCaption($this->date_issued);
 					if ($this->date_solved->Exportable) $Doc->ExportCaption($this->date_solved);
 				}
@@ -825,12 +826,13 @@ class ct95_logdesc extends cTable {
 					if ($ExportPageType == "view") {
 						if ($this->id->Exportable) $Doc->ExportField($this->id);
 						if ($this->log_id->Exportable) $Doc->ExportField($this->log_id);
-						if ($this->date_issued->Exportable) $Doc->ExportField($this->date_issued);
 						if ($this->desc_->Exportable) $Doc->ExportField($this->desc_);
+						if ($this->date_issued->Exportable) $Doc->ExportField($this->date_issued);
 						if ($this->date_solved->Exportable) $Doc->ExportField($this->date_solved);
 					} else {
 						if ($this->id->Exportable) $Doc->ExportField($this->id);
 						if ($this->log_id->Exportable) $Doc->ExportField($this->log_id);
+						if ($this->desc_->Exportable) $Doc->ExportField($this->desc_);
 						if ($this->date_issued->Exportable) $Doc->ExportField($this->date_issued);
 						if ($this->date_solved->Exportable) $Doc->ExportField($this->date_solved);
 					}

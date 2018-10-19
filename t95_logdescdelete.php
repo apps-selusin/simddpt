@@ -289,6 +289,7 @@ class ct95_logdesc_delete extends ct95_logdesc {
 		$this->id->SetVisibility();
 		$this->id->Visible = !$this->IsAdd() && !$this->IsCopy() && !$this->IsGridAdd();
 		$this->log_id->SetVisibility();
+		$this->desc_->SetVisibility();
 		$this->date_issued->SetVisibility();
 		$this->date_solved->SetVisibility();
 
@@ -470,8 +471,8 @@ class ct95_logdesc_delete extends ct95_logdesc {
 		$this->Row_Selected($row);
 		$this->id->setDbValue($rs->fields('id'));
 		$this->log_id->setDbValue($rs->fields('log_id'));
-		$this->date_issued->setDbValue($rs->fields('date_issued'));
 		$this->desc_->setDbValue($rs->fields('desc_'));
+		$this->date_issued->setDbValue($rs->fields('date_issued'));
 		$this->date_solved->setDbValue($rs->fields('date_solved'));
 	}
 
@@ -481,8 +482,8 @@ class ct95_logdesc_delete extends ct95_logdesc {
 		$row = is_array($rs) ? $rs : $rs->fields;
 		$this->id->DbValue = $row['id'];
 		$this->log_id->DbValue = $row['log_id'];
-		$this->date_issued->DbValue = $row['date_issued'];
 		$this->desc_->DbValue = $row['desc_'];
+		$this->date_issued->DbValue = $row['date_issued'];
 		$this->date_solved->DbValue = $row['date_solved'];
 	}
 
@@ -498,8 +499,8 @@ class ct95_logdesc_delete extends ct95_logdesc {
 		// Common render codes for all row types
 		// id
 		// log_id
-		// date_issued
 		// desc_
+		// date_issued
 		// date_solved
 
 		if ($this->RowType == EW_ROWTYPE_VIEW) { // View row
@@ -511,6 +512,10 @@ class ct95_logdesc_delete extends ct95_logdesc {
 		// log_id
 		$this->log_id->ViewValue = $this->log_id->CurrentValue;
 		$this->log_id->ViewCustomAttributes = "";
+
+		// desc_
+		$this->desc_->ViewValue = $this->desc_->CurrentValue;
+		$this->desc_->ViewCustomAttributes = "";
 
 		// date_issued
 		$this->date_issued->ViewValue = $this->date_issued->CurrentValue;
@@ -531,6 +536,11 @@ class ct95_logdesc_delete extends ct95_logdesc {
 			$this->log_id->LinkCustomAttributes = "";
 			$this->log_id->HrefValue = "";
 			$this->log_id->TooltipValue = "";
+
+			// desc_
+			$this->desc_->LinkCustomAttributes = "";
+			$this->desc_->HrefValue = "";
+			$this->desc_->TooltipValue = "";
 
 			// date_issued
 			$this->date_issued->LinkCustomAttributes = "";
@@ -860,6 +870,9 @@ $t95_logdesc_delete->ShowMessage();
 <?php if ($t95_logdesc->log_id->Visible) { // log_id ?>
 		<th><span id="elh_t95_logdesc_log_id" class="t95_logdesc_log_id"><?php echo $t95_logdesc->log_id->FldCaption() ?></span></th>
 <?php } ?>
+<?php if ($t95_logdesc->desc_->Visible) { // desc_ ?>
+		<th><span id="elh_t95_logdesc_desc_" class="t95_logdesc_desc_"><?php echo $t95_logdesc->desc_->FldCaption() ?></span></th>
+<?php } ?>
 <?php if ($t95_logdesc->date_issued->Visible) { // date_issued ?>
 		<th><span id="elh_t95_logdesc_date_issued" class="t95_logdesc_date_issued"><?php echo $t95_logdesc->date_issued->FldCaption() ?></span></th>
 <?php } ?>
@@ -900,6 +913,14 @@ while (!$t95_logdesc_delete->Recordset->EOF) {
 <span id="el<?php echo $t95_logdesc_delete->RowCnt ?>_t95_logdesc_log_id" class="t95_logdesc_log_id">
 <span<?php echo $t95_logdesc->log_id->ViewAttributes() ?>>
 <?php echo $t95_logdesc->log_id->ListViewValue() ?></span>
+</span>
+</td>
+<?php } ?>
+<?php if ($t95_logdesc->desc_->Visible) { // desc_ ?>
+		<td<?php echo $t95_logdesc->desc_->CellAttributes() ?>>
+<span id="el<?php echo $t95_logdesc_delete->RowCnt ?>_t95_logdesc_desc_" class="t95_logdesc_desc_">
+<span<?php echo $t95_logdesc->desc_->ViewAttributes() ?>>
+<?php echo $t95_logdesc->desc_->ListViewValue() ?></span>
 </span>
 </td>
 <?php } ?>

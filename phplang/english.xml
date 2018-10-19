@@ -699,11 +699,11 @@
       <field id="log_id">
         <phrase id="fldcaption" value="log id" />
       </field>
-      <field id="date_issued">
-        <phrase id="fldcaption" value="date issued" />
-      </field>
       <field id="desc_">
         <phrase id="fldcaption" value="desc " />
+      </field>
+      <field id="date_issued">
+        <phrase id="fldcaption" value="date issued" />
       </field>
       <field id="date_solved">
         <phrase id="fldcaption" value="date solved" />
