@@ -505,7 +505,7 @@ class ct03_kelurahan_delete extends ct03_kelurahan {
 			$sFilterWrk = "`id`" . ew_SearchString("=", $this->provinsi_id->CurrentValue, EW_DATATYPE_NUMBER, "");
 		$sSqlWrk = "SELECT `id`, `Nama` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t00_provinsi`";
 		$sWhereWrk = "";
-		$this->provinsi_id->LookupFilters = array("dx1" => '`Nama`');
+		$this->provinsi_id->LookupFilters = array();
 		ew_AddFilter($sWhereWrk, $sFilterWrk);
 		$this->Lookup_Selecting($this->provinsi_id, $sWhereWrk); // Call Lookup selecting
 		if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
@@ -528,7 +528,7 @@ class ct03_kelurahan_delete extends ct03_kelurahan {
 			$sFilterWrk = "`id`" . ew_SearchString("=", $this->kabupatenkota_id->CurrentValue, EW_DATATYPE_NUMBER, "");
 		$sSqlWrk = "SELECT `id`, `Nama` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t01_kabupatenkota`";
 		$sWhereWrk = "";
-		$this->kabupatenkota_id->LookupFilters = array("dx1" => '`Nama`');
+		$this->kabupatenkota_id->LookupFilters = array();
 		ew_AddFilter($sWhereWrk, $sFilterWrk);
 		$this->Lookup_Selecting($this->kabupatenkota_id, $sWhereWrk); // Call Lookup selecting
 		if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
@@ -551,7 +551,7 @@ class ct03_kelurahan_delete extends ct03_kelurahan {
 			$sFilterWrk = "`id`" . ew_SearchString("=", $this->kecamatan_id->CurrentValue, EW_DATATYPE_NUMBER, "");
 		$sSqlWrk = "SELECT `id`, `Nama` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t02_kecamatan`";
 		$sWhereWrk = "";
-		$this->kecamatan_id->LookupFilters = array("dx1" => '`Nama`');
+		$this->kecamatan_id->LookupFilters = array();
 		ew_AddFilter($sWhereWrk, $sFilterWrk);
 		$this->Lookup_Selecting($this->kecamatan_id, $sWhereWrk); // Call Lookup selecting
 		if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;

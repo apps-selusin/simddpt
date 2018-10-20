@@ -562,15 +562,6 @@ class ct00_provinsi_view extends ct00_provinsi {
 		$options = &$this->OtherOptions;
 		$option = &$options["action"];
 
-		// Edit
-		$item = &$option->Add("edit");
-		$editcaption = ew_HtmlTitle($Language->Phrase("ViewPageEditLink"));
-		if ($this->IsModal) // Modal
-			$item->Body = "<a class=\"ewAction ewEdit\" title=\"" . $editcaption . "\" data-caption=\"" . $editcaption . "\" href=\"javascript:void(0);\" onclick=\"ew_ModalDialogShow({lnk:this,url:'" . ew_HtmlEncode($this->EditUrl) . "',caption:'" . $editcaption . "'});\">" . $Language->Phrase("ViewPageEditLink") . "</a>";
-		else
-			$item->Body = "<a class=\"ewAction ewEdit\" title=\"" . $editcaption . "\" data-caption=\"" . $editcaption . "\" href=\"" . ew_HtmlEncode($this->EditUrl) . "\">" . $Language->Phrase("ViewPageEditLink") . "</a>";
-		$item->Visible = ($this->EditUrl <> "" && $Security->CanEdit());
-
 		// Set up action default
 		$option = &$options["action"];
 		$option->DropDownButtonPhrase = $Language->Phrase("ButtonActions");

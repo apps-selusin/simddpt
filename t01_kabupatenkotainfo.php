@@ -603,7 +603,7 @@ class ct01_kabupatenkota extends cTable {
 			$sFilterWrk = "`id`" . ew_SearchString("=", $this->provinsi_id->CurrentValue, EW_DATATYPE_NUMBER, "");
 		$sSqlWrk = "SELECT `id`, `Nama` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t00_provinsi`";
 		$sWhereWrk = "";
-		$this->provinsi_id->LookupFilters = array("dx1" => '`Nama`');
+		$this->provinsi_id->LookupFilters = array();
 		ew_AddFilter($sWhereWrk, $sFilterWrk);
 		$this->Lookup_Selecting($this->provinsi_id, $sWhereWrk); // Call Lookup selecting
 		if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;

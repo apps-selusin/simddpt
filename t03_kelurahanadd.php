@@ -611,7 +611,7 @@ class ct03_kelurahan_add extends ct03_kelurahan {
 			$sFilterWrk = "`id`" . ew_SearchString("=", $this->provinsi_id->CurrentValue, EW_DATATYPE_NUMBER, "");
 		$sSqlWrk = "SELECT `id`, `Nama` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t00_provinsi`";
 		$sWhereWrk = "";
-		$this->provinsi_id->LookupFilters = array("dx1" => '`Nama`');
+		$this->provinsi_id->LookupFilters = array();
 		ew_AddFilter($sWhereWrk, $sFilterWrk);
 		$this->Lookup_Selecting($this->provinsi_id, $sWhereWrk); // Call Lookup selecting
 		if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
@@ -634,7 +634,7 @@ class ct03_kelurahan_add extends ct03_kelurahan {
 			$sFilterWrk = "`id`" . ew_SearchString("=", $this->kabupatenkota_id->CurrentValue, EW_DATATYPE_NUMBER, "");
 		$sSqlWrk = "SELECT `id`, `Nama` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t01_kabupatenkota`";
 		$sWhereWrk = "";
-		$this->kabupatenkota_id->LookupFilters = array("dx1" => '`Nama`');
+		$this->kabupatenkota_id->LookupFilters = array();
 		ew_AddFilter($sWhereWrk, $sFilterWrk);
 		$this->Lookup_Selecting($this->kabupatenkota_id, $sWhereWrk); // Call Lookup selecting
 		if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
@@ -657,7 +657,7 @@ class ct03_kelurahan_add extends ct03_kelurahan {
 			$sFilterWrk = "`id`" . ew_SearchString("=", $this->kecamatan_id->CurrentValue, EW_DATATYPE_NUMBER, "");
 		$sSqlWrk = "SELECT `id`, `Nama` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t02_kecamatan`";
 		$sWhereWrk = "";
-		$this->kecamatan_id->LookupFilters = array("dx1" => '`Nama`');
+		$this->kecamatan_id->LookupFilters = array();
 		ew_AddFilter($sWhereWrk, $sFilterWrk);
 		$this->Lookup_Selecting($this->kecamatan_id, $sWhereWrk); // Call Lookup selecting
 		if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
@@ -701,6 +701,7 @@ class ct03_kelurahan_add extends ct03_kelurahan {
 		} elseif ($this->RowType == EW_ROWTYPE_ADD) { // Add row
 
 			// provinsi_id
+			$this->provinsi_id->EditAttrs["class"] = "form-control";
 			$this->provinsi_id->EditCustomAttributes = "";
 			if (trim(strval($this->provinsi_id->CurrentValue)) == "") {
 				$sFilterWrk = "0=1";
@@ -709,23 +710,17 @@ class ct03_kelurahan_add extends ct03_kelurahan {
 			}
 			$sSqlWrk = "SELECT `id`, `Nama` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld`, '' AS `SelectFilterFld`, '' AS `SelectFilterFld2`, '' AS `SelectFilterFld3`, '' AS `SelectFilterFld4` FROM `t00_provinsi`";
 			$sWhereWrk = "";
-			$this->provinsi_id->LookupFilters = array("dx1" => '`Nama`');
+			$this->provinsi_id->LookupFilters = array();
 			ew_AddFilter($sWhereWrk, $sFilterWrk);
 			$this->Lookup_Selecting($this->provinsi_id, $sWhereWrk); // Call Lookup selecting
 			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
 			$rswrk = Conn()->Execute($sSqlWrk);
-			if ($rswrk && !$rswrk->EOF) { // Lookup values found
-				$arwrk = array();
-				$arwrk[1] = ew_HtmlEncode($rswrk->fields('DispFld'));
-				$this->provinsi_id->ViewValue = $this->provinsi_id->DisplayValue($arwrk);
-			} else {
-				$this->provinsi_id->ViewValue = $Language->Phrase("PleaseSelect");
-			}
 			$arwrk = ($rswrk) ? $rswrk->GetRows() : array();
 			if ($rswrk) $rswrk->Close();
 			$this->provinsi_id->EditValue = $arwrk;
 
 			// kabupatenkota_id
+			$this->kabupatenkota_id->EditAttrs["class"] = "form-control";
 			$this->kabupatenkota_id->EditCustomAttributes = "";
 			if (trim(strval($this->kabupatenkota_id->CurrentValue)) == "") {
 				$sFilterWrk = "0=1";
@@ -734,23 +729,17 @@ class ct03_kelurahan_add extends ct03_kelurahan {
 			}
 			$sSqlWrk = "SELECT `id`, `Nama` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld`, `provinsi_id` AS `SelectFilterFld`, '' AS `SelectFilterFld2`, '' AS `SelectFilterFld3`, '' AS `SelectFilterFld4` FROM `t01_kabupatenkota`";
 			$sWhereWrk = "";
-			$this->kabupatenkota_id->LookupFilters = array("dx1" => '`Nama`');
+			$this->kabupatenkota_id->LookupFilters = array();
 			ew_AddFilter($sWhereWrk, $sFilterWrk);
 			$this->Lookup_Selecting($this->kabupatenkota_id, $sWhereWrk); // Call Lookup selecting
 			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
 			$rswrk = Conn()->Execute($sSqlWrk);
-			if ($rswrk && !$rswrk->EOF) { // Lookup values found
-				$arwrk = array();
-				$arwrk[1] = ew_HtmlEncode($rswrk->fields('DispFld'));
-				$this->kabupatenkota_id->ViewValue = $this->kabupatenkota_id->DisplayValue($arwrk);
-			} else {
-				$this->kabupatenkota_id->ViewValue = $Language->Phrase("PleaseSelect");
-			}
 			$arwrk = ($rswrk) ? $rswrk->GetRows() : array();
 			if ($rswrk) $rswrk->Close();
 			$this->kabupatenkota_id->EditValue = $arwrk;
 
 			// kecamatan_id
+			$this->kecamatan_id->EditAttrs["class"] = "form-control";
 			$this->kecamatan_id->EditCustomAttributes = "";
 			if (trim(strval($this->kecamatan_id->CurrentValue)) == "") {
 				$sFilterWrk = "0=1";
@@ -759,18 +748,11 @@ class ct03_kelurahan_add extends ct03_kelurahan {
 			}
 			$sSqlWrk = "SELECT `id`, `Nama` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld`, `kabupatenkota_id` AS `SelectFilterFld`, '' AS `SelectFilterFld2`, '' AS `SelectFilterFld3`, '' AS `SelectFilterFld4` FROM `t02_kecamatan`";
 			$sWhereWrk = "";
-			$this->kecamatan_id->LookupFilters = array("dx1" => '`Nama`');
+			$this->kecamatan_id->LookupFilters = array();
 			ew_AddFilter($sWhereWrk, $sFilterWrk);
 			$this->Lookup_Selecting($this->kecamatan_id, $sWhereWrk); // Call Lookup selecting
 			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
 			$rswrk = Conn()->Execute($sSqlWrk);
-			if ($rswrk && !$rswrk->EOF) { // Lookup values found
-				$arwrk = array();
-				$arwrk[1] = ew_HtmlEncode($rswrk->fields('DispFld'));
-				$this->kecamatan_id->ViewValue = $this->kecamatan_id->DisplayValue($arwrk);
-			} else {
-				$this->kecamatan_id->ViewValue = $Language->Phrase("PleaseSelect");
-			}
 			$arwrk = ($rswrk) ? $rswrk->GetRows() : array();
 			if ($rswrk) $rswrk->Close();
 			$this->kecamatan_id->EditValue = $arwrk;
@@ -916,8 +898,8 @@ class ct03_kelurahan_add extends ct03_kelurahan {
 		case "x_provinsi_id":
 			$sSqlWrk = "";
 			$sSqlWrk = "SELECT `id` AS `LinkFld`, `Nama` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t00_provinsi`";
-			$sWhereWrk = "{filter}";
-			$this->provinsi_id->LookupFilters = array("dx1" => '`Nama`');
+			$sWhereWrk = "";
+			$this->provinsi_id->LookupFilters = array();
 			$fld->LookupFilters += array("s" => $sSqlWrk, "d" => "", "f0" => '`id` = {filter_value}', "t0" => "3", "fn0" => "");
 			$sSqlWrk = "";
 			$this->Lookup_Selecting($this->provinsi_id, $sWhereWrk); // Call Lookup selecting
@@ -929,7 +911,7 @@ class ct03_kelurahan_add extends ct03_kelurahan {
 			$sSqlWrk = "";
 			$sSqlWrk = "SELECT `id` AS `LinkFld`, `Nama` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t01_kabupatenkota`";
 			$sWhereWrk = "{filter}";
-			$this->kabupatenkota_id->LookupFilters = array("dx1" => '`Nama`');
+			$this->kabupatenkota_id->LookupFilters = array();
 			$fld->LookupFilters += array("s" => $sSqlWrk, "d" => "", "f0" => '`id` = {filter_value}', "t0" => "3", "fn0" => "", "f1" => '`provinsi_id` IN ({filter_value})', "t1" => "3", "fn1" => "");
 			$sSqlWrk = "";
 			$this->Lookup_Selecting($this->kabupatenkota_id, $sWhereWrk); // Call Lookup selecting
@@ -941,7 +923,7 @@ class ct03_kelurahan_add extends ct03_kelurahan {
 			$sSqlWrk = "";
 			$sSqlWrk = "SELECT `id` AS `LinkFld`, `Nama` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t02_kecamatan`";
 			$sWhereWrk = "{filter}";
-			$this->kecamatan_id->LookupFilters = array("dx1" => '`Nama`');
+			$this->kecamatan_id->LookupFilters = array();
 			$fld->LookupFilters += array("s" => $sSqlWrk, "d" => "", "f0" => '`id` = {filter_value}', "t0" => "3", "fn0" => "", "f1" => '`kabupatenkota_id` IN ({filter_value})', "t1" => "3", "fn1" => "");
 			$sSqlWrk = "";
 			$this->Lookup_Selecting($this->kecamatan_id, $sWhereWrk); // Call Lookup selecting
@@ -1150,11 +1132,9 @@ $t03_kelurahan_add->ShowMessage();
 		<div class="col-sm-10"><div<?php echo $t03_kelurahan->provinsi_id->CellAttributes() ?>>
 <span id="el_t03_kelurahan_provinsi_id">
 <?php $t03_kelurahan->provinsi_id->EditAttrs["onchange"] = "ew_UpdateOpt.call(this); " . @$t03_kelurahan->provinsi_id->EditAttrs["onchange"]; ?>
-<span class="ewLookupList">
-	<span onclick="jQuery(this).parent().next().click();" tabindex="-1" class="form-control ewLookupText" id="lu_x_provinsi_id"><?php echo (strval($t03_kelurahan->provinsi_id->ViewValue) == "" ? $Language->Phrase("PleaseSelect") : $t03_kelurahan->provinsi_id->ViewValue); ?></span>
-</span>
-<button type="button" title="<?php echo ew_HtmlEncode(str_replace("%s", ew_RemoveHtml($t03_kelurahan->provinsi_id->FldCaption()), $Language->Phrase("LookupLink", TRUE))) ?>" onclick="ew_ModalLookupShow({lnk:this,el:'x_provinsi_id',m:0,n:10});" class="ewLookupBtn btn btn-default btn-sm"><span class="glyphicon glyphicon-search ewIcon"></span></button>
-<input type="hidden" data-table="t03_kelurahan" data-field="x_provinsi_id" data-multiple="0" data-lookup="1" data-value-separator="<?php echo $t03_kelurahan->provinsi_id->DisplayValueSeparatorAttribute() ?>" name="x_provinsi_id" id="x_provinsi_id" value="<?php echo $t03_kelurahan->provinsi_id->CurrentValue ?>"<?php echo $t03_kelurahan->provinsi_id->EditAttributes() ?>>
+<select data-table="t03_kelurahan" data-field="x_provinsi_id" data-value-separator="<?php echo $t03_kelurahan->provinsi_id->DisplayValueSeparatorAttribute() ?>" id="x_provinsi_id" name="x_provinsi_id"<?php echo $t03_kelurahan->provinsi_id->EditAttributes() ?>>
+<?php echo $t03_kelurahan->provinsi_id->SelectOptionListHtml("x_provinsi_id") ?>
+</select>
 <input type="hidden" name="s_x_provinsi_id" id="s_x_provinsi_id" value="<?php echo $t03_kelurahan->provinsi_id->LookupFilterQuery() ?>">
 </span>
 <?php echo $t03_kelurahan->provinsi_id->CustomMsg ?></div></div>
@@ -1166,11 +1146,9 @@ $t03_kelurahan_add->ShowMessage();
 		<div class="col-sm-10"><div<?php echo $t03_kelurahan->kabupatenkota_id->CellAttributes() ?>>
 <span id="el_t03_kelurahan_kabupatenkota_id">
 <?php $t03_kelurahan->kabupatenkota_id->EditAttrs["onchange"] = "ew_UpdateOpt.call(this); " . @$t03_kelurahan->kabupatenkota_id->EditAttrs["onchange"]; ?>
-<span class="ewLookupList">
-	<span onclick="jQuery(this).parent().next().click();" tabindex="-1" class="form-control ewLookupText" id="lu_x_kabupatenkota_id"><?php echo (strval($t03_kelurahan->kabupatenkota_id->ViewValue) == "" ? $Language->Phrase("PleaseSelect") : $t03_kelurahan->kabupatenkota_id->ViewValue); ?></span>
-</span>
-<button type="button" title="<?php echo ew_HtmlEncode(str_replace("%s", ew_RemoveHtml($t03_kelurahan->kabupatenkota_id->FldCaption()), $Language->Phrase("LookupLink", TRUE))) ?>" onclick="ew_ModalLookupShow({lnk:this,el:'x_kabupatenkota_id',m:0,n:10});" class="ewLookupBtn btn btn-default btn-sm"><span class="glyphicon glyphicon-search ewIcon"></span></button>
-<input type="hidden" data-table="t03_kelurahan" data-field="x_kabupatenkota_id" data-multiple="0" data-lookup="1" data-value-separator="<?php echo $t03_kelurahan->kabupatenkota_id->DisplayValueSeparatorAttribute() ?>" name="x_kabupatenkota_id" id="x_kabupatenkota_id" value="<?php echo $t03_kelurahan->kabupatenkota_id->CurrentValue ?>"<?php echo $t03_kelurahan->kabupatenkota_id->EditAttributes() ?>>
+<select data-table="t03_kelurahan" data-field="x_kabupatenkota_id" data-value-separator="<?php echo $t03_kelurahan->kabupatenkota_id->DisplayValueSeparatorAttribute() ?>" id="x_kabupatenkota_id" name="x_kabupatenkota_id"<?php echo $t03_kelurahan->kabupatenkota_id->EditAttributes() ?>>
+<?php echo $t03_kelurahan->kabupatenkota_id->SelectOptionListHtml("x_kabupatenkota_id") ?>
+</select>
 <input type="hidden" name="s_x_kabupatenkota_id" id="s_x_kabupatenkota_id" value="<?php echo $t03_kelurahan->kabupatenkota_id->LookupFilterQuery() ?>">
 </span>
 <?php echo $t03_kelurahan->kabupatenkota_id->CustomMsg ?></div></div>
@@ -1181,11 +1159,9 @@ $t03_kelurahan_add->ShowMessage();
 		<label id="elh_t03_kelurahan_kecamatan_id" for="x_kecamatan_id" class="col-sm-2 control-label ewLabel"><?php echo $t03_kelurahan->kecamatan_id->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
 		<div class="col-sm-10"><div<?php echo $t03_kelurahan->kecamatan_id->CellAttributes() ?>>
 <span id="el_t03_kelurahan_kecamatan_id">
-<span class="ewLookupList">
-	<span onclick="jQuery(this).parent().next().click();" tabindex="-1" class="form-control ewLookupText" id="lu_x_kecamatan_id"><?php echo (strval($t03_kelurahan->kecamatan_id->ViewValue) == "" ? $Language->Phrase("PleaseSelect") : $t03_kelurahan->kecamatan_id->ViewValue); ?></span>
-</span>
-<button type="button" title="<?php echo ew_HtmlEncode(str_replace("%s", ew_RemoveHtml($t03_kelurahan->kecamatan_id->FldCaption()), $Language->Phrase("LookupLink", TRUE))) ?>" onclick="ew_ModalLookupShow({lnk:this,el:'x_kecamatan_id',m:0,n:10});" class="ewLookupBtn btn btn-default btn-sm"><span class="glyphicon glyphicon-search ewIcon"></span></button>
-<input type="hidden" data-table="t03_kelurahan" data-field="x_kecamatan_id" data-multiple="0" data-lookup="1" data-value-separator="<?php echo $t03_kelurahan->kecamatan_id->DisplayValueSeparatorAttribute() ?>" name="x_kecamatan_id" id="x_kecamatan_id" value="<?php echo $t03_kelurahan->kecamatan_id->CurrentValue ?>"<?php echo $t03_kelurahan->kecamatan_id->EditAttributes() ?>>
+<select data-table="t03_kelurahan" data-field="x_kecamatan_id" data-value-separator="<?php echo $t03_kelurahan->kecamatan_id->DisplayValueSeparatorAttribute() ?>" id="x_kecamatan_id" name="x_kecamatan_id"<?php echo $t03_kelurahan->kecamatan_id->EditAttributes() ?>>
+<?php echo $t03_kelurahan->kecamatan_id->SelectOptionListHtml("x_kecamatan_id") ?>
+</select>
 <input type="hidden" name="s_x_kecamatan_id" id="s_x_kecamatan_id" value="<?php echo $t03_kelurahan->kecamatan_id->LookupFilterQuery() ?>">
 </span>
 <?php echo $t03_kelurahan->kecamatan_id->CustomMsg ?></div></div>

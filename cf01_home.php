@@ -377,7 +377,7 @@ $db =& DbHelper();
 							<tr>
 								<td width="20">-</td>
 								<td><?php echo $r->fields["desc_"];?></td>
-								<td width="100"><?php echo $r->fields["date_issued"];?></td>
+								<td width="100"><?php echo date_format(date_create($r->fields["date_issued"]), "d-m-Y");?></td>
 								<td width="100">&nbsp;</td>
 							</tr>
 							<?php
@@ -433,8 +433,8 @@ $db =& DbHelper();
 							<tr>
 								<td width="20">-</td>
 								<td><?php echo $r->fields["desc_"];?></td>
-								<td width="100"><?php echo $r->fields["date_issued"];?></td>
-								<td width="100"><?php echo $r->fields["date_solved"];?></td>
+								<td width="100"><?php echo date_format(date_create($r->fields["date_issued"]), "d-m-Y");?></td>
+								<td width="100"><?php echo date_format(date_create($r->fields["date_solved"]), "d-m-Y");?></td>
 							</tr>
 							<?php
 							$r->MoveNext();

@@ -563,15 +563,6 @@ class ct01_kabupatenkota_view extends ct01_kabupatenkota {
 		$options = &$this->OtherOptions;
 		$option = &$options["action"];
 
-		// Edit
-		$item = &$option->Add("edit");
-		$editcaption = ew_HtmlTitle($Language->Phrase("ViewPageEditLink"));
-		if ($this->IsModal) // Modal
-			$item->Body = "<a class=\"ewAction ewEdit\" title=\"" . $editcaption . "\" data-caption=\"" . $editcaption . "\" href=\"javascript:void(0);\" onclick=\"ew_ModalDialogShow({lnk:this,url:'" . ew_HtmlEncode($this->EditUrl) . "',caption:'" . $editcaption . "'});\">" . $Language->Phrase("ViewPageEditLink") . "</a>";
-		else
-			$item->Body = "<a class=\"ewAction ewEdit\" title=\"" . $editcaption . "\" data-caption=\"" . $editcaption . "\" href=\"" . ew_HtmlEncode($this->EditUrl) . "\">" . $Language->Phrase("ViewPageEditLink") . "</a>";
-		$item->Visible = ($this->EditUrl <> "" && $Security->CanEdit());
-
 		// Set up action default
 		$option = &$options["action"];
 		$option->DropDownButtonPhrase = $Language->Phrase("ButtonActions");
@@ -720,7 +711,7 @@ class ct01_kabupatenkota_view extends ct01_kabupatenkota {
 			$sFilterWrk = "`id`" . ew_SearchString("=", $this->provinsi_id->CurrentValue, EW_DATATYPE_NUMBER, "");
 		$sSqlWrk = "SELECT `id`, `Nama` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t00_provinsi`";
 		$sWhereWrk = "";
-		$this->provinsi_id->LookupFilters = array("dx1" => '`Nama`');
+		$this->provinsi_id->LookupFilters = array();
 		ew_AddFilter($sWhereWrk, $sFilterWrk);
 		$this->Lookup_Selecting($this->provinsi_id, $sWhereWrk); // Call Lookup selecting
 		if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
