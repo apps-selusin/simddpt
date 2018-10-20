@@ -595,6 +595,9 @@
     <menu id="9">
       <phrase id="menutext" value="Kabupaten / Kota" />
     </menu>
+    <menu id="14">
+      <phrase id="menutext" value="Daerah Pemilihan (DAPIL)" />
+    </menu>
     <menu id="12">
       <phrase id="menutext" value="Kecamatan" />
     </menu>
@@ -660,6 +663,9 @@
       <field id="nama">
         <phrase id="fldcaption" value="Kecamatan" />
       </field>
+      <field id="dapil_id">
+        <phrase id="fldcaption" value="dapil id" />
+      </field>
     </table>
     <table id="t03_kelurahan">
       <phrase id="tblcaption" value="Kelurahan" />
@@ -677,6 +683,21 @@
       </field>
       <field id="nama">
         <phrase id="fldcaption" value="Kelurahan" />
+      </field>
+    </table>
+    <table id="t04_dapil">
+      <phrase id="tblcaption" value="Daerah Pemilihan (DAPIL)" />
+      <field id="id">
+        <phrase id="fldcaption" value="id" />
+      </field>
+      <field id="provinsi_id">
+        <phrase id="fldcaption" value="Provinsi" />
+      </field>
+      <field id="kabupatenkota_id">
+        <phrase id="fldcaption" value="Kabupaten / Kota" />
+      </field>
+      <field id="dapil">
+        <phrase id="fldcaption" value="DAPIL" />
       </field>
     </table>
     <table id="t94_log">

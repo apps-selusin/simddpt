@@ -1,12 +1,12 @@
 <?php
 
 // Global variable for table object
-$t02_kecamatan = NULL;
+$t04_dapil = NULL;
 
 //
-// Table class for t02_kecamatan
+// Table class for t04_dapil
 //
-class ct02_kecamatan extends cTable {
+class ct04_dapil extends cTable {
 	var $AuditTrailOnAdd = TRUE;
 	var $AuditTrailOnEdit = TRUE;
 	var $AuditTrailOnDelete = TRUE;
@@ -16,8 +16,7 @@ class ct02_kecamatan extends cTable {
 	var $id;
 	var $provinsi_id;
 	var $kabupatenkota_id;
-	var $Nama;
-	var $dapil_id;
+	var $Dapil;
 
 	//
 	// Table class constructor
@@ -27,12 +26,12 @@ class ct02_kecamatan extends cTable {
 
 		// Language object
 		if (!isset($Language)) $Language = new cLanguage();
-		$this->TableVar = 't02_kecamatan';
-		$this->TableName = 't02_kecamatan';
+		$this->TableVar = 't04_dapil';
+		$this->TableName = 't04_dapil';
 		$this->TableType = 'TABLE';
 
 		// Update Table
-		$this->UpdateTable = "`t02_kecamatan`";
+		$this->UpdateTable = "`t04_dapil`";
 		$this->DBID = 'DB';
 		$this->ExportAll = TRUE;
 		$this->ExportPageBreakCount = 0; // Page break per every n record (PDF only)
@@ -50,13 +49,13 @@ class ct02_kecamatan extends cTable {
 		$this->BasicSearch = new cBasicSearch($this->TableVar);
 
 		// id
-		$this->id = new cField('t02_kecamatan', 't02_kecamatan', 'x_id', 'id', '`id`', '`id`', 3, -1, FALSE, '`id`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'NO');
+		$this->id = new cField('t04_dapil', 't04_dapil', 'x_id', 'id', '`id`', '`id`', 3, -1, FALSE, '`id`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'NO');
 		$this->id->Sortable = TRUE; // Allow sort
 		$this->id->FldDefaultErrMsg = $Language->Phrase("IncorrectInteger");
 		$this->fields['id'] = &$this->id;
 
 		// provinsi_id
-		$this->provinsi_id = new cField('t02_kecamatan', 't02_kecamatan', 'x_provinsi_id', 'provinsi_id', '`provinsi_id`', '`provinsi_id`', 3, -1, FALSE, '`provinsi_id`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'SELECT');
+		$this->provinsi_id = new cField('t04_dapil', 't04_dapil', 'x_provinsi_id', 'provinsi_id', '`provinsi_id`', '`provinsi_id`', 3, -1, FALSE, '`provinsi_id`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'SELECT');
 		$this->provinsi_id->Sortable = TRUE; // Allow sort
 		$this->provinsi_id->UsePleaseSelect = TRUE; // Use PleaseSelect by default
 		$this->provinsi_id->PleaseSelectText = $Language->Phrase("PleaseSelect"); // PleaseSelect text
@@ -64,25 +63,17 @@ class ct02_kecamatan extends cTable {
 		$this->fields['provinsi_id'] = &$this->provinsi_id;
 
 		// kabupatenkota_id
-		$this->kabupatenkota_id = new cField('t02_kecamatan', 't02_kecamatan', 'x_kabupatenkota_id', 'kabupatenkota_id', '`kabupatenkota_id`', '`kabupatenkota_id`', 3, -1, FALSE, '`kabupatenkota_id`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'SELECT');
+		$this->kabupatenkota_id = new cField('t04_dapil', 't04_dapil', 'x_kabupatenkota_id', 'kabupatenkota_id', '`kabupatenkota_id`', '`kabupatenkota_id`', 3, -1, FALSE, '`kabupatenkota_id`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'SELECT');
 		$this->kabupatenkota_id->Sortable = TRUE; // Allow sort
 		$this->kabupatenkota_id->UsePleaseSelect = TRUE; // Use PleaseSelect by default
 		$this->kabupatenkota_id->PleaseSelectText = $Language->Phrase("PleaseSelect"); // PleaseSelect text
 		$this->kabupatenkota_id->FldDefaultErrMsg = $Language->Phrase("IncorrectInteger");
 		$this->fields['kabupatenkota_id'] = &$this->kabupatenkota_id;
 
-		// Nama
-		$this->Nama = new cField('t02_kecamatan', 't02_kecamatan', 'x_Nama', 'Nama', '`Nama`', '`Nama`', 200, -1, FALSE, '`Nama`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'TEXT');
-		$this->Nama->Sortable = TRUE; // Allow sort
-		$this->fields['Nama'] = &$this->Nama;
-
-		// dapil_id
-		$this->dapil_id = new cField('t02_kecamatan', 't02_kecamatan', 'x_dapil_id', 'dapil_id', '`dapil_id`', '`dapil_id`', 3, -1, FALSE, '`dapil_id`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'SELECT');
-		$this->dapil_id->Sortable = TRUE; // Allow sort
-		$this->dapil_id->UsePleaseSelect = TRUE; // Use PleaseSelect by default
-		$this->dapil_id->PleaseSelectText = $Language->Phrase("PleaseSelect"); // PleaseSelect text
-		$this->dapil_id->FldDefaultErrMsg = $Language->Phrase("IncorrectInteger");
-		$this->fields['dapil_id'] = &$this->dapil_id;
+		// Dapil
+		$this->Dapil = new cField('t04_dapil', 't04_dapil', 'x_Dapil', 'Dapil', '`Dapil`', '`Dapil`', 200, -1, FALSE, '`Dapil`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'TEXT');
+		$this->Dapil->Sortable = TRUE; // Allow sort
+		$this->fields['Dapil'] = &$this->Dapil;
 	}
 
 	// Set Field Visibility
@@ -123,7 +114,7 @@ class ct02_kecamatan extends cTable {
 	var $_SqlFrom = "";
 
 	function getSqlFrom() { // From
-		return ($this->_SqlFrom <> "") ? $this->_SqlFrom : "`t02_kecamatan`";
+		return ($this->_SqlFrom <> "") ? $this->_SqlFrom : "`t04_dapil`";
 	}
 
 	function SqlFrom() { // For backward compatibility
@@ -437,7 +428,7 @@ class ct02_kecamatan extends cTable {
 		if (@$_SESSION[$name] <> "") {
 			return $_SESSION[$name];
 		} else {
-			return "t02_kecamatanlist.php";
+			return "t04_dapillist.php";
 		}
 	}
 
@@ -447,30 +438,30 @@ class ct02_kecamatan extends cTable {
 
 	// List URL
 	function GetListUrl() {
-		return "t02_kecamatanlist.php";
+		return "t04_dapillist.php";
 	}
 
 	// View URL
 	function GetViewUrl($parm = "") {
 		if ($parm <> "")
-			$url = $this->KeyUrl("t02_kecamatanview.php", $this->UrlParm($parm));
+			$url = $this->KeyUrl("t04_dapilview.php", $this->UrlParm($parm));
 		else
-			$url = $this->KeyUrl("t02_kecamatanview.php", $this->UrlParm(EW_TABLE_SHOW_DETAIL . "="));
+			$url = $this->KeyUrl("t04_dapilview.php", $this->UrlParm(EW_TABLE_SHOW_DETAIL . "="));
 		return $this->AddMasterUrl($url);
 	}
 
 	// Add URL
 	function GetAddUrl($parm = "") {
 		if ($parm <> "")
-			$url = "t02_kecamatanadd.php?" . $this->UrlParm($parm);
+			$url = "t04_dapiladd.php?" . $this->UrlParm($parm);
 		else
-			$url = "t02_kecamatanadd.php";
+			$url = "t04_dapiladd.php";
 		return $this->AddMasterUrl($url);
 	}
 
 	// Edit URL
 	function GetEditUrl($parm = "") {
-		$url = $this->KeyUrl("t02_kecamatanedit.php", $this->UrlParm($parm));
+		$url = $this->KeyUrl("t04_dapiledit.php", $this->UrlParm($parm));
 		return $this->AddMasterUrl($url);
 	}
 
@@ -482,7 +473,7 @@ class ct02_kecamatan extends cTable {
 
 	// Copy URL
 	function GetCopyUrl($parm = "") {
-		$url = $this->KeyUrl("t02_kecamatanadd.php", $this->UrlParm($parm));
+		$url = $this->KeyUrl("t04_dapiladd.php", $this->UrlParm($parm));
 		return $this->AddMasterUrl($url);
 	}
 
@@ -494,7 +485,7 @@ class ct02_kecamatan extends cTable {
 
 	// Delete URL
 	function GetDeleteUrl() {
-		return $this->KeyUrl("t02_kecamatandelete.php", $this->UrlParm());
+		return $this->KeyUrl("t04_dapildelete.php", $this->UrlParm());
 	}
 
 	// Add master url
@@ -598,8 +589,7 @@ class ct02_kecamatan extends cTable {
 		$this->id->setDbValue($rs->fields('id'));
 		$this->provinsi_id->setDbValue($rs->fields('provinsi_id'));
 		$this->kabupatenkota_id->setDbValue($rs->fields('kabupatenkota_id'));
-		$this->Nama->setDbValue($rs->fields('Nama'));
-		$this->dapil_id->setDbValue($rs->fields('dapil_id'));
+		$this->Dapil->setDbValue($rs->fields('Dapil'));
 	}
 
 	// Render list row values
@@ -613,8 +603,7 @@ class ct02_kecamatan extends cTable {
 		// id
 		// provinsi_id
 		// kabupatenkota_id
-		// Nama
-		// dapil_id
+		// Dapil
 		// id
 
 		$this->id->ViewValue = $this->id->CurrentValue;
@@ -666,32 +655,9 @@ class ct02_kecamatan extends cTable {
 		}
 		$this->kabupatenkota_id->ViewCustomAttributes = "";
 
-		// Nama
-		$this->Nama->ViewValue = $this->Nama->CurrentValue;
-		$this->Nama->ViewCustomAttributes = "";
-
-		// dapil_id
-		if (strval($this->dapil_id->CurrentValue) <> "") {
-			$sFilterWrk = "`id`" . ew_SearchString("=", $this->dapil_id->CurrentValue, EW_DATATYPE_NUMBER, "");
-		$sSqlWrk = "SELECT `id`, `Dapil` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t04_dapil`";
-		$sWhereWrk = "";
-		$this->dapil_id->LookupFilters = array();
-		ew_AddFilter($sWhereWrk, $sFilterWrk);
-		$this->Lookup_Selecting($this->dapil_id, $sWhereWrk); // Call Lookup selecting
-		if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
-			$rswrk = Conn()->Execute($sSqlWrk);
-			if ($rswrk && !$rswrk->EOF) { // Lookup values found
-				$arwrk = array();
-				$arwrk[1] = $rswrk->fields('DispFld');
-				$this->dapil_id->ViewValue = $this->dapil_id->DisplayValue($arwrk);
-				$rswrk->Close();
-			} else {
-				$this->dapil_id->ViewValue = $this->dapil_id->CurrentValue;
-			}
-		} else {
-			$this->dapil_id->ViewValue = NULL;
-		}
-		$this->dapil_id->ViewCustomAttributes = "";
+		// Dapil
+		$this->Dapil->ViewValue = $this->Dapil->CurrentValue;
+		$this->Dapil->ViewCustomAttributes = "";
 
 		// id
 		$this->id->LinkCustomAttributes = "";
@@ -708,15 +674,10 @@ class ct02_kecamatan extends cTable {
 		$this->kabupatenkota_id->HrefValue = "";
 		$this->kabupatenkota_id->TooltipValue = "";
 
-		// Nama
-		$this->Nama->LinkCustomAttributes = "";
-		$this->Nama->HrefValue = "";
-		$this->Nama->TooltipValue = "";
-
-		// dapil_id
-		$this->dapil_id->LinkCustomAttributes = "";
-		$this->dapil_id->HrefValue = "";
-		$this->dapil_id->TooltipValue = "";
+		// Dapil
+		$this->Dapil->LinkCustomAttributes = "";
+		$this->Dapil->HrefValue = "";
+		$this->Dapil->TooltipValue = "";
 
 		// Call Row Rendered event
 		$this->Row_Rendered();
@@ -743,15 +704,11 @@ class ct02_kecamatan extends cTable {
 		$this->kabupatenkota_id->EditAttrs["class"] = "form-control";
 		$this->kabupatenkota_id->EditCustomAttributes = "";
 
-		// Nama
-		$this->Nama->EditAttrs["class"] = "form-control";
-		$this->Nama->EditCustomAttributes = "";
-		$this->Nama->EditValue = $this->Nama->CurrentValue;
-		$this->Nama->PlaceHolder = ew_RemoveHtml($this->Nama->FldCaption());
-
-		// dapil_id
-		$this->dapil_id->EditAttrs["class"] = "form-control";
-		$this->dapil_id->EditCustomAttributes = "";
+		// Dapil
+		$this->Dapil->EditAttrs["class"] = "form-control";
+		$this->Dapil->EditCustomAttributes = "";
+		$this->Dapil->EditValue = $this->Dapil->CurrentValue;
+		$this->Dapil->PlaceHolder = ew_RemoveHtml($this->Dapil->FldCaption());
 
 		// Call Row Rendered event
 		$this->Row_Rendered();
@@ -782,14 +739,12 @@ class ct02_kecamatan extends cTable {
 				if ($ExportPageType == "view") {
 					if ($this->provinsi_id->Exportable) $Doc->ExportCaption($this->provinsi_id);
 					if ($this->kabupatenkota_id->Exportable) $Doc->ExportCaption($this->kabupatenkota_id);
-					if ($this->Nama->Exportable) $Doc->ExportCaption($this->Nama);
-					if ($this->dapil_id->Exportable) $Doc->ExportCaption($this->dapil_id);
+					if ($this->Dapil->Exportable) $Doc->ExportCaption($this->Dapil);
 				} else {
 					if ($this->id->Exportable) $Doc->ExportCaption($this->id);
 					if ($this->provinsi_id->Exportable) $Doc->ExportCaption($this->provinsi_id);
 					if ($this->kabupatenkota_id->Exportable) $Doc->ExportCaption($this->kabupatenkota_id);
-					if ($this->Nama->Exportable) $Doc->ExportCaption($this->Nama);
-					if ($this->dapil_id->Exportable) $Doc->ExportCaption($this->dapil_id);
+					if ($this->Dapil->Exportable) $Doc->ExportCaption($this->Dapil);
 				}
 				$Doc->EndExportRow();
 			}
@@ -823,14 +778,12 @@ class ct02_kecamatan extends cTable {
 					if ($ExportPageType == "view") {
 						if ($this->provinsi_id->Exportable) $Doc->ExportField($this->provinsi_id);
 						if ($this->kabupatenkota_id->Exportable) $Doc->ExportField($this->kabupatenkota_id);
-						if ($this->Nama->Exportable) $Doc->ExportField($this->Nama);
-						if ($this->dapil_id->Exportable) $Doc->ExportField($this->dapil_id);
+						if ($this->Dapil->Exportable) $Doc->ExportField($this->Dapil);
 					} else {
 						if ($this->id->Exportable) $Doc->ExportField($this->id);
 						if ($this->provinsi_id->Exportable) $Doc->ExportField($this->provinsi_id);
 						if ($this->kabupatenkota_id->Exportable) $Doc->ExportField($this->kabupatenkota_id);
-						if ($this->Nama->Exportable) $Doc->ExportField($this->Nama);
-						if ($this->dapil_id->Exportable) $Doc->ExportField($this->dapil_id);
+						if ($this->Dapil->Exportable) $Doc->ExportField($this->Dapil);
 					}
 					$Doc->EndExportRow();
 				}
@@ -874,7 +827,7 @@ class ct02_kecamatan extends cTable {
 
 	// Write Audit Trail start/end for grid update
 	function WriteAuditTrailDummy($typ) {
-		$table = 't02_kecamatan';
+		$table = 't04_dapil';
 		$usr = CurrentUserID();
 		ew_WriteAuditTrail("log", ew_StdCurrentDateTime(), ew_ScriptName(), $usr, $typ, $table, "", "", "", "");
 	}
@@ -883,7 +836,7 @@ class ct02_kecamatan extends cTable {
 	function WriteAuditTrailOnAdd(&$rs) {
 		global $Language;
 		if (!$this->AuditTrailOnAdd) return;
-		$table = 't02_kecamatan';
+		$table = 't04_dapil';
 
 		// Get key value
 		$key = "";
@@ -917,7 +870,7 @@ class ct02_kecamatan extends cTable {
 	function WriteAuditTrailOnEdit(&$rsold, &$rsnew) {
 		global $Language;
 		if (!$this->AuditTrailOnEdit) return;
-		$table = 't02_kecamatan';
+		$table = 't04_dapil';
 
 		// Get key value
 		$key = "";
@@ -964,7 +917,7 @@ class ct02_kecamatan extends cTable {
 	function WriteAuditTrailOnDelete(&$rs) {
 		global $Language;
 		if (!$this->AuditTrailOnDelete) return;
-		$table = 't02_kecamatan';
+		$table = 't04_dapil';
 
 		// Get key value
 		$key = "";

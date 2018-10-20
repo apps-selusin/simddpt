@@ -5,7 +5,7 @@ ob_start(); // Turn on output buffering
 <?php include_once "ewcfg13.php" ?>
 <?php include_once ((EW_USE_ADODB) ? "adodb5/adodb.inc.php" : "ewmysql13.php") ?>
 <?php include_once "phpfn13.php" ?>
-<?php include_once "t02_kecamataninfo.php" ?>
+<?php include_once "t04_dapilinfo.php" ?>
 <?php include_once "t96_employeesinfo.php" ?>
 <?php include_once "userfn13.php" ?>
 <?php
@@ -14,9 +14,9 @@ ob_start(); // Turn on output buffering
 // Page class
 //
 
-$t02_kecamatan_add = NULL; // Initialize page object first
+$t04_dapil_add = NULL; // Initialize page object first
 
-class ct02_kecamatan_add extends ct02_kecamatan {
+class ct04_dapil_add extends ct04_dapil {
 
 	// Page ID
 	var $PageID = 'add';
@@ -25,10 +25,10 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 	var $ProjectID = "{78A0660C-C398-4292-A50E-2A3C7D765239}";
 
 	// Table name
-	var $TableName = 't02_kecamatan';
+	var $TableName = 't04_dapil';
 
 	// Page object name
-	var $PageObjName = 't02_kecamatan_add';
+	var $PageObjName = 't04_dapil_add';
 
 	// Page name
 	function PageName() {
@@ -226,10 +226,10 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 		// Parent constuctor
 		parent::__construct();
 
-		// Table object (t02_kecamatan)
-		if (!isset($GLOBALS["t02_kecamatan"]) || get_class($GLOBALS["t02_kecamatan"]) == "ct02_kecamatan") {
-			$GLOBALS["t02_kecamatan"] = &$this;
-			$GLOBALS["Table"] = &$GLOBALS["t02_kecamatan"];
+		// Table object (t04_dapil)
+		if (!isset($GLOBALS["t04_dapil"]) || get_class($GLOBALS["t04_dapil"]) == "ct04_dapil") {
+			$GLOBALS["t04_dapil"] = &$this;
+			$GLOBALS["Table"] = &$GLOBALS["t04_dapil"];
 		}
 
 		// Table object (t96_employees)
@@ -241,7 +241,7 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 
 		// Table name (for backward compatibility)
 		if (!defined("EW_TABLE_NAME"))
-			define("EW_TABLE_NAME", 't02_kecamatan', TRUE);
+			define("EW_TABLE_NAME", 't04_dapil', TRUE);
 
 		// Start timer
 		if (!isset($GLOBALS["gTimer"])) $GLOBALS["gTimer"] = new cTimer();
@@ -272,7 +272,7 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 			$Security->SaveLastUrl();
 			$this->setFailureMessage(ew_DeniedMsg()); // Set no permission
 			if ($Security->CanList())
-				$this->Page_Terminate(ew_GetUrl("t02_kecamatanlist.php"));
+				$this->Page_Terminate(ew_GetUrl("t04_dapillist.php"));
 			else
 				$this->Page_Terminate(ew_GetUrl("login.php"));
 		}
@@ -287,8 +287,7 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 		$this->CurrentAction = (@$_GET["a"] <> "") ? $_GET["a"] : @$_POST["a_list"]; // Set up current action
 		$this->provinsi_id->SetVisibility();
 		$this->kabupatenkota_id->SetVisibility();
-		$this->Nama->SetVisibility();
-		$this->dapil_id->SetVisibility();
+		$this->Dapil->SetVisibility();
 
 		// Global Page Loading event (in userfn*.php)
 		Page_Loading();
@@ -334,13 +333,13 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 		Page_Unloaded();
 
 		// Export
-		global $EW_EXPORT, $t02_kecamatan;
+		global $EW_EXPORT, $t04_dapil;
 		if ($this->CustomExport <> "" && $this->CustomExport == $this->Export && array_key_exists($this->CustomExport, $EW_EXPORT)) {
 				$sContent = ob_get_contents();
 			if ($gsExportFile == "") $gsExportFile = $this->TableVar;
 			$class = $EW_EXPORT[$this->CustomExport];
 			if (class_exists($class)) {
-				$doc = new $class($t02_kecamatan);
+				$doc = new $class($t04_dapil);
 				$doc->Text = $sContent;
 				if ($this->Export == "email")
 					echo $this->ExportEmail($doc->Text);
@@ -438,7 +437,7 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 			case "C": // Copy an existing record
 				if (!$this->LoadRow()) { // Load record based on key
 					if ($this->getFailureMessage() == "") $this->setFailureMessage($Language->Phrase("NoRecord")); // No record found
-					$this->Page_Terminate("t02_kecamatanlist.php"); // No matching record, return to list
+					$this->Page_Terminate("t04_dapillist.php"); // No matching record, return to list
 				}
 				break;
 			case "A": // Add new record
@@ -447,9 +446,9 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 					if ($this->getSuccessMessage() == "")
 						$this->setSuccessMessage($Language->Phrase("AddSuccess")); // Set up success message
 					$sReturnUrl = $this->getReturnUrl();
-					if (ew_GetPageName($sReturnUrl) == "t02_kecamatanlist.php")
+					if (ew_GetPageName($sReturnUrl) == "t04_dapillist.php")
 						$sReturnUrl = $this->AddMasterUrl($sReturnUrl); // List page, return to list page with correct master key if necessary
-					elseif (ew_GetPageName($sReturnUrl) == "t02_kecamatanview.php")
+					elseif (ew_GetPageName($sReturnUrl) == "t04_dapilview.php")
 						$sReturnUrl = $this->GetViewUrl(); // View page, return to view page with keyurl directly
 					$this->Page_Terminate($sReturnUrl); // Clean up and return
 				} else {
@@ -479,10 +478,8 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 		$this->provinsi_id->OldValue = $this->provinsi_id->CurrentValue;
 		$this->kabupatenkota_id->CurrentValue = NULL;
 		$this->kabupatenkota_id->OldValue = $this->kabupatenkota_id->CurrentValue;
-		$this->Nama->CurrentValue = NULL;
-		$this->Nama->OldValue = $this->Nama->CurrentValue;
-		$this->dapil_id->CurrentValue = NULL;
-		$this->dapil_id->OldValue = $this->dapil_id->CurrentValue;
+		$this->Dapil->CurrentValue = NULL;
+		$this->Dapil->OldValue = $this->Dapil->CurrentValue;
 	}
 
 	// Load form values
@@ -496,11 +493,8 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 		if (!$this->kabupatenkota_id->FldIsDetailKey) {
 			$this->kabupatenkota_id->setFormValue($objForm->GetValue("x_kabupatenkota_id"));
 		}
-		if (!$this->Nama->FldIsDetailKey) {
-			$this->Nama->setFormValue($objForm->GetValue("x_Nama"));
-		}
-		if (!$this->dapil_id->FldIsDetailKey) {
-			$this->dapil_id->setFormValue($objForm->GetValue("x_dapil_id"));
+		if (!$this->Dapil->FldIsDetailKey) {
+			$this->Dapil->setFormValue($objForm->GetValue("x_Dapil"));
 		}
 	}
 
@@ -510,8 +504,7 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 		$this->LoadOldRecord();
 		$this->provinsi_id->CurrentValue = $this->provinsi_id->FormValue;
 		$this->kabupatenkota_id->CurrentValue = $this->kabupatenkota_id->FormValue;
-		$this->Nama->CurrentValue = $this->Nama->FormValue;
-		$this->dapil_id->CurrentValue = $this->dapil_id->FormValue;
+		$this->Dapil->CurrentValue = $this->Dapil->FormValue;
 	}
 
 	// Load row based on key values
@@ -546,8 +539,7 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 		$this->id->setDbValue($rs->fields('id'));
 		$this->provinsi_id->setDbValue($rs->fields('provinsi_id'));
 		$this->kabupatenkota_id->setDbValue($rs->fields('kabupatenkota_id'));
-		$this->Nama->setDbValue($rs->fields('Nama'));
-		$this->dapil_id->setDbValue($rs->fields('dapil_id'));
+		$this->Dapil->setDbValue($rs->fields('Dapil'));
 	}
 
 	// Load DbValue from recordset
@@ -557,8 +549,7 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 		$this->id->DbValue = $row['id'];
 		$this->provinsi_id->DbValue = $row['provinsi_id'];
 		$this->kabupatenkota_id->DbValue = $row['kabupatenkota_id'];
-		$this->Nama->DbValue = $row['Nama'];
-		$this->dapil_id->DbValue = $row['dapil_id'];
+		$this->Dapil->DbValue = $row['Dapil'];
 	}
 
 	// Load old record
@@ -597,8 +588,7 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 		// id
 		// provinsi_id
 		// kabupatenkota_id
-		// Nama
-		// dapil_id
+		// Dapil
 
 		if ($this->RowType == EW_ROWTYPE_VIEW) { // View row
 
@@ -652,32 +642,9 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 		}
 		$this->kabupatenkota_id->ViewCustomAttributes = "";
 
-		// Nama
-		$this->Nama->ViewValue = $this->Nama->CurrentValue;
-		$this->Nama->ViewCustomAttributes = "";
-
-		// dapil_id
-		if (strval($this->dapil_id->CurrentValue) <> "") {
-			$sFilterWrk = "`id`" . ew_SearchString("=", $this->dapil_id->CurrentValue, EW_DATATYPE_NUMBER, "");
-		$sSqlWrk = "SELECT `id`, `Dapil` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t04_dapil`";
-		$sWhereWrk = "";
-		$this->dapil_id->LookupFilters = array();
-		ew_AddFilter($sWhereWrk, $sFilterWrk);
-		$this->Lookup_Selecting($this->dapil_id, $sWhereWrk); // Call Lookup selecting
-		if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
-			$rswrk = Conn()->Execute($sSqlWrk);
-			if ($rswrk && !$rswrk->EOF) { // Lookup values found
-				$arwrk = array();
-				$arwrk[1] = $rswrk->fields('DispFld');
-				$this->dapil_id->ViewValue = $this->dapil_id->DisplayValue($arwrk);
-				$rswrk->Close();
-			} else {
-				$this->dapil_id->ViewValue = $this->dapil_id->CurrentValue;
-			}
-		} else {
-			$this->dapil_id->ViewValue = NULL;
-		}
-		$this->dapil_id->ViewCustomAttributes = "";
+		// Dapil
+		$this->Dapil->ViewValue = $this->Dapil->CurrentValue;
+		$this->Dapil->ViewCustomAttributes = "";
 
 			// provinsi_id
 			$this->provinsi_id->LinkCustomAttributes = "";
@@ -689,15 +656,10 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 			$this->kabupatenkota_id->HrefValue = "";
 			$this->kabupatenkota_id->TooltipValue = "";
 
-			// Nama
-			$this->Nama->LinkCustomAttributes = "";
-			$this->Nama->HrefValue = "";
-			$this->Nama->TooltipValue = "";
-
-			// dapil_id
-			$this->dapil_id->LinkCustomAttributes = "";
-			$this->dapil_id->HrefValue = "";
-			$this->dapil_id->TooltipValue = "";
+			// Dapil
+			$this->Dapil->LinkCustomAttributes = "";
+			$this->Dapil->HrefValue = "";
+			$this->Dapil->TooltipValue = "";
 		} elseif ($this->RowType == EW_ROWTYPE_ADD) { // Add row
 
 			// provinsi_id
@@ -738,30 +700,11 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 			if ($rswrk) $rswrk->Close();
 			$this->kabupatenkota_id->EditValue = $arwrk;
 
-			// Nama
-			$this->Nama->EditAttrs["class"] = "form-control";
-			$this->Nama->EditCustomAttributes = "";
-			$this->Nama->EditValue = ew_HtmlEncode($this->Nama->CurrentValue);
-			$this->Nama->PlaceHolder = ew_RemoveHtml($this->Nama->FldCaption());
-
-			// dapil_id
-			$this->dapil_id->EditAttrs["class"] = "form-control";
-			$this->dapil_id->EditCustomAttributes = "";
-			if (trim(strval($this->dapil_id->CurrentValue)) == "") {
-				$sFilterWrk = "0=1";
-			} else {
-				$sFilterWrk = "`id`" . ew_SearchString("=", $this->dapil_id->CurrentValue, EW_DATATYPE_NUMBER, "");
-			}
-			$sSqlWrk = "SELECT `id`, `Dapil` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld`, `provinsi_id` AS `SelectFilterFld`, `kabupatenkota_id` AS `SelectFilterFld2`, '' AS `SelectFilterFld3`, '' AS `SelectFilterFld4` FROM `t04_dapil`";
-			$sWhereWrk = "";
-			$this->dapil_id->LookupFilters = array();
-			ew_AddFilter($sWhereWrk, $sFilterWrk);
-			$this->Lookup_Selecting($this->dapil_id, $sWhereWrk); // Call Lookup selecting
-			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
-			$rswrk = Conn()->Execute($sSqlWrk);
-			$arwrk = ($rswrk) ? $rswrk->GetRows() : array();
-			if ($rswrk) $rswrk->Close();
-			$this->dapil_id->EditValue = $arwrk;
+			// Dapil
+			$this->Dapil->EditAttrs["class"] = "form-control";
+			$this->Dapil->EditCustomAttributes = "";
+			$this->Dapil->EditValue = ew_HtmlEncode($this->Dapil->CurrentValue);
+			$this->Dapil->PlaceHolder = ew_RemoveHtml($this->Dapil->FldCaption());
 
 			// Add refer script
 			// provinsi_id
@@ -773,13 +716,9 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 			$this->kabupatenkota_id->LinkCustomAttributes = "";
 			$this->kabupatenkota_id->HrefValue = "";
 
-			// Nama
-			$this->Nama->LinkCustomAttributes = "";
-			$this->Nama->HrefValue = "";
-
-			// dapil_id
-			$this->dapil_id->LinkCustomAttributes = "";
-			$this->dapil_id->HrefValue = "";
+			// Dapil
+			$this->Dapil->LinkCustomAttributes = "";
+			$this->Dapil->HrefValue = "";
 		}
 		if ($this->RowType == EW_ROWTYPE_ADD ||
 			$this->RowType == EW_ROWTYPE_EDIT ||
@@ -808,8 +747,8 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 		if (!$this->kabupatenkota_id->FldIsDetailKey && !is_null($this->kabupatenkota_id->FormValue) && $this->kabupatenkota_id->FormValue == "") {
 			ew_AddMessage($gsFormError, str_replace("%s", $this->kabupatenkota_id->FldCaption(), $this->kabupatenkota_id->ReqErrMsg));
 		}
-		if (!$this->Nama->FldIsDetailKey && !is_null($this->Nama->FormValue) && $this->Nama->FormValue == "") {
-			ew_AddMessage($gsFormError, str_replace("%s", $this->Nama->FldCaption(), $this->Nama->ReqErrMsg));
+		if (!$this->Dapil->FldIsDetailKey && !is_null($this->Dapil->FormValue) && $this->Dapil->FormValue == "") {
+			ew_AddMessage($gsFormError, str_replace("%s", $this->Dapil->FldCaption(), $this->Dapil->ReqErrMsg));
 		}
 
 		// Return validate result
@@ -841,11 +780,8 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 		// kabupatenkota_id
 		$this->kabupatenkota_id->SetDbValueDef($rsnew, $this->kabupatenkota_id->CurrentValue, 0, FALSE);
 
-		// Nama
-		$this->Nama->SetDbValueDef($rsnew, $this->Nama->CurrentValue, "", FALSE);
-
-		// dapil_id
-		$this->dapil_id->SetDbValueDef($rsnew, $this->dapil_id->CurrentValue, NULL, FALSE);
+		// Dapil
+		$this->Dapil->SetDbValueDef($rsnew, $this->Dapil->CurrentValue, "", FALSE);
 
 		// Call Row Inserting event
 		$rs = ($rsold == NULL) ? NULL : $rsold->fields;
@@ -882,7 +818,7 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 		global $Breadcrumb, $Language;
 		$Breadcrumb = new cBreadcrumb();
 		$url = substr(ew_CurrentUrl(), strrpos(ew_CurrentUrl(), "/")+1);
-		$Breadcrumb->Add("list", $this->TableVar, $this->AddMasterUrl("t02_kecamatanlist.php"), "", $this->TableVar, TRUE);
+		$Breadcrumb->Add("list", $this->TableVar, $this->AddMasterUrl("t04_dapillist.php"), "", $this->TableVar, TRUE);
 		$PageId = ($this->CurrentAction == "C") ? "Copy" : "Add";
 		$Breadcrumb->Add("add", $PageId, $url);
 	}
@@ -912,18 +848,6 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 			$fld->LookupFilters += array("s" => $sSqlWrk, "d" => "", "f0" => '`id` = {filter_value}', "t0" => "3", "fn0" => "", "f1" => '`provinsi_id` IN ({filter_value})', "t1" => "3", "fn1" => "");
 			$sSqlWrk = "";
 			$this->Lookup_Selecting($this->kabupatenkota_id, $sWhereWrk); // Call Lookup selecting
-			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
-			if ($sSqlWrk <> "")
-				$fld->LookupFilters["s"] .= $sSqlWrk;
-			break;
-		case "x_dapil_id":
-			$sSqlWrk = "";
-			$sSqlWrk = "SELECT `id` AS `LinkFld`, `Dapil` AS `DispFld`, '' AS `Disp2Fld`, '' AS `Disp3Fld`, '' AS `Disp4Fld` FROM `t04_dapil`";
-			$sWhereWrk = "{filter}";
-			$this->dapil_id->LookupFilters = array();
-			$fld->LookupFilters += array("s" => $sSqlWrk, "d" => "", "f0" => '`id` = {filter_value}', "t0" => "3", "fn0" => "", "f1" => '`provinsi_id` IN ({filter_value})', "t1" => "3", "fn1" => "", "f2" => '`kabupatenkota_id` IN ({filter_value})', "t2" => "3", "fn2" => "");
-			$sSqlWrk = "";
-			$this->Lookup_Selecting($this->dapil_id, $sWhereWrk); // Call Lookup selecting
 			if ($sWhereWrk <> "") $sSqlWrk .= " WHERE " . $sWhereWrk;
 			if ($sSqlWrk <> "")
 				$fld->LookupFilters["s"] .= $sSqlWrk;
@@ -1011,29 +935,29 @@ class ct02_kecamatan_add extends ct02_kecamatan {
 <?php
 
 // Create page object
-if (!isset($t02_kecamatan_add)) $t02_kecamatan_add = new ct02_kecamatan_add();
+if (!isset($t04_dapil_add)) $t04_dapil_add = new ct04_dapil_add();
 
 // Page init
-$t02_kecamatan_add->Page_Init();
+$t04_dapil_add->Page_Init();
 
 // Page main
-$t02_kecamatan_add->Page_Main();
+$t04_dapil_add->Page_Main();
 
 // Global Page Rendering event (in userfn*.php)
 Page_Rendering();
 
 // Page Rendering event
-$t02_kecamatan_add->Page_Render();
+$t04_dapil_add->Page_Render();
 ?>
 <?php include_once "header.php" ?>
 <script type="text/javascript">
 
 // Form object
 var CurrentPageID = EW_PAGE_ID = "add";
-var CurrentForm = ft02_kecamatanadd = new ew_Form("ft02_kecamatanadd", "add");
+var CurrentForm = ft04_dapiladd = new ew_Form("ft04_dapiladd", "add");
 
 // Validate form
-ft02_kecamatanadd.Validate = function() {
+ft04_dapiladd.Validate = function() {
 	if (!this.ValidateRequired)
 		return true; // Ignore validation
 	var $ = jQuery, fobj = this.GetForm(), $fobj = $(fobj);
@@ -1049,13 +973,13 @@ ft02_kecamatanadd.Validate = function() {
 		$fobj.data("rowindex", infix);
 			elm = this.GetElements("x" + infix + "_provinsi_id");
 			if (elm && !ew_IsHidden(elm) && !ew_HasValue(elm))
-				return this.OnError(elm, "<?php echo ew_JsEncode2(str_replace("%s", $t02_kecamatan->provinsi_id->FldCaption(), $t02_kecamatan->provinsi_id->ReqErrMsg)) ?>");
+				return this.OnError(elm, "<?php echo ew_JsEncode2(str_replace("%s", $t04_dapil->provinsi_id->FldCaption(), $t04_dapil->provinsi_id->ReqErrMsg)) ?>");
 			elm = this.GetElements("x" + infix + "_kabupatenkota_id");
 			if (elm && !ew_IsHidden(elm) && !ew_HasValue(elm))
-				return this.OnError(elm, "<?php echo ew_JsEncode2(str_replace("%s", $t02_kecamatan->kabupatenkota_id->FldCaption(), $t02_kecamatan->kabupatenkota_id->ReqErrMsg)) ?>");
-			elm = this.GetElements("x" + infix + "_Nama");
+				return this.OnError(elm, "<?php echo ew_JsEncode2(str_replace("%s", $t04_dapil->kabupatenkota_id->FldCaption(), $t04_dapil->kabupatenkota_id->ReqErrMsg)) ?>");
+			elm = this.GetElements("x" + infix + "_Dapil");
 			if (elm && !ew_IsHidden(elm) && !ew_HasValue(elm))
-				return this.OnError(elm, "<?php echo ew_JsEncode2(str_replace("%s", $t02_kecamatan->Nama->FldCaption(), $t02_kecamatan->Nama->ReqErrMsg)) ?>");
+				return this.OnError(elm, "<?php echo ew_JsEncode2(str_replace("%s", $t04_dapil->Dapil->FldCaption(), $t04_dapil->Dapil->ReqErrMsg)) ?>");
 
 			// Fire Form_CustomValidate event
 			if (!this.Form_CustomValidate(fobj))
@@ -1074,7 +998,7 @@ ft02_kecamatanadd.Validate = function() {
 }
 
 // Form_CustomValidate event
-ft02_kecamatanadd.Form_CustomValidate = 
+ft04_dapiladd.Form_CustomValidate = 
  function(fobj) { // DO NOT CHANGE THIS LINE!
 
  	// Your custom validation code here, return false if invalid. 
@@ -1083,15 +1007,14 @@ ft02_kecamatanadd.Form_CustomValidate =
 
 // Use JavaScript validation or not
 <?php if (EW_CLIENT_VALIDATE) { ?>
-ft02_kecamatanadd.ValidateRequired = true;
+ft04_dapiladd.ValidateRequired = true;
 <?php } else { ?>
-ft02_kecamatanadd.ValidateRequired = false; 
+ft04_dapiladd.ValidateRequired = false; 
 <?php } ?>
 
 // Dynamic selection lists
-ft02_kecamatanadd.Lists["x_provinsi_id"] = {"LinkField":"x_id","Ajax":true,"AutoFill":false,"DisplayFields":["x_Nama","","",""],"ParentFields":[],"ChildFields":["x_kabupatenkota_id","x_dapil_id"],"FilterFields":[],"Options":[],"Template":"","LinkTable":"t00_provinsi"};
-ft02_kecamatanadd.Lists["x_kabupatenkota_id"] = {"LinkField":"x_id","Ajax":true,"AutoFill":false,"DisplayFields":["x_Nama","","",""],"ParentFields":["x_provinsi_id"],"ChildFields":["x_dapil_id"],"FilterFields":["x_provinsi_id"],"Options":[],"Template":"","LinkTable":"t01_kabupatenkota"};
-ft02_kecamatanadd.Lists["x_dapil_id"] = {"LinkField":"x_id","Ajax":true,"AutoFill":false,"DisplayFields":["x_Dapil","","",""],"ParentFields":["x_provinsi_id","x_kabupatenkota_id"],"ChildFields":[],"FilterFields":["x_provinsi_id","x_kabupatenkota_id"],"Options":[],"Template":"","LinkTable":"t04_dapil"};
+ft04_dapiladd.Lists["x_provinsi_id"] = {"LinkField":"x_id","Ajax":true,"AutoFill":false,"DisplayFields":["x_Nama","","",""],"ParentFields":[],"ChildFields":["x_kabupatenkota_id"],"FilterFields":[],"Options":[],"Template":"","LinkTable":"t00_provinsi"};
+ft04_dapiladd.Lists["x_kabupatenkota_id"] = {"LinkField":"x_id","Ajax":true,"AutoFill":false,"DisplayFields":["x_Nama","","",""],"ParentFields":["x_provinsi_id"],"ChildFields":[],"FilterFields":["x_provinsi_id"],"Options":[],"Template":"","LinkTable":"t01_kabupatenkota"};
 
 // Form object for search
 </script>
@@ -1099,93 +1022,79 @@ ft02_kecamatanadd.Lists["x_dapil_id"] = {"LinkField":"x_id","Ajax":true,"AutoFil
 
 // Write your client script here, no need to add script tags.
 </script>
-<?php if (!$t02_kecamatan_add->IsModal) { ?>
+<?php if (!$t04_dapil_add->IsModal) { ?>
 <div class="ewToolbar">
 <?php $Breadcrumb->Render(); ?>
 <?php echo $Language->SelectionForm(); ?>
 <div class="clearfix"></div>
 </div>
 <?php } ?>
-<?php $t02_kecamatan_add->ShowPageHeader(); ?>
+<?php $t04_dapil_add->ShowPageHeader(); ?>
 <?php
-$t02_kecamatan_add->ShowMessage();
+$t04_dapil_add->ShowMessage();
 ?>
-<form name="ft02_kecamatanadd" id="ft02_kecamatanadd" class="<?php echo $t02_kecamatan_add->FormClassName ?>" action="<?php echo ew_CurrentPage() ?>" method="post">
-<?php if ($t02_kecamatan_add->CheckToken) { ?>
-<input type="hidden" name="<?php echo EW_TOKEN_NAME ?>" value="<?php echo $t02_kecamatan_add->Token ?>">
+<form name="ft04_dapiladd" id="ft04_dapiladd" class="<?php echo $t04_dapil_add->FormClassName ?>" action="<?php echo ew_CurrentPage() ?>" method="post">
+<?php if ($t04_dapil_add->CheckToken) { ?>
+<input type="hidden" name="<?php echo EW_TOKEN_NAME ?>" value="<?php echo $t04_dapil_add->Token ?>">
 <?php } ?>
-<input type="hidden" name="t" value="t02_kecamatan">
+<input type="hidden" name="t" value="t04_dapil">
 <input type="hidden" name="a_add" id="a_add" value="A">
-<?php if ($t02_kecamatan_add->IsModal) { ?>
+<?php if ($t04_dapil_add->IsModal) { ?>
 <input type="hidden" name="modal" value="1">
 <?php } ?>
 <div>
-<?php if ($t02_kecamatan->provinsi_id->Visible) { // provinsi_id ?>
+<?php if ($t04_dapil->provinsi_id->Visible) { // provinsi_id ?>
 	<div id="r_provinsi_id" class="form-group">
-		<label id="elh_t02_kecamatan_provinsi_id" for="x_provinsi_id" class="col-sm-2 control-label ewLabel"><?php echo $t02_kecamatan->provinsi_id->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
-		<div class="col-sm-10"><div<?php echo $t02_kecamatan->provinsi_id->CellAttributes() ?>>
-<span id="el_t02_kecamatan_provinsi_id">
-<?php $t02_kecamatan->provinsi_id->EditAttrs["onchange"] = "ew_UpdateOpt.call(this); " . @$t02_kecamatan->provinsi_id->EditAttrs["onchange"]; ?>
-<select data-table="t02_kecamatan" data-field="x_provinsi_id" data-value-separator="<?php echo $t02_kecamatan->provinsi_id->DisplayValueSeparatorAttribute() ?>" id="x_provinsi_id" name="x_provinsi_id"<?php echo $t02_kecamatan->provinsi_id->EditAttributes() ?>>
-<?php echo $t02_kecamatan->provinsi_id->SelectOptionListHtml("x_provinsi_id") ?>
+		<label id="elh_t04_dapil_provinsi_id" for="x_provinsi_id" class="col-sm-2 control-label ewLabel"><?php echo $t04_dapil->provinsi_id->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
+		<div class="col-sm-10"><div<?php echo $t04_dapil->provinsi_id->CellAttributes() ?>>
+<span id="el_t04_dapil_provinsi_id">
+<?php $t04_dapil->provinsi_id->EditAttrs["onchange"] = "ew_UpdateOpt.call(this); " . @$t04_dapil->provinsi_id->EditAttrs["onchange"]; ?>
+<select data-table="t04_dapil" data-field="x_provinsi_id" data-value-separator="<?php echo $t04_dapil->provinsi_id->DisplayValueSeparatorAttribute() ?>" id="x_provinsi_id" name="x_provinsi_id"<?php echo $t04_dapil->provinsi_id->EditAttributes() ?>>
+<?php echo $t04_dapil->provinsi_id->SelectOptionListHtml("x_provinsi_id") ?>
 </select>
-<input type="hidden" name="s_x_provinsi_id" id="s_x_provinsi_id" value="<?php echo $t02_kecamatan->provinsi_id->LookupFilterQuery() ?>">
+<input type="hidden" name="s_x_provinsi_id" id="s_x_provinsi_id" value="<?php echo $t04_dapil->provinsi_id->LookupFilterQuery() ?>">
 </span>
-<?php echo $t02_kecamatan->provinsi_id->CustomMsg ?></div></div>
+<?php echo $t04_dapil->provinsi_id->CustomMsg ?></div></div>
 	</div>
 <?php } ?>
-<?php if ($t02_kecamatan->kabupatenkota_id->Visible) { // kabupatenkota_id ?>
+<?php if ($t04_dapil->kabupatenkota_id->Visible) { // kabupatenkota_id ?>
 	<div id="r_kabupatenkota_id" class="form-group">
-		<label id="elh_t02_kecamatan_kabupatenkota_id" for="x_kabupatenkota_id" class="col-sm-2 control-label ewLabel"><?php echo $t02_kecamatan->kabupatenkota_id->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
-		<div class="col-sm-10"><div<?php echo $t02_kecamatan->kabupatenkota_id->CellAttributes() ?>>
-<span id="el_t02_kecamatan_kabupatenkota_id">
-<?php $t02_kecamatan->kabupatenkota_id->EditAttrs["onchange"] = "ew_UpdateOpt.call(this); " . @$t02_kecamatan->kabupatenkota_id->EditAttrs["onchange"]; ?>
-<select data-table="t02_kecamatan" data-field="x_kabupatenkota_id" data-value-separator="<?php echo $t02_kecamatan->kabupatenkota_id->DisplayValueSeparatorAttribute() ?>" id="x_kabupatenkota_id" name="x_kabupatenkota_id"<?php echo $t02_kecamatan->kabupatenkota_id->EditAttributes() ?>>
-<?php echo $t02_kecamatan->kabupatenkota_id->SelectOptionListHtml("x_kabupatenkota_id") ?>
+		<label id="elh_t04_dapil_kabupatenkota_id" for="x_kabupatenkota_id" class="col-sm-2 control-label ewLabel"><?php echo $t04_dapil->kabupatenkota_id->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
+		<div class="col-sm-10"><div<?php echo $t04_dapil->kabupatenkota_id->CellAttributes() ?>>
+<span id="el_t04_dapil_kabupatenkota_id">
+<select data-table="t04_dapil" data-field="x_kabupatenkota_id" data-value-separator="<?php echo $t04_dapil->kabupatenkota_id->DisplayValueSeparatorAttribute() ?>" id="x_kabupatenkota_id" name="x_kabupatenkota_id"<?php echo $t04_dapil->kabupatenkota_id->EditAttributes() ?>>
+<?php echo $t04_dapil->kabupatenkota_id->SelectOptionListHtml("x_kabupatenkota_id") ?>
 </select>
-<input type="hidden" name="s_x_kabupatenkota_id" id="s_x_kabupatenkota_id" value="<?php echo $t02_kecamatan->kabupatenkota_id->LookupFilterQuery() ?>">
+<input type="hidden" name="s_x_kabupatenkota_id" id="s_x_kabupatenkota_id" value="<?php echo $t04_dapil->kabupatenkota_id->LookupFilterQuery() ?>">
 </span>
-<?php echo $t02_kecamatan->kabupatenkota_id->CustomMsg ?></div></div>
+<?php echo $t04_dapil->kabupatenkota_id->CustomMsg ?></div></div>
 	</div>
 <?php } ?>
-<?php if ($t02_kecamatan->Nama->Visible) { // Nama ?>
-	<div id="r_Nama" class="form-group">
-		<label id="elh_t02_kecamatan_Nama" for="x_Nama" class="col-sm-2 control-label ewLabel"><?php echo $t02_kecamatan->Nama->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
-		<div class="col-sm-10"><div<?php echo $t02_kecamatan->Nama->CellAttributes() ?>>
-<span id="el_t02_kecamatan_Nama">
-<input type="text" data-table="t02_kecamatan" data-field="x_Nama" name="x_Nama" id="x_Nama" size="30" maxlength="100" placeholder="<?php echo ew_HtmlEncode($t02_kecamatan->Nama->getPlaceHolder()) ?>" value="<?php echo $t02_kecamatan->Nama->EditValue ?>"<?php echo $t02_kecamatan->Nama->EditAttributes() ?>>
+<?php if ($t04_dapil->Dapil->Visible) { // Dapil ?>
+	<div id="r_Dapil" class="form-group">
+		<label id="elh_t04_dapil_Dapil" for="x_Dapil" class="col-sm-2 control-label ewLabel"><?php echo $t04_dapil->Dapil->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
+		<div class="col-sm-10"><div<?php echo $t04_dapil->Dapil->CellAttributes() ?>>
+<span id="el_t04_dapil_Dapil">
+<input type="text" data-table="t04_dapil" data-field="x_Dapil" name="x_Dapil" id="x_Dapil" size="30" maxlength="10" placeholder="<?php echo ew_HtmlEncode($t04_dapil->Dapil->getPlaceHolder()) ?>" value="<?php echo $t04_dapil->Dapil->EditValue ?>"<?php echo $t04_dapil->Dapil->EditAttributes() ?>>
 </span>
-<?php echo $t02_kecamatan->Nama->CustomMsg ?></div></div>
-	</div>
-<?php } ?>
-<?php if ($t02_kecamatan->dapil_id->Visible) { // dapil_id ?>
-	<div id="r_dapil_id" class="form-group">
-		<label id="elh_t02_kecamatan_dapil_id" for="x_dapil_id" class="col-sm-2 control-label ewLabel"><?php echo $t02_kecamatan->dapil_id->FldCaption() ?></label>
-		<div class="col-sm-10"><div<?php echo $t02_kecamatan->dapil_id->CellAttributes() ?>>
-<span id="el_t02_kecamatan_dapil_id">
-<select data-table="t02_kecamatan" data-field="x_dapil_id" data-value-separator="<?php echo $t02_kecamatan->dapil_id->DisplayValueSeparatorAttribute() ?>" id="x_dapil_id" name="x_dapil_id"<?php echo $t02_kecamatan->dapil_id->EditAttributes() ?>>
-<?php echo $t02_kecamatan->dapil_id->SelectOptionListHtml("x_dapil_id") ?>
-</select>
-<input type="hidden" name="s_x_dapil_id" id="s_x_dapil_id" value="<?php echo $t02_kecamatan->dapil_id->LookupFilterQuery() ?>">
-</span>
-<?php echo $t02_kecamatan->dapil_id->CustomMsg ?></div></div>
+<?php echo $t04_dapil->Dapil->CustomMsg ?></div></div>
 	</div>
 <?php } ?>
 </div>
-<?php if (!$t02_kecamatan_add->IsModal) { ?>
+<?php if (!$t04_dapil_add->IsModal) { ?>
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
 <button class="btn btn-primary ewButton" name="btnAction" id="btnAction" type="submit"><?php echo $Language->Phrase("AddBtn") ?></button>
-<button class="btn btn-default ewButton" name="btnCancel" id="btnCancel" type="button" data-href="<?php echo $t02_kecamatan_add->getReturnUrl() ?>"><?php echo $Language->Phrase("CancelBtn") ?></button>
+<button class="btn btn-default ewButton" name="btnCancel" id="btnCancel" type="button" data-href="<?php echo $t04_dapil_add->getReturnUrl() ?>"><?php echo $Language->Phrase("CancelBtn") ?></button>
 	</div>
 </div>
 <?php } ?>
 </form>
 <script type="text/javascript">
-ft02_kecamatanadd.Init();
+ft04_dapiladd.Init();
 </script>
 <?php
-$t02_kecamatan_add->ShowPageFooter();
+$t04_dapil_add->ShowPageFooter();
 if (EW_DEBUG_ENABLED)
 	echo ew_DebugMsg();
 ?>
@@ -1197,5 +1106,5 @@ if (EW_DEBUG_ENABLED)
 </script>
 <?php include_once "footer.php" ?>
 <?php
-$t02_kecamatan_add->Page_Terminate();
+$t04_dapil_add->Page_Terminate();
 ?>
