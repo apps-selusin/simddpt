@@ -664,7 +664,7 @@
         <phrase id="fldcaption" value="Kecamatan" />
       </field>
       <field id="dapil_id">
-        <phrase id="fldcaption" value="dapil id" />
+        <phrase id="fldcaption" value="DAPIL" />
       </field>
     </table>
     <table id="t03_kelurahan">

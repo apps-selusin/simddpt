@@ -1620,6 +1620,9 @@ class ct04_dapil_list extends ct04_dapil {
 			if ($this->getSqlOrderBy() <> "") {
 				$sOrderBy = $this->getSqlOrderBy();
 				$this->setSessionOrderBy($sOrderBy);
+				$this->provinsi_id->setSort("ASC");
+				$this->kabupatenkota_id->setSort("ASC");
+				$this->Dapil->setSort("ASC");
 			}
 		}
 	}
