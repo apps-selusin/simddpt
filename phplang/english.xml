@@ -604,6 +604,9 @@
     <menu id="13">
       <phrase id="menutext" value="Kelurahan" />
     </menu>
+    <menu id="15">
+      <phrase id="menutext" value="TPS" />
+    </menu>
     <menu id="1">
       <phrase id="menutext" value="User" />
     </menu>
@@ -698,6 +701,27 @@
       </field>
       <field id="dapil">
         <phrase id="fldcaption" value="DAPIL" />
+      </field>
+    </table>
+    <table id="t05_tps">
+      <phrase id="tblcaption" value="TPS" />
+      <field id="id">
+        <phrase id="fldcaption" value="id" />
+      </field>
+      <field id="provinsi_id">
+        <phrase id="fldcaption" value="Provinsi" />
+      </field>
+      <field id="kabupatenkota_id">
+        <phrase id="fldcaption" value="Kabupaten / Kota" />
+      </field>
+      <field id="kecamatan_id">
+        <phrase id="fldcaption" value="Kecamatan" />
+      </field>
+      <field id="kelurahan_id">
+        <phrase id="fldcaption" value="Kelurahan" />
+      </field>
+      <field id="tps">
+        <phrase id="fldcaption" value="TPS" />
       </field>
     </table>
     <table id="t94_log">

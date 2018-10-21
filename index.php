@@ -278,6 +278,8 @@ class cdefault {
 			$this->Page_Terminate("t03_kelurahanlist.php");
 		if ($Security->AllowList(CurrentProjectID() . 't04_dapil'))
 			$this->Page_Terminate("t04_dapillist.php");
+		if ($Security->AllowList(CurrentProjectID() . 't05_tps'))
+			$this->Page_Terminate("t05_tpslist.php");
 		if ($Security->AllowList(CurrentProjectID() . 't94_log'))
 			$this->Page_Terminate("t94_loglist.php");
 		if ($Security->AllowList(CurrentProjectID() . 't95_logdesc'))

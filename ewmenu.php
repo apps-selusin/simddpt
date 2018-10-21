@@ -11,6 +11,7 @@ $RootMenu->AddMenuItem(9, "mi_t01_kabupatenkota", $Language->MenuPhrase("9", "Me
 $RootMenu->AddMenuItem(14, "mi_t04_dapil", $Language->MenuPhrase("14", "MenuText"), "t04_dapillist.php", 5, "", AllowListMenu('{78A0660C-C398-4292-A50E-2A3C7D765239}t04_dapil'), FALSE, FALSE);
 $RootMenu->AddMenuItem(12, "mi_t02_kecamatan", $Language->MenuPhrase("12", "MenuText"), "t02_kecamatanlist.php", 5, "", AllowListMenu('{78A0660C-C398-4292-A50E-2A3C7D765239}t02_kecamatan'), FALSE, FALSE);
 $RootMenu->AddMenuItem(13, "mi_t03_kelurahan", $Language->MenuPhrase("13", "MenuText"), "t03_kelurahanlist.php", 5, "", AllowListMenu('{78A0660C-C398-4292-A50E-2A3C7D765239}t03_kelurahan'), FALSE, FALSE);
+$RootMenu->AddMenuItem(15, "mi_t05_tps", $Language->MenuPhrase("15", "MenuText"), "t05_tpslist.php", 5, "", AllowListMenu('{78A0660C-C398-4292-A50E-2A3C7D765239}t05_tps'), FALSE, FALSE);
 $RootMenu->AddMenuItem(1, "mi_t96_employees", $Language->MenuPhrase("1", "MenuText"), "t96_employeeslist.php", 5, "", AllowListMenu('{78A0660C-C398-4292-A50E-2A3C7D765239}t96_employees'), FALSE, FALSE);
 $RootMenu->AddMenuItem(2, "mi_t97_userlevels", $Language->MenuPhrase("2", "MenuText"), "t97_userlevelslist.php", 5, "", (@$_SESSION[EW_SESSION_USER_LEVEL] & EW_ALLOW_ADMIN) == EW_ALLOW_ADMIN, FALSE, FALSE);
 $RootMenu->AddMenuItem(3, "mi_t98_userlevelpermissions", $Language->MenuPhrase("3", "MenuText"), "t98_userlevelpermissionslist.php", 5, "", (@$_SESSION[EW_SESSION_USER_LEVEL] & EW_ALLOW_ADMIN) == EW_ALLOW_ADMIN, FALSE, FALSE);
